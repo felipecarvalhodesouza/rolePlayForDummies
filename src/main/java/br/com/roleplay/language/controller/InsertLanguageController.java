@@ -8,7 +8,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.enums.LanguageType;
 import br.com.roleplay.enums.Script;
 import br.com.roleplay.model.LanguageModel;
@@ -30,7 +29,7 @@ public class InsertLanguageController {
 	private Set<LanguageType> languageTypes = new HashSet<LanguageType>();
 	private Set<RaceModel> typicalSpeakers = new HashSet<RaceModel>();
 	
-	private Set<LanguageEntity> languages = new HashSet<LanguageEntity>();
+	private Set<LanguageModel> languages = new HashSet<LanguageModel>();
 
 	public LanguageModel getLanguageModel() {
 		return languageModel;
@@ -62,6 +61,15 @@ public class InsertLanguageController {
 
 		Utils.infoMessage("Record succesfully inserted.");
 	}
+	
+	public void openUpdateDialog(LanguageModel languageModel){
+		this.languageModel = languageModel;
+	}
+	
+	public void updateLanguage(LanguageModel languageModel) {		 
+		languageRepository.updateLanguage(languageModel);	
+		this.init();
+	}
 
 	public Set<Script> getScripts() {
 		return scripts;
@@ -87,11 +95,11 @@ public class InsertLanguageController {
 		this.typicalSpeakers = typicalSpeakers;
 	}
 
-	public Set<LanguageEntity> getLanguages() {
+	public Set<LanguageModel> getLanguages() {
 		return languages;
 	}
 
-	public void setLanguages(Set<LanguageEntity> languages) {
+	public void setLanguages(Set<LanguageModel> languages) {
 		this.languages = languages;
 	}
 }

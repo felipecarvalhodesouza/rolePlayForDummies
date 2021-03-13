@@ -43,15 +43,36 @@ public class LanguageRepository {
 		
 	}
 
-	public Set<LanguageEntity> getAllLanguages() {
+	public Set<LanguageModel> getAllLanguages() {
 		
 		entityManager = Utils.JpaEntityManager();
 		
 		String jpql = "select l from LanguageEntity l order by name";
 		
 		TypedQuery<LanguageEntity> query = entityManager.createQuery(jpql, LanguageEntity.class);
+		Set<LanguageEntity> languageSet = UtilsConverter.getSetFromList(query.getResultList());
+		return UtilsConverter.getLanguageModelSetFromLanguageEntitySet(languageSet);
+	}
+	
+	public void updateLanguage(LanguageModel languageModel){
+		 
+		entityManager =  Utils.JpaEntityManager();
+ 
+		LanguageEntity languageEntity = this.getLanguage(languageModel.getId());
 		
-		return UtilsConverter.getSetFromList(query.getResultList());
+		languageEntity.setName(languageModel.getName());
+		languageEntity.setLanguageType(languageModel.getLanguageType());
+		languageEntity.setTypicalSpeakers(UtilsConverter.getRaceEntitySetFromRaceModelSet(languageModel.getTypicalSpeakers()));
+		languageEntity.setScript(languageModel.getScript());
+ 
+		entityManager.merge(languageEntity);
+	}
+	
+	private LanguageEntity getLanguage(long id){
+		 
+		entityManager =  Utils.JpaEntityManager();
+ 
+		return entityManager.find(LanguageEntity.class, id);
 	}
 
 }

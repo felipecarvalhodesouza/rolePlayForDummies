@@ -22,7 +22,7 @@ public class RaceModel {
 	private Double baseHeight;
 	private Double baseWeight;
 
-	private Alignment aligment;
+	private Alignment alignment;
 
 	public long getId() {
 		return id;
@@ -96,12 +96,12 @@ public class RaceModel {
 		this.baseWeight = baseWeight;
 	}
 
-	public Alignment getAligment() {
-		return aligment;
+	public Alignment getAlignment() {
+		return alignment;
 	}
 
-	public void setAligment(Alignment aligment) {
-		this.aligment = aligment;
+	public void setAlignment(Alignment alignment) {
+		this.alignment = alignment;
 	}
 
 }

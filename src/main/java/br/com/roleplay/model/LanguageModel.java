@@ -5,7 +5,7 @@ import java.util.Set;
 import br.com.roleplay.enums.LanguageType;
 import br.com.roleplay.enums.Script;
 
-public class LanguageModel {
+public class LanguageModel implements Comparable<LanguageModel> {
 
 	private long id;
 
@@ -55,5 +55,10 @@ public class LanguageModel {
 
 	public void setLanguageType(LanguageType languageType) {
 		this.languageType = languageType;
+	}
+
+	@Override
+	public int compareTo(LanguageModel o) {
+		return getName().compareTo(o.getName());
 	}
 }

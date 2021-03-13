@@ -7,12 +7,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<style type="text/css">
+	<style type="text/css">
 .grid-checkbox td {
 	padding: .5rem;
 }
 
-.p-d-flex p-jc-between p-ai-center{
+.p-d-flex p-jc-between p-ai-center {
 	float: none;
 }
 </style>
@@ -20,6 +20,12 @@
 <ui:composition template="/template/layoutBase.xhtml">
 
 	<ui:define name="content">
+
+		<p:dialog header="Update Language" id="dialog-update-modal"
+			widgetVar="dialog-update-modal" modal="true" height="400px"
+			width="550px">
+			<ui:include src="/system/updateLanguage.xhtml" />
+		</p:dialog>
 
 		<p:tabView style="width:600px;height:370px;margin:auto;">
 			<p:tab title="Language Registration"
@@ -88,10 +94,11 @@
 						value="#{insertLanguageController.languages}" scrollable="true"
 						scrollHeight="250">
 						<f:facet name="header">
-							<div class="p-d-flex p-jc-between p-ai-center" style="text-align-last: right">
-								<div style="float:left; margin-top:5px; vertical-align:center">
-									List of Languages
-								</div>
+							<div class="p-d-flex p-jc-between p-ai-center"
+								style="text-align-last: right">
+								<div
+									style="float: left; margin-top: 5px; vertical-align: center">
+									List of Languages</div>
 								<div>
 									<p:commandButton id="toggler" type="button" value="Columns"
 										icon="pi pi-sliders-v" />
@@ -115,6 +122,14 @@
 
 						<p:column headerText="Language Type">
 							<h:outputText value="#{language.languageType.description}" />
+						</p:column>
+
+						<p:column headerText="" style="width:25px;">
+							<p:commandButton icon="ui-icon-pencil" title="Update Language"
+								ajax="true"
+								actionListener="#{insertLanguageController.openUpdateDialog(language)}"
+								oncomplete="PF('dialog-update-modal').show();"
+								update="dialog-update-modal" />
 						</p:column>
 					</p:dataTable>
 				</div>
