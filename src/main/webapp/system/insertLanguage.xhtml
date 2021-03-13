@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<style type="text/css">
+.grid-checkbox td {
+	padding: .5rem;
+}
+
+.p-d-flex p-jc-between p-ai-center{
+	float: none;
+}
+</style>
+</h:head>
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+
+		<p:tabView style="width:600px;height:370px;margin:auto;">
+			<p:tab title="Language Registration"
+				rendered="#{userController.userModel.id == 1}">
+
+				<h:form id="form-register">
+
+					<h:panelGrid id="panelGrid-form-fields" columns="2"
+						cellpadding="10">
+
+						<p:outputLabel value="Name" for="inputText-name" />
+						<p:inputText id="inputText-name" style="width:300px"
+							maxlength="70"
+							value="#{insertLanguageController.languageModel.name}"
+							required="true" requiredMessage="Name required" />
+
+						<p:outputLabel for="languageType" value="Language Type" />
+						<p:selectOneMenu id="languageType"
+							value="#{insertLanguageController.languageModel.languageType}"
+							required="true">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{insertLanguageController.languageTypes}"
+								var="languageType" itemLabel="#{languageType.description}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="script" value="Script" />
+						<p:selectOneMenu id="script"
+							value="#{insertLanguageController.languageModel.script}"
+							required="true">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{insertLanguageController.scripts}"
+								var="script" itemLabel="#{script.description}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="races" value="Typical Speakers" />
+						<p:selectManyMenu id="races"
+							value="#{insertLanguageController.languageModel.typicalSpeakers}"
+							filter="true" filterMatchMode="contains" showCheckbox="true"
+							styleClass="manymenu-advanced">
+							<f:selectItems
+								value="#{insertLanguageController.languageModel.typicalSpeakers}"
+								var="race" itemLabel="#{race.name}" itemValue="#{race}" />
+						</p:selectManyMenu>
+
+						<p:spacer />
+
+						<p:commandButton value="Save" id="commandButton-save"
+							icon="ui-icon-gear"
+							actionListener="#{insertLanguageController.insertNewLanguage}"
+							update="panelGrid-form-fields, @([id$=languageBrowserTable]), infoMessage" />
+					</h:panelGrid>
+
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="warn" />
+					<p:messages autoUpdate="true" closable="true" severity="error" />
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="info" id="infoMessage" />
+
+				</h:form>
+
+			</p:tab>
+
+			<p:tab title="Language Database">
+				<div class="card">
+					<p:dataTable id="languageBrowserTable" var="language"
+						value="#{insertLanguageController.languages}" scrollable="true"
+						scrollHeight="250">
+						<f:facet name="header">
+							<div class="p-d-flex p-jc-between p-ai-center" style="text-align-last: right">
+								<div style="float:left; margin-top:5px; vertical-align:center">
+									List of Languages
+								</div>
+								<div>
+									<p:commandButton id="toggler" type="button" value="Columns"
+										icon="pi pi-sliders-v" />
+									<p:columnToggler datasource="languageBrowserTable"
+										trigger="toggler" />
+								</div>
+							</div>
+						</f:facet>
+
+						<p:column headerText="Name">
+							<h:outputText value="#{language.name}" />
+						</p:column>
+
+						<p:column headerText="Script">
+							<h:outputText value="#{language.script.description}" />
+						</p:column>
+
+						<p:column headerText="Typical Speakers">
+							<h:outputText value="#{language.typicalSpeakers}" />
+						</p:column>
+
+						<p:column headerText="Language Type">
+							<h:outputText value="#{language.languageType.description}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:tab>
+
+		</p:tabView>
+
+	</ui:define>
+
+</ui:composition>
+</html>

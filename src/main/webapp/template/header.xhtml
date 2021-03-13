@@ -7,10 +7,13 @@
 	<h:form>
  
 		<p:menubar>
-			<p:menuitem value="Home" icon="ui-icon-home" />
+			<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
 			<p:menuitem value="New Character" icon="ui-icon-document" />
-			<p:menuitem value="My Characters" icon="ui-icon-document" />
-			<p:menuitem value="Print" icon="ui-icon-document" />
+			<p:menuitem value="My Characters" icon="ui-icon-person" />
+			<p:submenu label="Database" icon="ui-icon-folder-open">
+				<p:menuitem value="Language" icon="ui-icon-document" url="insertLanguage.xhtml" />
+			</p:submenu>
+			<p:menuitem value="Print" icon="ui-icon-print" />
  
  
 		<f:facet name="options">            
