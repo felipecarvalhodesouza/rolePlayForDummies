@@ -7,17 +7,17 @@
 	<h:form>
  
 		<p:menubar>
-			<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
-			<p:menuitem value="New Character" icon="ui-icon-document" />
-			<p:menuitem value="My Characters" icon="ui-icon-person" />
-			<p:submenu label="Database" icon="ui-icon-folder-open">
-				<p:menuitem value="Language" icon="ui-icon-document" url="insertLanguage.xhtml" />
+			<p:menuitem value="Home" icon="pi pi-home" url="home.xhtml" />
+			<p:menuitem value="New Character" icon="pi pi-user-plus" />
+			<p:menuitem value="My Characters" icon="pi pi-users" />
+			<p:submenu label="Database" icon="pi pi-book">
+				<p:menuitem value="Language" icon="pi pi-info" url="language.xhtml" />
 			</p:submenu>
-			<p:menuitem value="Print" icon="ui-icon-print" />
+			<p:menuitem value="Print" icon="pi pi-print" />
  
  
 		<f:facet name="options">            
-            	        <p:commandButton value="Logout" icon="ui-icon-extlink" action="#{userController.logout}" />
+            	        <p:commandButton value="Logout" icon="pi pi-sign-out" action="#{userController.logout}" />
         	</f:facet>
 		</p:menubar>
  

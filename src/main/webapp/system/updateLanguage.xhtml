@@ -5,46 +5,46 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:form>
-		<h:inputHidden id="inputHidden-id" value="#{insertLanguageController.languageModel.id}" />
+		<h:inputHidden id="inputHidden-id" value="#{languageController.languageModel.id}" />
 		<h:panelGrid id="panelGrid-form-fields" columns="2" cellpadding="10">
 			<p:outputLabel value="Name" for="inputText-name" />
 			<p:inputText id="inputText-name" style="width:300px" maxlength="70"
-				value="#{insertLanguageController.languageModel.name}"
+				value="#{languageController.languageModel.name}"
 				required="true" requiredMessage="Name required" />
 
 			<p:outputLabel for="languageType" value="Language Type" />
 			<p:selectOneMenu id="languageType"
-				value="#{insertLanguageController.languageModel.languageType}"
+				value="#{languageController.languageModel.languageType}"
 				required="true">
 				<f:selectItem itemLabel="Select One" itemValue="" />
-				<f:selectItems value="#{insertLanguageController.languageTypes}"
+				<f:selectItems value="#{languageController.languageTypes}"
 					var="languageType" itemLabel="#{languageType.description}" />
 			</p:selectOneMenu>
 
 			<p:outputLabel for="script" value="Script" />
 			<p:selectOneMenu id="script"
-				value="#{insertLanguageController.languageModel.script}"
+				value="#{languageController.languageModel.script}"
 				required="true">
 				<f:selectItem itemLabel="Select One" itemValue="" />
-				<f:selectItems value="#{insertLanguageController.scripts}"
+				<f:selectItems value="#{languageController.scripts}"
 					var="script" itemLabel="#{script.description}" />
 			</p:selectOneMenu>
 
 			<p:outputLabel for="races" value="Typical Speakers" />
 			<p:selectManyMenu id="races"
-				value="#{insertLanguageController.languageModel.typicalSpeakers}"
+				value="#{languageController.languageModel.typicalSpeakers}"
 				filter="true" filterMatchMode="contains" showCheckbox="true"
 				styleClass="manymenu-advanced">
 				<f:selectItems
-					value="#{insertLanguageController.languageModel.typicalSpeakers}"
+					value="#{languageController.languageModel.typicalSpeakers}"
 					var="race" itemLabel="#{race.name}" itemValue="#{race}" />
 			</p:selectManyMenu>
 
 			<p:spacer />
 
 			<p:commandButton value="Update" id="commandButton-update"
-				icon="ui-icon-gear"
-				actionListener="#{insertLanguageController.updateLanguage(insertLanguageController.languageModel)}"
+				icon="pi pi-save"
+				actionListener="#{languageController.updateLanguage(languageController.languageModel)}"
 				oncomplete="PF('dialog-update-modal').hide();"
 				update="@([id$=languageBrowserTable])" />
 		</h:panelGrid>

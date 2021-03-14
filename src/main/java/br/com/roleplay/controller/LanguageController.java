@@ -1,4 +1,4 @@
-package br.com.roleplay.language.controller;
+package br.com.roleplay.controller;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,20 +15,20 @@ import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.repository.LanguageRepository;
 import br.com.roleplay.utils.Utils;
 
-@Named(value = "insertLanguageController")
+@Named(value = "languageController")
 @RequestScoped
-public class InsertLanguageController {
+public class LanguageController {
 
 	@Inject
 	LanguageModel languageModel;
 
 	@Inject
 	LanguageRepository languageRepository;
-	
+
 	private Set<Script> scripts = new HashSet<Script>();
 	private Set<LanguageType> languageTypes = new HashSet<LanguageType>();
 	private Set<RaceModel> typicalSpeakers = new HashSet<RaceModel>();
-	
+
 	private Set<LanguageModel> languages = new HashSet<LanguageModel>();
 
 	public LanguageModel getLanguageModel() {
@@ -38,17 +38,17 @@ public class InsertLanguageController {
 	public void setLanguageModel(LanguageModel languageModel) {
 		this.languageModel = languageModel;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		for (Script script : Script.values()) {
 			scripts.add(script);
 		}
-		
-		for(LanguageType languageType: LanguageType.values()) {
+
+		for (LanguageType languageType : LanguageType.values()) {
 			getLanguageTypes().add(languageType);
 		}
-		
+
 		languages = languageRepository.getAllLanguages();
 	}
 
@@ -61,14 +61,22 @@ public class InsertLanguageController {
 
 		Utils.infoMessage("Record succesfully inserted.");
 	}
-	
-	public void openUpdateDialog(LanguageModel languageModel){
+
+	public void openUpdateDialog(LanguageModel languageModel) {
 		this.languageModel = languageModel;
 	}
-	
-	public void updateLanguage(LanguageModel languageModel) {		 
-		languageRepository.updateLanguage(languageModel);	
+
+	public void updateLanguage(LanguageModel languageModel) {
+		languageRepository.updateLanguage(languageModel);
 		this.init();
+	}
+
+	public void deleteLanguage(LanguageModel languageModel) {
+
+		languageRepository.deleteLanguage(languageModel.getId());
+		this.languages.remove(languageModel);
+		
+		Utils.warningMessage("Record deleted.");
 	}
 
 	public Set<Script> getScripts() {

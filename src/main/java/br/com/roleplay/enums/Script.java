@@ -1,7 +1,7 @@
 package br.com.roleplay.enums;
 
 public enum Script {
-	COMMOM(1, "Commom"), DWARVISH(2, "Dwarvish"), ELVISH(3, "Elvish"), INFERNAL(4, "Infernal"), CELESTIAL(5, "Celestial"),
+	COMMON(1, "Common"), DWARVISH(2, "Dwarvish"), ELVISH(3, "Elvish"), INFERNAL(4, "Infernal"), CELESTIAL(5, "Celestial"),
 	DRACONIC(6, "Draconic"), NONE(7, "None");
 	
 	private Integer cod;

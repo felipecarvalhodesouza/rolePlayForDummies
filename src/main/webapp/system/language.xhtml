@@ -27,54 +27,55 @@
 			<ui:include src="/system/updateLanguage.xhtml" />
 		</p:dialog>
 
-		<p:tabView style="width:600px;height:370px;margin:auto;">
+		<p:tabView style="width:700px;height:500px;margin:auto;">
 			<p:tab title="Language Registration"
 				rendered="#{userController.userModel.id == 1}">
 
 				<h:form id="form-register">
+				
+					<p:growl id="message" showDetail="true"/>
 
 					<h:panelGrid id="panelGrid-form-fields" columns="2"
 						cellpadding="10">
 
 						<p:outputLabel value="Name" for="inputText-name" />
 						<p:inputText id="inputText-name" style="width:300px"
-							maxlength="70"
-							value="#{insertLanguageController.languageModel.name}"
+							maxlength="70" value="#{languageController.languageModel.name}"
 							required="true" requiredMessage="Name required" />
 
 						<p:outputLabel for="languageType" value="Language Type" />
 						<p:selectOneMenu id="languageType"
-							value="#{insertLanguageController.languageModel.languageType}"
+							value="#{languageController.languageModel.languageType}"
 							required="true">
 							<f:selectItem itemLabel="Select One" itemValue="" />
-							<f:selectItems value="#{insertLanguageController.languageTypes}"
+							<f:selectItems value="#{languageController.languageTypes}"
 								var="languageType" itemLabel="#{languageType.description}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel for="script" value="Script" />
 						<p:selectOneMenu id="script"
-							value="#{insertLanguageController.languageModel.script}"
+							value="#{languageController.languageModel.script}"
 							required="true">
 							<f:selectItem itemLabel="Select One" itemValue="" />
-							<f:selectItems value="#{insertLanguageController.scripts}"
-								var="script" itemLabel="#{script.description}" />
+							<f:selectItems value="#{languageController.scripts}" var="script"
+								itemLabel="#{script.description}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel for="races" value="Typical Speakers" />
 						<p:selectManyMenu id="races"
-							value="#{insertLanguageController.languageModel.typicalSpeakers}"
+							value="#{languageController.languageModel.typicalSpeakers}"
 							filter="true" filterMatchMode="contains" showCheckbox="true"
 							styleClass="manymenu-advanced">
 							<f:selectItems
-								value="#{insertLanguageController.languageModel.typicalSpeakers}"
+								value="#{languageController.languageModel.typicalSpeakers}"
 								var="race" itemLabel="#{race.name}" itemValue="#{race}" />
 						</p:selectManyMenu>
 
 						<p:spacer />
 
 						<p:commandButton value="Save" id="commandButton-save"
-							icon="ui-icon-gear"
-							actionListener="#{insertLanguageController.insertNewLanguage}"
+							icon="pi pi-save"
+							actionListener="#{languageController.insertNewLanguage}"
 							update="panelGrid-form-fields, @([id$=languageBrowserTable]), infoMessage" />
 					</h:panelGrid>
 
@@ -91,17 +92,17 @@
 			<p:tab title="Language Database">
 				<div class="card">
 					<p:dataTable id="languageBrowserTable" var="language"
-						value="#{insertLanguageController.languages}" scrollable="true"
-						scrollHeight="250">
+						value="#{languageController.languages}" scrollable="true"
+						scrollHeight="250" scrollWidth="700">
 						<f:facet name="header">
 							<div class="p-d-flex p-jc-between p-ai-center"
 								style="text-align-last: right">
 								<div
-									style="float: left; margin-top: 5px; vertical-align: center">
+									style="float: left; margin-top: 10px; vertical-align: center">
 									List of Languages</div>
 								<div>
 									<p:commandButton id="toggler" type="button" value="Columns"
-										icon="pi pi-sliders-v" />
+										icon="pi pi-align-justify" />
 									<p:columnToggler datasource="languageBrowserTable"
 										trigger="toggler" />
 								</div>
@@ -117,20 +118,39 @@
 						</p:column>
 
 						<p:column headerText="Typical Speakers">
-							<h:outputText value="#{language.typicalSpeakers}" />
+							<h:outputText value="#{empty language.typicalSpeakers ? 'None' : language.typicalSpeakers }" />
 						</p:column>
 
 						<p:column headerText="Language Type">
 							<h:outputText value="#{language.languageType.description}" />
 						</p:column>
 
-						<p:column headerText="" style="width:25px;">
-							<p:commandButton icon="ui-icon-pencil" title="Update Language"
+						<p:column headerText="Edit" style="width:25px;">
+							<p:commandButton icon="pi pi-pencil" title="Update Language"
 								ajax="true"
-								actionListener="#{insertLanguageController.openUpdateDialog(language)}"
+								actionListener="#{languageController.openUpdateDialog(language)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
 						</p:column>
+
+						<p:column headerText="Remove" style="width:35px;">
+							<p:commandButton icon="pi pi-trash" title="Delete Language"
+								styleClass="ui-button-danger"
+								action="#{languageController.deleteLanguage(language)}"
+								update="languageBrowserTable, @([id$=message])">
+								<p:confirm type="popup" header="Confirmation"
+									message="Are you sure you want to proceed?"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+
+							<p:confirmPopup global="true">
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirm-popup-no ui-button-flat" />
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirm-popup-yes" />
+							</p:confirmPopup>
+						</p:column>
+
 					</p:dataTable>
 				</div>
 			</p:tab>
