@@ -1,11 +1,14 @@
 package br.com.roleplay.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import br.com.roleplay.enums.LanguageType;
 import br.com.roleplay.enums.Script;
 
-public class LanguageModel implements Comparable<LanguageModel> {
+public class LanguageModel implements Comparable<LanguageModel>, Serializable {
+
+	private static final long serialVersionUID = 6237103526130103899L;
 
 	private long id;
 

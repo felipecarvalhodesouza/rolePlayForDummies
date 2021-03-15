@@ -65,9 +65,10 @@
 						<p:selectManyMenu id="races"
 							value="#{languageController.languageModel.typicalSpeakers}"
 							filter="true" filterMatchMode="contains" showCheckbox="true"
-							styleClass="manymenu-advanced">
+							converter="raceConverter" converterMessage="Error" validatorMessage="Erro"
+							styleClass="manymenu-advanced" scrollHeight="140">
 							<f:selectItems
-								value="#{languageController.languageModel.typicalSpeakers}"
+								value="#{languageController.typicalSpeakers}"
 								var="race" itemLabel="#{race.name}" itemValue="#{race}" />
 						</p:selectManyMenu>
 

@@ -9,11 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import br.com.roleplay.enums.Alignment;
 
+@NamedQuery(name = "RaceEntity.findAll",query= "SELECT r FROM RaceEntity r")
 @Entity
 @Table(name = "race")
 public class RaceEntity {
@@ -30,11 +33,16 @@ public class RaceEntity {
 	private Integer age;
 	
 	@ManyToMany
-	@JoinColumn(name = "id")
+    @JoinTable(
+            name="race_language",
+            joinColumns=
+                @JoinColumn(name="race_id", referencedColumnName="id"),
+            inverseJoinColumns=
+                @JoinColumn(name="language_id", referencedColumnName="id")
+        )
 	private Set<LanguageEntity> languages;
 	
 	@ManyToMany
-	@JoinColumn(name = "id")
 	private List<AbilityBonusEntity> abilityBonus;
 	
 	@Column(name = "movement")

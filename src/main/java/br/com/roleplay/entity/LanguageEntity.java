@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -27,7 +29,14 @@ public class LanguageEntity {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToMany(mappedBy = "languages")
+	@ManyToMany
+    @JoinTable(
+            name="race_language",
+            joinColumns=
+                @JoinColumn(name="language_id", referencedColumnName="id"),
+            inverseJoinColumns=
+                @JoinColumn(name="race_id", referencedColumnName="id")
+        )
 	private Set<RaceEntity> typicalSpeakers;
 
 	@Enumerated(EnumType.STRING)

@@ -1,6 +1,7 @@
 package br.com.roleplay.controller;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import br.com.roleplay.enums.Script;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.repository.LanguageRepository;
+import br.com.roleplay.repository.RaceRepository;
 import br.com.roleplay.utils.Utils;
 
 @Named(value = "languageController")
@@ -24,12 +26,15 @@ public class LanguageController {
 
 	@Inject
 	LanguageRepository languageRepository;
+	
+	@Inject
+	RaceRepository raceRepository;
 
 	private Set<Script> scripts = new HashSet<Script>();
-	private Set<LanguageType> languageTypes = new HashSet<LanguageType>();
-	private Set<RaceModel> typicalSpeakers = new HashSet<RaceModel>();
+	private Set<LanguageType> languageTypes = new LinkedHashSet<LanguageType>();
+	private Set<RaceModel> typicalSpeakers = new LinkedHashSet<RaceModel>();
 
-	private Set<LanguageModel> languages = new HashSet<LanguageModel>();
+	private Set<LanguageModel> languages = new LinkedHashSet<LanguageModel>();
 
 	public LanguageModel getLanguageModel() {
 		return languageModel;
@@ -50,6 +55,8 @@ public class LanguageController {
 		}
 
 		languages = languageRepository.getAllLanguages();
+		
+		typicalSpeakers = raceRepository.getAllRaces();
 	}
 
 	public void insertNewLanguage() {
@@ -77,6 +84,10 @@ public class LanguageController {
 		this.languages.remove(languageModel);
 		
 		Utils.warningMessage("Record deleted.");
+	}
+	
+	public String getName(Set<RaceModel> list) {
+		return "TESTE";
 	}
 
 	public Set<Script> getScripts() {

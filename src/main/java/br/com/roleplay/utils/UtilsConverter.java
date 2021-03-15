@@ -76,6 +76,7 @@ public class UtilsConverter {
 		
 		for (RaceEntity raceEntity : raceEntitySet) {
 			RaceModel raceModel = new RaceModel();
+			raceModel.setId(raceEntity.getId());
 			raceModel.setName(raceEntity.getName());
 			raceModel.setAge(raceEntity.getAge());
 			raceModel.setAbilityBonus(getAbilityBonusModelListFromAbilityBonusEntityList(raceEntity.getAbilityBonus()));
@@ -95,6 +96,7 @@ public class UtilsConverter {
 		
 		for (RaceModel raceModel : raceModelSet) {
 			RaceEntity raceEntity = new RaceEntity();
+			raceEntity.setId(raceModel.getId());
 			raceEntity.setName(raceModel.getName());
 			raceEntity.setAge(raceModel.getAge());
 			raceEntity.setAbilityBonus(getAbilityBonusEntityListFromAbilityBonusModelList(raceModel.getAbilityBonus()));
