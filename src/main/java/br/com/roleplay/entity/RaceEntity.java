@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,6 +60,7 @@ public class RaceEntity {
 	private Double baseWeight;
 	
 	@Column(name = "alignment")
+	@Enumerated(EnumType.STRING)
 	private Alignment alignment;
 
 	public long getId() {

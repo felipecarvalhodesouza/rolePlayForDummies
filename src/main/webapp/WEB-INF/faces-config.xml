@@ -5,8 +5,13 @@
 	version="2.3">
 
 	<converter>
-		<description>Language converter</description>
+		<description>Race converter</description>
 		<converter-id>raceConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.RaceConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Language converter</description>
+		<converter-id>languageConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.LanguageConverter</converter-class>
 	</converter>
 </faces-config>

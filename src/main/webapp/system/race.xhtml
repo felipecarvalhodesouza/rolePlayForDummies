@@ -11,9 +11,8 @@
 .grid-checkbox td {
 	padding: .5rem;
 }
-
-.p-d-flex p-jc-between p-ai-center {
-	float: none;
+#footer{
+	position: fixed;
 }
 </style>
 </h:head>
@@ -29,44 +28,71 @@
 
 					<p:growl id="message" showDetail="true" />
 
-					<h:panelGrid id="panelGrid-form-fields" columns="4" layout="flex"
+					<h:panelGrid id="panelGrid-form-fields" columns="2" layout="flex"
 						styleClass="showcase-text-align-center" cellpadding="10">
+						<h:panelGrid id="panelGrid-form-fields-1" columns="2"
+							layout="flex" styleClass="showcase-text-align-center"
+							cellpadding="10">
+							<p:outputLabel value="Name" for="inputText-name" />
+							<p:inputText id="inputText-name" style="width:300px"
+								maxlength="70" value="#{raceController.raceModel.name}"
+								required="true" requiredMessage="Name required" />
 
-						<p:outputLabel value="Name" for="inputText-name" />
-						<p:inputText id="inputText-name" style="width:300px"
-							maxlength="70" value="#{raceController.raceModel.name}"
-							required="true" requiredMessage="Name required" />
+							<p:outputLabel for="alignment" value="Common Alignment" />
+							<p:selectOneMenu id="alignment"
+								value="#{raceController.raceModel.alignment}" required="true"
+								requiredMessage="Alignment required">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItems value="#{raceController.alignments}"
+									var="alignment" itemLabel="#{alignment.description}" />
+							</p:selectOneMenu>
 
-						<p:inputText id="inputText-age"
-							value="#{raceController.raceModel.age}" placeholder="Maximum age"
-							required="true" requiredMessage="Maximum age required" />
-						<p:slider for="inputText-age" range="false" />
+							<p:outputLabel for="languages" value="Languages" />
+							<p:selectManyMenu id="languages"
+								value="#{raceController.raceModel.languages}" filter="true"
+								converter="languageConverter" filterMatchMode="contains"
+								showCheckbox="true" styleClass="manymenu-advanced">
+								<f:selectItems value="#{raceController.languages}"
+									var="language" itemLabel="#{language.name}"
+									itemValue="#{language}" />
+							</p:selectManyMenu>
+						</h:panelGrid>
+						<h:panelGrid id="panelGrid-form-fields-2" columns="2"
+							layout="flex" styleClass="showcase-text-align-top"
+							cellpadding="10">
+							<p:inputText id="inputText-age"
+								value="#{raceController.raceModel.age}"
+								placeholder="Maximum age" required="true"
+								requiredMessage="Maximum age required" />
+							<p:slider for="inputText-age" range="false" />
 
-						<p:outputLabel for="alignment" value="Common Alignment" />
-						<p:selectOneMenu id="alignment"
-							value="#{raceController.raceModel.alignment}" required="true"
-							requiredMessage="Alignment required">
-							<f:selectItem itemLabel="Select One" itemValue="" />
-							<f:selectItems value="#{raceController.alignments}"
-								var="alignment" itemLabel="#{alignment.description}" />
-						</p:selectOneMenu>
+							<p:inputText id="inputText-movement"
+								value="#{raceController.raceModel.movement}"
+								placeholder="Movement" required="true"
+								requiredMessage="Movement required" />
+							<p:slider for="inputText-movement" range="false" minValue="5"
+								maxValue="20" />
 
-						<p:inputText id="inputText-movement"
-							value="#{raceController.raceModel.movement}"
-							placeholder="Movement" required="true"
-							requiredMessage="Movement required" />
-						<p:slider for="inputText-movement" range="false" minValue="5"
-							maxValue="20" />
+							<p:inputText id="inputText-speed"
+								value="#{raceController.raceModel.speed}" placeholder="Speed"
+								required="true" requiredMessage="Speed required" />
+							<p:slider for="inputText-speed" range="false" minValue="5"
+								maxValue="20" style="width:100px" />
 
-						<p:outputLabel for="languages" value="Languages" />
-						<p:selectManyMenu id="languages"
-							value="#{raceController.raceModel.languages}" filter="true"
-							filterMatchMode="contains" showCheckbox="true"
-							styleClass="manymenu-advanced">
-							<f:selectItems value="#{raceController.languages}" var="language"
-								itemLabel="#{language.name}" itemValue="#{language}" />
-						</p:selectManyMenu>
+							<p:inputText id="inputText-baseHeight"
+								value="#{raceController.raceModel.baseHeight}"
+								placeholder="Base height" required="true"
+								requiredMessage="Base height required" />
+							<p:slider for="inputText-baseHeight" range="false" minValue="100"
+								maxValue="250" style="width:100px" />
 
+							<p:inputText id="inputText-baseWeight"
+								value="#{raceController.raceModel.baseWeight}"
+								placeholder="Base weight" required="true"
+								requiredMessage="Base weight required" />
+							<p:slider for="inputText-baseWeight" range="false" minValue="30"
+								maxValue="250" style="width:100px" />
+						</h:panelGrid>
 						<p:spacer />
 
 						<p:commandButton value="Save" id="commandButton-save"
@@ -74,7 +100,6 @@
 							actionListener="#{raceController.insertNewRace}"
 							update="form-register" />
 					</h:panelGrid>
-
 				</h:form>
 
 			</p:tab>
