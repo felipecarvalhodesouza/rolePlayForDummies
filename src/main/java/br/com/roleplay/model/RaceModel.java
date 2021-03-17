@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.roleplay.enums.Alignment;
+import br.com.roleplay.enums.Size;
 
 public class RaceModel {
 
@@ -23,6 +24,8 @@ public class RaceModel {
 	private Double baseWeight;
 
 	private Alignment alignment;
+	
+	private Size size;
 
 	public RaceModel() {}
 	
@@ -109,6 +112,14 @@ public class RaceModel {
 
 	public void setAlignment(Alignment alignment) {
 		this.alignment = alignment;
+	}
+
+	public Size getSize() {
+		return size;
+	}
+
+	public void setSize(Size size) {
+		this.size = size;
 	}
 
 	@Override

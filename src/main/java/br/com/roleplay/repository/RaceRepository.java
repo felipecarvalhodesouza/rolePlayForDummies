@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.RaceEntity;
+import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.utils.Utils;
@@ -37,6 +38,7 @@ public class RaceRepository {
 		raceEntity.setAlignment(raceModel.getAlignment());
 		raceEntity.setMovement(raceModel.getMovement());
 		raceEntity.setSpeed(raceModel.getSpeed());
+		raceEntity.setSize(raceModel.getSize());
 
 		Set<LanguageEntity> languages = new HashSet<LanguageEntity>();
 		for (LanguageModel language : raceModel.getLanguages()) {
@@ -45,10 +47,10 @@ public class RaceRepository {
 		}
 
 		List<AbilityBonusEntity> abilityBonusList = new ArrayList<AbilityBonusEntity>();
-		/*for (AbilityBonusModel abilityBonus : raceModel.getAbilityBonus()) {
+		for (AbilityBonusModel abilityBonus : raceModel.getAbilityBonus()) {
 			AbilityBonusEntity abe = entityManager.find(AbilityBonusEntity.class, abilityBonus.getId());
 			abilityBonusList.add(abe);
-		}*/
+		}
 
 		raceEntity.setLanguages(languages);
 		raceEntity.setAbilityBonus(abilityBonusList);

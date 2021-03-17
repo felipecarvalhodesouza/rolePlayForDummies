@@ -7,20 +7,40 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<style type="text/css">
-.grid-checkbox td {
-	padding: .5rem;
-}
-#footer{
-	position: fixed;
-}
-</style>
 </h:head>
 <ui:composition template="/template/layoutBase.xhtml">
+	<h:outputStylesheet library="css" name="default.css" />
 
 	<ui:define name="content">
+		<style>
+.panelGrid tr {
+	vertical-align: top;
+}
 
-		<p:tabView style="width:90%;height:500px;margin:auto;">
+.grid-checkbox td {
+	padding: 0.3rem;
+}
+
+.sliderGrid td {
+	vertical-align: middle;
+}
+
+.panelGrid-c>tbody:first-child>tr:first-child>td:first-of-type {
+	text-align: center;
+	font-weight: 600;
+}
+
+tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
+	text-align: end;
+}
+
+.panelGrid > table > tbody > tr > td{
+	vertical-align: middle;
+}
+
+</style>
+		<p:tabView
+			style="width:90%;height:500px;margin:auto; align-itens: top">
 			<p:tab title="Race Registration"
 				rendered="#{userController.userModel.id == 1}">
 
@@ -28,13 +48,12 @@
 
 					<p:growl id="message" showDetail="true" />
 
-					<h:panelGrid id="panelGrid-form-fields" columns="2" layout="flex"
-						styleClass="showcase-text-align-center" cellpadding="10">
+					<h:panelGrid id="panelGrid-form-fields" columns="3" layout="flex"
+						columnClasses="panelGrid, panelGrid, panelGrid" cellpadding="10">
 						<h:panelGrid id="panelGrid-form-fields-1" columns="2"
-							layout="flex" styleClass="showcase-text-align-center"
-							cellpadding="10">
+							layout="flex" cellpadding="10">
 							<p:outputLabel value="Name" for="inputText-name" />
-							<p:inputText id="inputText-name" style="width:300px"
+							<p:inputText id="inputText-name" style="width:200px"
 								maxlength="70" value="#{raceController.raceModel.name}"
 								required="true" requiredMessage="Name required" />
 
@@ -51,48 +70,69 @@
 							<p:selectManyMenu id="languages"
 								value="#{raceController.raceModel.languages}" filter="true"
 								converter="languageConverter" filterMatchMode="contains"
-								showCheckbox="true" styleClass="manymenu-advanced">
+								showCheckbox="true" styleClass="manymenu-advanced" scrollHeight="90">
 								<f:selectItems value="#{raceController.languages}"
 									var="language" itemLabel="#{language.name}"
 									itemValue="#{language}" />
 							</p:selectManyMenu>
+							<p:outputLabel for="size" value="Size" />
+							<p:selectOneRadio id="size"
+								value="#{raceController.raceModel.size}" layout="grid"
+								columns="2" styleClass="grid-radio" label="Size" required="true" requiredMessage="Size required">
+								<f:selectItems value="#{raceController.sizes}" var="size"
+									itemLabel="#{size.description}" itemValue="#{size}" />
+							</p:selectOneRadio>
 						</h:panelGrid>
 						<h:panelGrid id="panelGrid-form-fields-2" columns="2"
-							layout="flex" styleClass="showcase-text-align-top"
-							cellpadding="10">
+							layout="flex" cellpadding="10" styleClass="sliderGrid">
 							<p:inputText id="inputText-age"
 								value="#{raceController.raceModel.age}"
 								placeholder="Maximum age" required="true"
-								requiredMessage="Maximum age required" />
+								requiredMessage="Maximum age required" size="10" />
 							<p:slider for="inputText-age" range="false" />
 
 							<p:inputText id="inputText-movement"
 								value="#{raceController.raceModel.movement}"
 								placeholder="Movement" required="true"
-								requiredMessage="Movement required" />
+								requiredMessage="Movement required" size="10" />
 							<p:slider for="inputText-movement" range="false" minValue="5"
 								maxValue="20" />
 
 							<p:inputText id="inputText-speed"
 								value="#{raceController.raceModel.speed}" placeholder="Speed"
-								required="true" requiredMessage="Speed required" />
+								required="true" requiredMessage="Speed required" size="10" />
 							<p:slider for="inputText-speed" range="false" minValue="5"
 								maxValue="20" style="width:100px" />
 
 							<p:inputText id="inputText-baseHeight"
 								value="#{raceController.raceModel.baseHeight}"
 								placeholder="Base height" required="true"
-								requiredMessage="Base height required" />
+								requiredMessage="Base height required" size="10" />
 							<p:slider for="inputText-baseHeight" range="false" minValue="100"
 								maxValue="250" style="width:100px" />
 
 							<p:inputText id="inputText-baseWeight"
 								value="#{raceController.raceModel.baseWeight}"
 								placeholder="Base weight" required="true"
-								requiredMessage="Base weight required" />
+								requiredMessage="Base weight required" size="10" />
 							<p:slider for="inputText-baseWeight" range="false" minValue="30"
 								maxValue="250" style="width:100px" />
 						</h:panelGrid>
+
+						<h:panelGrid id="panelGrid-form-fields-3" columns="1"
+							layout="flex" cellpadding="10" styleClass="panelGrid-c">
+							<p:outputLabel for="ability_bonus" value="Ability bonus" />
+							<p:selectManyCheckbox id="ability_bonus"
+								value="#{raceController.raceModel.abilityBonus}" layout="grid"
+								columns="3" styleClass="grid-checkbox" required="true"
+								style="width:max-content; float:left" converter="abilityBonusConverter"
+								requiredMessage="Ability bonus required">
+								<f:selectItems value="#{raceController.abilityBonus}"
+									var="ability" itemLabel="#{ability}" itemValue="#{ability}" />
+							</p:selectManyCheckbox>
+						</h:panelGrid>
+
+						<p:spacer />
 						<p:spacer />
 
 						<p:commandButton value="Save" id="commandButton-save"

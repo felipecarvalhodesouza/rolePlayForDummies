@@ -14,4 +14,9 @@
 		<converter-id>languageConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.LanguageConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Ability bonus converter</description>
+		<converter-id>abilityBonusConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.AbilityBonusConverter</converter-class>
+	</converter>
 </faces-config>

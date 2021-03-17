@@ -14,9 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.roleplay.enums.Alignment;
+import br.com.roleplay.enums.Size;
 
 @NamedQuery(name = "RaceEntity.findAll",query= "SELECT r FROM RaceEntity r")
 @Entity
@@ -44,7 +46,7 @@ public class RaceEntity {
         )
 	private Set<LanguageEntity> languages;
 	
-	@ManyToMany
+	@OneToMany
 	private List<AbilityBonusEntity> abilityBonus;
 	
 	@Column(name = "movement")
@@ -62,6 +64,10 @@ public class RaceEntity {
 	@Column(name = "alignment")
 	@Enumerated(EnumType.STRING)
 	private Alignment alignment;
+	
+	@Column(name = "size")
+	@Enumerated(EnumType.STRING)
+	private Size size;
 
 	public long getId() {
 		return id;
@@ -141,5 +147,13 @@ public class RaceEntity {
 
 	public void setAlignment(Alignment alignment) {
 		this.alignment = alignment;
+	}
+
+	public Size getSize() {
+		return size;
+	}
+
+	public void setSize(Size size) {
+		this.size = size;
 	}
 }

@@ -29,3 +29,7 @@ html, body {
 	height: 20px;
 	background: #BDBDBD;
 }
+
+.panelGrid {
+	vertical-align: top;
+}
