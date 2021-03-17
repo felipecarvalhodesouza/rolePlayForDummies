@@ -84,5 +84,16 @@ public class LanguageRepository {
 
 		entityManager.remove(pessoaEntity);
 	}
+	
+	public Set<LanguageEntity> getLanguageEntityListFromRaceModel(RaceModel raceModel){
+		
+		entityManager = Utils.JpaEntityManager();
+		
+		TypedQuery<LanguageEntity> query = entityManager.createQuery(
+				"select l from LanguageEntity l inner join l.typicalSpeakers r on r.id = :id", LanguageEntity.class);
+		
+		query.setParameter("id", raceModel.getId());
+		return UtilsConverter.getSetFromList(query.getResultList());
+	}
 
 }

@@ -13,32 +13,35 @@
 
 	<ui:define name="content">
 		<style>
-.panelGrid tr {
-	vertical-align: top;
-}
-
-.grid-checkbox td {
-	padding: 0.3rem;
-}
-
-.sliderGrid td {
-	vertical-align: middle;
-}
-
-.panelGrid-c>tbody:first-child>tr:first-child>td:first-of-type {
-	text-align: center;
-	font-weight: 600;
-}
-
-tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
-	text-align: end;
-}
-
-.panelGrid > table > tbody > tr > td{
-	vertical-align: middle;
-}
-
-</style>
+		.panelGrid tr {
+			vertical-align: top;
+		}
+		
+		.grid-checkbox td {
+			padding: 0.3rem;
+		}
+		
+		.sliderGrid td {
+			vertical-align: middle;
+		}
+		
+		.panelGrid-c>tbody:first-child>tr:first-child>td:first-of-type {
+			text-align: center;
+			font-weight: 600;
+		}
+		
+		tr+tr>.panelGrid+.panelGrid+.panelGrid:nth-child(3) {
+			text-align: end;
+		}
+		
+		.panelGrid>table>tbody>tr>td {
+			vertical-align: middle;
+		}
+		</style>
+		<p:dialog header="Update Language" id="dialog-update-modal"
+			widgetVar="dialog-update-modal" modal="true">
+			<ui:include src="/system/updateRace.xhtml" />
+		</p:dialog>
 		<p:tabView
 			style="width:90%;height:500px;margin:auto; align-itens: top">
 			<p:tab title="Race Registration"
@@ -70,7 +73,8 @@ tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
 							<p:selectManyMenu id="languages"
 								value="#{raceController.raceModel.languages}" filter="true"
 								converter="languageConverter" filterMatchMode="contains"
-								showCheckbox="true" styleClass="manymenu-advanced" scrollHeight="90">
+								showCheckbox="true" styleClass="manymenu-advanced"
+								scrollHeight="90">
 								<f:selectItems value="#{raceController.languages}"
 									var="language" itemLabel="#{language.name}"
 									itemValue="#{language}" />
@@ -78,7 +82,8 @@ tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
 							<p:outputLabel for="size" value="Size" />
 							<p:selectOneRadio id="size"
 								value="#{raceController.raceModel.size}" layout="grid"
-								columns="2" styleClass="grid-radio" label="Size" required="true" requiredMessage="Size required">
+								columns="2" styleClass="grid-radio" label="Size" required="true"
+								requiredMessage="Size required">
 								<f:selectItems value="#{raceController.sizes}" var="size"
 									itemLabel="#{size.description}" itemValue="#{size}" />
 							</p:selectOneRadio>
@@ -125,7 +130,8 @@ tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
 							<p:selectManyCheckbox id="ability_bonus"
 								value="#{raceController.raceModel.abilityBonus}" layout="grid"
 								columns="3" styleClass="grid-checkbox" required="true"
-								style="width:max-content; float:left" converter="abilityBonusConverter"
+								style="width:max-content; float:left"
+								converter="abilityBonusConverter"
 								requiredMessage="Ability bonus required">
 								<f:selectItems value="#{raceController.abilityBonus}"
 									var="ability" itemLabel="#{ability}" itemValue="#{ability}" />
@@ -142,6 +148,79 @@ tr + tr > .panelGrid + .panelGrid + .panelGrid:nth-child(3){
 					</h:panelGrid>
 				</h:form>
 
+			</p:tab>
+			<p:tab title="Race Database">
+				<div class="card">
+					<p:dataTable id="raceBrowserTable" var="race"
+						value="#{raceController.races}" scrollable="true"
+						scrollHeight="750">
+						<f:facet name="header">
+							<div class="p-d-flex p-jc-between p-ai-center"
+								style="text-align-last: right">
+								<div
+									style="float: left; margin-top: 10px; vertical-align: center">
+									List of Races</div>
+								<div>
+									<p:commandButton id="toggler" type="button" value="Columns"
+										icon="pi pi-align-justify" />
+									<p:columnToggler datasource="raceBrowserTable"
+										trigger="toggler" />
+								</div>
+							</div>
+						</f:facet>
+
+						<p:column headerText="Name">
+							<h:outputText value="#{race.name}" />
+						</p:column>
+
+						<p:column headerText="Alignment">
+							<h:outputText value="#{race.alignment.description}" />
+						</p:column>
+						
+						<p:column headerText="Size">
+							<h:outputText value="#{race.size.description}" />
+						</p:column>
+
+						<p:column headerText="Maximum Age">
+							<h:outputText value="#{race.age}" />
+						</p:column>
+
+						<p:column headerText="Movement">
+							<h:outputText value="#{race.movement}" />
+						</p:column>
+						
+						<p:column headerText="Speed">
+							<h:outputText value="#{race.speed}" />
+						</p:column>
+						
+						<p:column headerText="Base height">
+							<h:outputText value="#{race.baseHeight}" />
+						</p:column>
+						
+						<p:column headerText="Base weight">
+							<h:outputText value="#{race.baseWeight}" />
+						</p:column>
+						
+						<p:column headerText="Ability bonus">
+							<h:outputText
+								value="#{empty race.abilityBonus ? 'None' : race.abilityBonus }" />
+						</p:column>
+
+						<p:column headerText="Languages">
+							<h:outputText
+								value="#{empty race.languages ? 'None' : race.languages }" />
+						</p:column>
+						
+						<p:column headerText="Edit" style="width:25px;">
+							<p:commandButton icon="pi pi-pencil" title="Update Race"
+								ajax="true"
+								actionListener="#{raceController.openUpdateDialog(race)}"
+								oncomplete="PF('dialog-update-modal').show();"
+								update="dialog-update-modal" />
+						</p:column>						
+
+					</p:dataTable>
+				</div>
 			</p:tab>
 
 		</p:tabView>

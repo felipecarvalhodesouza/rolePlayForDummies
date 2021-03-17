@@ -72,6 +72,11 @@ public class LanguageModel implements Comparable<LanguageModel>, Serializable {
 	public int compareTo(LanguageModel o) {
 		return getName().compareTo(o.getName());
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 	@Override
 	public int hashCode() {

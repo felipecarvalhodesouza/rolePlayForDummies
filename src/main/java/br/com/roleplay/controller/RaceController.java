@@ -10,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.enums.Alignment;
 import br.com.roleplay.enums.Size;
 import br.com.roleplay.model.AbilityBonusModel;
@@ -19,6 +20,7 @@ import br.com.roleplay.repository.AbilityBonusRepository;
 import br.com.roleplay.repository.LanguageRepository;
 import br.com.roleplay.repository.RaceRepository;
 import br.com.roleplay.utils.Utils;
+import br.com.roleplay.utils.UtilsConverter;
 
 @Named(value = "raceController")
 @RequestScoped
@@ -40,6 +42,8 @@ public class RaceController {
 	private Set<Alignment> alignments = new LinkedHashSet<Alignment>();
 	private List<AbilityBonusModel> abilityBonus = new ArrayList<AbilityBonusModel>();
 	private List<Size> sizes = new ArrayList<Size>();
+	
+	private Set<RaceModel> races = new LinkedHashSet<RaceModel>();
 
 	@PostConstruct
 	public void init() {
@@ -54,15 +58,32 @@ public class RaceController {
 		}
 		
 		abilityBonus = abilityBonusRepository.getAllAbilityBonus();
+		
+		races = raceRepository.getAllRaces();
+		for (RaceModel race : races) {
+			Set<LanguageEntity> languageEntitySet = languageRepository.getLanguageEntityListFromRaceModel(race);
+			race.setLanguages(UtilsConverter.getLanguageModelSetFromLanguageEntitySet(languageEntitySet));
+		}
 	}
 
 	public void insertNewRace() {
 
 		raceRepository.insertRace(this.getRaceModel());
+		
+		races.add(getRaceModel());
 
 		this.setRaceModel(new RaceModel());
 
 		Utils.infoMessage("Record succesfully inserted.");
+	}
+	
+	public void openUpdateDialog(RaceModel raceModel) {
+		this.raceModel = raceModel;
+	}
+
+	public void updateRace(RaceModel raceModel) {
+		raceRepository.updateRace(raceModel);
+		this.init();
 	}
 
 	public Set<LanguageModel> getLanguages() {
@@ -103,5 +124,13 @@ public class RaceController {
 
 	public void setSizes(List<Size> sizes) {
 		this.sizes = sizes;
+	}
+	
+	public Set<RaceModel> getRaces() {
+		return races;
+	}
+
+	public void setRaces(Set<RaceModel> races) {
+		this.races = races;
 	}
 }
