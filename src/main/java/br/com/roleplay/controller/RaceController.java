@@ -85,6 +85,14 @@ public class RaceController {
 		raceRepository.updateRace(raceModel);
 		this.init();
 	}
+	
+	public void deleteRace(RaceModel raceModel) {
+
+		raceRepository.deleteRace(raceModel.getId());
+		this.races.remove(raceModel);
+		
+		Utils.warningMessage("Record deleted.");
+	}
 
 	public Set<LanguageModel> getLanguages() {
 		return languages;

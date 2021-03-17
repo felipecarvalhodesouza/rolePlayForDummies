@@ -80,9 +80,9 @@ public class LanguageRepository {
 
 		entityManager = Utils.JpaEntityManager();
 
-		LanguageEntity pessoaEntity = this.getLanguage(id);
+		LanguageEntity languageEntity = this.getLanguage(id);
 
-		entityManager.remove(pessoaEntity);
+		entityManager.remove(languageEntity);
 	}
 	
 	public Set<LanguageEntity> getLanguageEntityListFromRaceModel(RaceModel raceModel){

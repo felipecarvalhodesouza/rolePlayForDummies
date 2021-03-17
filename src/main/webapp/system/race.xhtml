@@ -217,7 +217,25 @@
 								actionListener="#{raceController.openUpdateDialog(race)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
-						</p:column>						
+						</p:column>
+						
+						<p:column headerText="Remove" style="width:35px;">
+							<p:commandButton icon="pi pi-trash" title="Delete Race"
+								styleClass="ui-button-danger"
+								action="#{raceController.deleteRace(race)}"
+								update="raceBrowserTable, @([id$=message])">
+								<p:confirm type="popup" header="Confirmation"
+									message="Are you sure you want to proceed?"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+
+							<p:confirmPopup global="true">
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirm-popup-no ui-button-flat" />
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirm-popup-yes" />
+							</p:confirmPopup>
+						</p:column>				
 
 					</p:dataTable>
 				</div>

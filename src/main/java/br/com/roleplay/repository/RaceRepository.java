@@ -110,4 +110,13 @@ public class RaceRepository {
 
 		return entityManager.find(RaceEntity.class, id);
 	}
+	
+	public void deleteRace(long id) {
+
+		entityManager = Utils.JpaEntityManager();
+
+		RaceEntity languageEntity = this.getRace(id);
+
+		entityManager.remove(languageEntity);
+	}
 }
