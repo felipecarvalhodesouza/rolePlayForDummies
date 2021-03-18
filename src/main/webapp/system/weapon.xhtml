@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+		<style>
+			.panelGrid2>tbody>tr:first-child>td:first-child {
+				padding: 0;
+			}
+		</style>
+
+		<p:tabView style="width:600px;height:500px;margin:auto;">
+			<p:tab title="Weapon Registration"
+				rendered="#{userController.userModel.id == 1}">
+
+				<h:form id="form-register">
+
+					<p:growl id="message" showDetail="true" />
+					<p:commandButton value="Save" id="commandButton-save"
+						icon="pi pi-save" style="float:right; margin-top: 10px;"
+						actionListener="#{weaponController.insertNewWeapon}"
+						update="panelGrid-form-fields, infoMessage" />
+					<h:panelGrid id="panelGrid-form-fields" columns="2"
+						cellpadding="10">
+
+						<p:outputLabel value="Name" for="inputText-name" />
+						<p:inputText id="inputText-name" style="width:300px"
+							maxlength="70" value="#{weaponController.weaponModel.name}"
+							required="true" requiredMessage="Name required" />
+
+						<p:outputLabel value="Cost" for="inputText-cost" />
+						<h:panelGrid id="panelGrid-form-fields-2" columns="3"
+							layout="flex" cellpadding="10" styleClass="panelGrid2">
+							<p:inputText type="number" id="inputText-cost" style="width:50px"
+								maxlength="8" value="#{weaponController.weaponModel.cost}"
+								required="true" requiredMessage="Cost required" />
+
+							<p:inputText id="inputText-weight"
+								value="#{weaponController.weaponModel.weight}"
+								placeholder="Weight" required="true"
+								requiredMessage="Weight required" size="10" />
+							<p:slider for="inputText-weight" range="false"
+								style="width:100px" />
+						</h:panelGrid>
+
+						<p:outputLabel for="weaponCategory" value="Weapon Category" />
+						<p:selectOneRadio id="weaponCategory"
+							value="#{weaponController.weaponModel.weaponCategory}"
+							layout="grid" columns="2" styleClass="grid-radio"
+							label="Weapon Category" required="true"
+							requiredMessage="Weapon category required">
+							<f:selectItems value="#{weaponController.weaponCategories}"
+								var="category" itemLabel="#{category.description}"
+								itemValue="#{category}" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="weaponProperty" value="Weapon property" />
+						<p:selectOneMenu id="weaponProperty" value="" required="true">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{weaponController.weaponProperties}"
+								var="property" itemLabel="#{property.description}"
+								itemValue="#{property}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="damage" value="Damage" />
+						<p:selectManyMenu id="damage"
+							value="#{weaponController.weaponModel.damage}" filter="true"
+							filterMatchMode="contains" showCheckbox="true"
+							styleClass="manymenu-advanced" scrollHeight="90">
+							<f:selectItems value="#{weaponController.dices}" var="dice"
+								itemLabel="#{dice.description}" itemValue="#{dice}" />
+						</p:selectManyMenu>
+					</h:panelGrid>
+
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="warn" />
+					<p:messages autoUpdate="true" closable="true" severity="error" />
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="info" id="infoMessage" />
+
+				</h:form>
+
+			</p:tab>
+		</p:tabView>
+
+	</ui:define>
+
+</ui:composition>
+</html>

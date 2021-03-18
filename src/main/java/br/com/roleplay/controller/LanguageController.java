@@ -85,10 +85,6 @@ public class LanguageController {
 		
 		Utils.warningMessage("Record deleted.");
 	}
-	
-	public String getName(Set<RaceModel> list) {
-		return "TESTE";
-	}
 
 	public Set<Script> getScripts() {
 		return scripts;

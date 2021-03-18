@@ -1,6 +1,7 @@
 package br.com.roleplay.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,9 +9,11 @@ import java.util.Set;
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.RaceEntity;
+import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.RaceModel;
+import br.com.roleplay.model.WeaponModel;
 
 public class UtilsConverter {
 
@@ -140,5 +143,44 @@ public class UtilsConverter {
 		}
 
 		return entityList;
+	}
+
+	public static Set<WeaponModel> getWeaponModelSetFromWeaponEntitySet(Set<WeaponEntity> weaponEntitySet) {
+		
+		Set<WeaponModel> weaponModelSet = new HashSet<WeaponModel>();
+		
+		for (WeaponEntity weaponEntity : weaponEntitySet) {
+			WeaponModel weaponModel = new WeaponModel();
+			weaponModel.setName(weaponEntity.getName());
+			weaponModel.setCost(weaponEntity.getCost());
+			weaponModel.setWeight(weaponEntity.getWeight());
+			weaponModel.setWeaponProperties(weaponEntity.getWeaponProperties());
+			weaponModel.setWeaponCategory(weaponEntity.getWeaponCategory());
+			weaponModel.setDamage(weaponEntity.getDamage());
+			weaponModel.setDamageType(weaponEntity.getDamageType());
+		}
+		return weaponModelSet;
+	}
+	
+	public static Set<WeaponEntity> getWeaponEntitySetFromWeaponModelSet(Set<WeaponModel> weaponModelSet) {
+		
+		Set<WeaponEntity> weaponEntitySet = new HashSet<WeaponEntity>();
+		
+		for (WeaponModel weaponModel : weaponModelSet) {
+			weaponEntitySet.add(getWeaponEntityFromWeaponModel(weaponModel));
+		}
+		return weaponEntitySet;
+	}
+	
+	public static WeaponEntity getWeaponEntityFromWeaponModel(WeaponModel weaponModel) {
+		WeaponEntity weaponEntity = new WeaponEntity();
+		weaponEntity.setName(weaponModel.getName());
+		weaponEntity.setCost(weaponModel.getCost());
+		weaponEntity.setWeight(weaponModel.getWeight());
+		weaponEntity.setWeaponProperties(weaponModel.getWeaponProperties());
+		weaponEntity.setWeaponCategory(weaponModel.getWeaponCategory());
+		weaponEntity.setDamage(weaponModel.getDamage());
+		weaponEntity.setDamageType(weaponModel.getDamageType());
+		return weaponEntity;
 	}
 }
