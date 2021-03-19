@@ -1,9 +1,19 @@
 package br.com.roleplay.enums;
 
-public enum Script {
-	COMMON(1, "Common"), DWARVISH(2, "Dwarvish"), ELVISH(3, "Elvish"), INFERNAL(4, "Infernal"), CELESTIAL(5, "Celestial"),
-	DRACONIC(6, "Draconic"), NONE(7, "None");
-	
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.faces.context.FacesContext;
+
+public enum Script implements EnumLocation {
+	COMMON   (1, "label.language.script.commom"),
+	DWARVISH (2, "label.language.script.dwarvish"),
+	ELVISH   (3, "label.language.script.elvish"),
+	INFERNAL (4, "label.language.script.infernal"),
+	CELESTIAL(5, "label.language.script.celestial"),
+	DRACONIC (6, "label.language.script.draconic"),
+	NONE     (7, "label.language.script.none");
+
 	private Integer cod;
 	private String description;
 
@@ -26,5 +36,10 @@ public enum Script {
 
 	private void setCod(Integer cod) {
 		this.cod = cod;
+	}
+	
+	public String getLocaleDescription() {
+		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+		return ResourceBundle.getBundle("br.com.roleplay.messages.messages", locale).getString(description);
 	}
 }

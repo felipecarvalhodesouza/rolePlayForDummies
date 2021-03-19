@@ -3,26 +3,41 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
- 
-	<h:form>
- 
-		<p:menubar>
-			<p:menuitem value="Home" icon="pi pi-home" url="home.xhtml" />
-			<p:menuitem value="New Character" icon="pi pi-user-plus" />
-			<p:menuitem value="My Characters" icon="pi pi-users" />
-			<p:submenu label="Database" icon="pi pi-book">
-				<p:menuitem value="Language" icon="pi pi-info" url="language.xhtml" />
-				<p:menuitem value="Race" icon="pi pi-id-card" url="race.xhtml" />
-				<p:menuitem value="Weapon" icon="pi pi-folder-open" url="weapon.xhtml" />
-			</p:submenu>
-			<p:menuitem value="Print" icon="pi pi-print" />
- 
- 
-		<f:facet name="options">            
-            	        <p:commandButton value="Logout" icon="pi pi-sign-out" action="#{userController.logout}" />
-        	</f:facet>
-		</p:menubar>
- 
-	</h:form>
- 
+
+<h:form>
+	<style>
+.internationalization {
+	float: right;
+}
+</style>
+<f:view locale="#{internationalizationController.locale}"/>
+	<p:menubar>
+		<p:menuitem value="#{messages['label.home']}"
+			icon="pi pi-home" url="home.xhtml" />
+		<p:menuitem value="#{messages['label.new.character']}" icon="pi pi-user-plus" />
+		<p:menuitem value="#{messages['label.my.characters']}" icon="pi pi-users" />
+		<p:submenu label="#{messages['label.database']}" icon="pi pi-book">
+			<p:menuitem value="#{messages['label.languages']}" icon="pi pi-info" url="language.xhtml" />
+			<p:menuitem value="#{messages['label.races']}" icon="pi pi-id-card" url="race.xhtml" />
+			<p:menuitem value="#{messages['label.weapons']}" icon="pi pi-folder-open"
+				url="weapon.xhtml" />
+		</p:submenu>
+		<p:menuitem value="#{messages['label.print']}" icon="pi pi-print" />
+
+		<p:submenu label="#{messages['label.change.language']}" styleClass="internationalization">
+			<p:menuitem icon="pi pi-info"
+				actionListener="#{internationalizationController.localeChanged(internationalizationController.countries.get('Brazil'))}"
+				value="#{messages['label.language.portuguese']}" update="@all" />
+			<p:menuitem icon="pi pi-info"
+				actionListener="#{internationalizationController.localeChanged(internationalizationController.countries.get('English'))}"
+				value="#{messages['label.language.english']}" update="@all" />
+		</p:submenu>
+		<f:facet name="options">
+			<p:commandButton value="#{messages['label.logout']}" icon="pi pi-sign-out"
+				action="#{userController.logout}" />
+		</f:facet>
+	</p:menubar>
+
+</h:form>
+
 </html>

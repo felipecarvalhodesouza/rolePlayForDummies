@@ -21,63 +21,72 @@
 
 	<ui:define name="content">
 
-		<p:dialog header="Update Language" id="dialog-update-modal"
-			widgetVar="dialog-update-modal" modal="true" height="400px"
-			width="550px">
+		<p:dialog header="#{messages['label.update.language']}"
+			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true"
+			height="400px" width="550px">
 			<ui:include src="/system/updateLanguage.xhtml" />
 		</p:dialog>
 
 		<p:tabView style="width:700px;height:500px;margin:auto;">
-			<p:tab title="Language Registration"
+			<p:tab title="#{messages['label.language.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 
 				<h:form id="form-register">
-				
-					<p:growl id="message" showDetail="true"/>
+
+					<p:growl id="message" showDetail="true" />
 
 					<h:panelGrid id="panelGrid-form-fields" columns="2"
 						cellpadding="10">
 
-						<p:outputLabel value="Name" for="inputText-name" />
+						<p:outputLabel value="#{messages['label.name']}"
+							for="inputText-name" />
 						<p:inputText id="inputText-name" style="width:300px"
 							maxlength="70" value="#{languageController.languageModel.name}"
-							required="true" requiredMessage="Name required" />
+							required="true"
+							requiredMessage="#{messages['message.name.required']}" />
 
-						<p:outputLabel for="languageType" value="Language Type" />
+						<p:outputLabel for="languageType"
+							value="#{messages['label.language.type']}" />
 						<p:selectOneMenu id="languageType"
 							value="#{languageController.languageModel.languageType}"
-							required="true">
-							<f:selectItem itemLabel="Select One" itemValue="" />
+							required="true"
+							requiredMessage="#{messages['message.languageType.required']}">
+							<f:selectItem itemLabel="#{messages['label.select.one']}"
+								itemValue="" />
 							<f:selectItems value="#{languageController.languageTypes}"
-								var="languageType" itemLabel="#{languageType.description}" />
+								var="languageType"
+								itemLabel="#{languageType.getLocaleDescription()}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel for="script" value="Script" />
+						<p:outputLabel for="script"
+							value="#{messages['label.language.script']}" />
 						<p:selectOneMenu id="script"
 							value="#{languageController.languageModel.script}"
-							required="true">
-							<f:selectItem itemLabel="Select One" itemValue="" />
+							required="true"
+							requiredMessage="#{messages['message.script.required']}">
+							<f:selectItem itemLabel="#{messages['label.select.one']}"
+								itemValue="" />
 							<f:selectItems value="#{languageController.scripts}" var="script"
-								itemLabel="#{script.description}" />
+								itemLabel="#{script.getLocaleDescription()}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel for="races" value="Typical Speakers" />
+						<p:outputLabel for="races"
+							value="#{messages['label.language.typical.speakers']}" />
 						<p:selectManyMenu id="races"
 							value="#{languageController.languageModel.typicalSpeakers}"
 							filter="true" filterMatchMode="contains" showCheckbox="true"
-							converter="raceConverter"
-							styleClass="manymenu-advanced" scrollHeight="140">
-							<f:selectItems
-								value="#{languageController.typicalSpeakers}"
+							converter="raceConverter" styleClass="manymenu-advanced"
+							scrollHeight="140">
+							<f:selectItems value="#{languageController.typicalSpeakers}"
 								var="race" itemLabel="#{race.name}" itemValue="#{race}" />
 						</p:selectManyMenu>
 
 						<p:spacer />
 
-						<p:commandButton value="Save" id="commandButton-save"
-							icon="pi pi-save"
+						<p:commandButton value="#{messages['label.save']}"
+							id="commandButton-save" icon="pi pi-save"
 							actionListener="#{languageController.insertNewLanguage}"
-							update="panelGrid-form-fields, @([id$=languageBrowserTable]), infoMessage" />
+							update="panelGrid-form-fields, @([id$=languageBrowserTable]), infoMessage, message" />
 					</h:panelGrid>
 
 					<p:messages showDetail="true" autoUpdate="true" closable="true"
@@ -90,7 +99,7 @@
 
 			</p:tab>
 
-			<p:tab title="Language Database">
+			<p:tab title="#{messages['label.language.database']}">
 				<div class="card">
 					<p:dataTable id="languageBrowserTable" var="language"
 						value="#{languageController.languages}" scrollable="true"
@@ -100,7 +109,8 @@
 								style="text-align-last: right">
 								<div
 									style="float: left; margin-top: 10px; vertical-align: center">
-									List of Languages</div>
+									<h:outputText value="#{label.language.list}" />
+								</div>
 								<div>
 									<p:commandButton id="toggler" type="button" value="Columns"
 										icon="pi pi-align-justify" />
@@ -110,24 +120,25 @@
 							</div>
 						</f:facet>
 
-						<p:column headerText="Name">
+						<p:column headerText="#{messages['label.name']}">
 							<h:outputText value="#{language.name}" />
 						</p:column>
 
-						<p:column headerText="Script">
-							<h:outputText value="#{language.script.description}" />
+						<p:column headerText="#{messages['label.language.script']}">
+							<h:outputText value="#{language.script.getLocaleDescription()}" />
 						</p:column>
 
-						<p:column headerText="Typical Speakers">
-							<h:outputText value="#{empty language.typicalSpeakers ? 'None' : language.typicalSpeakers }" />
+						<p:column headerText="#{messages['label.language.typical.speakers']}">
+							<h:outputText
+								value="#{empty language.typicalSpeakers ? messages['label.none'] : language.typicalSpeakers }" />
 						</p:column>
 
-						<p:column headerText="Language Type">
-							<h:outputText value="#{language.languageType.description}" />
+						<p:column headerText="#{messages['label.language.type']}">
+							<h:outputText value="#{language.languageType.getLocaleDescription()}" />
 						</p:column>
 
-						<p:column headerText="Edit" style="width:25px;">
-							<p:commandButton icon="pi pi-pencil" title="Update Language"
+						<p:column headerText="#{messages['label.edit']}" style="width:25px;">
+							<p:commandButton icon="pi pi-pencil" title="#{messages['label.update.language']}"
 								ajax="true"
 								actionListener="#{languageController.openUpdateDialog(language)}"
 								oncomplete="PF('dialog-update-modal').show();"
