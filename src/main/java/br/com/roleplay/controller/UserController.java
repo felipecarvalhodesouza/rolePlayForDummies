@@ -55,12 +55,12 @@ public class UserController implements Serializable {
 
 		if (StringUtils.isEmpty(userModel.getNickname()) || StringUtils.isBlank(userModel.getNickname())) {
 
-			Utils.message("Nickname required");
+			Utils.message(Utils.getLocaleName("message.nickname.required"));
 			
 			return null;
 		} else if (StringUtils.isEmpty(userModel.getPassword()) || StringUtils.isBlank(userModel.getPassword())) {
 
-			Utils.message("Password required");
+			Utils.message(Utils.getLocaleName("message.password.required"));
 			
 			return null;
 		} else {
@@ -79,7 +79,7 @@ public class UserController implements Serializable {
 				return "system/home?faces-redirect=true";
 			} else {
 
-				Utils.message("It was not possible to authenticate.");
+				Utils.message(Utils.getLocaleName("message.login.error"));
 				
 				return null;
 			}

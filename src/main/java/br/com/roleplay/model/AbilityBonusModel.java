@@ -44,7 +44,7 @@ public class AbilityBonusModel {
 
 	@Override
 	public String toString() {
-		return trait.getDescription() + " +" + modifier;
+		return trait.getLocaleDescription() + " +" + modifier;
 	}
 
 	@Override

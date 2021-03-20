@@ -1,11 +1,18 @@
 package br.com.roleplay.enums;
 
-public enum Alignment {
+import br.com.roleplay.interfaces.EnumLocation;
 
-	LAWFUL_GOOD(1, "Lawful good"), LAWFUL_NEUTRAL(2, "Lawful neutral"), LAWFUL_EVIL(3, "Lawful evil"),
-	NEUTRAL_GOOD(4, "Neutral good"), TRUE_NEUTRAL(5, "True neutral"), NEUTRAL_EVIL(6, "Neutral evil"),
-	CHAOTIC_GOOD(7, "Chaotic good"), CHAOTIC_NEUTRAL(8, "Chaotic good"), CHAOTIC_EVIL(9, "Chaotic evil");
+public enum Alignment implements EnumLocation{
 
+	LAWFUL_GOOD(1, "label.enum.alignment.lawful.good"),
+	LAWFUL_NEUTRAL(2, "label.enum.alignment.lawful.neutral"),
+	LAWFUL_EVIL(3, "label.enum.alignment.lawful.evil"),
+	NEUTRAL_GOOD(4, "label.enum.alignment.neutral.good"),
+	TRUE_NEUTRAL(5, "label.enum.alignment.true.neutral"),
+	NEUTRAL_EVIL(6, "label.enum.alignment.neutral.evil"),
+	CHAOTIC_GOOD(7, "label.enum.alignment.chaotic.good"),
+	CHAOTIC_NEUTRAL(8, "label.enum.alignment.chaotic.neutral"),
+	CHAOTIC_EVIL(9, "label.enum.alignment.chaotic.evil");
 
 	private int cod;
 	private String description;

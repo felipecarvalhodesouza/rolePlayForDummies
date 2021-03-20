@@ -1,8 +1,10 @@
 package br.com.roleplay.enums;
 
-public enum Size {
-	SMALL(1, "Small"),
-	MEDIUM(2, "Medium");
+import br.com.roleplay.interfaces.EnumLocation;
+
+public enum Size implements EnumLocation{
+	SMALL(1, "label.enum.size.small"),
+	MEDIUM(2, "label.enum.size.medium");
 	
 	private Integer cod;
 	private String description;

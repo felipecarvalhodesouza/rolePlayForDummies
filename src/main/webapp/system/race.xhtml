@@ -38,13 +38,13 @@
 			vertical-align: middle;
 		}
 		</style>
-		<p:dialog header="Update Language" id="dialog-update-modal"
+		<p:dialog header="#{messages['label.update.race']}" id="dialog-update-modal"
 			widgetVar="dialog-update-modal" modal="true">
 			<ui:include src="/system/updateRace.xhtml" />
 		</p:dialog>
 		<p:tabView
 			style="width:90%;height:500px;margin:auto; align-itens: top">
-			<p:tab title="Race Registration"
+			<p:tab title="#{messages['label.race.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 
 				<h:form id="form-register">
@@ -55,84 +55,84 @@
 						columnClasses="panelGrid, panelGrid, panelGrid" cellpadding="10">
 						<h:panelGrid id="panelGrid-form-fields-1" columns="2"
 							layout="flex" cellpadding="10">
-							<p:outputLabel value="Name" for="inputText-name" />
+							<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
 							<p:inputText id="inputText-name" style="width:200px"
 								maxlength="70" value="#{raceController.raceModel.name}"
-								required="true" requiredMessage="Name required" />
+								required="true" requiredMessage="#{messages['label.name.required']}" />
 
-							<p:outputLabel for="alignment" value="Common Alignment" />
+							<p:outputLabel for="alignment" value="#{messages['label.race.common.alignment']}" />
 							<p:selectOneMenu id="alignment"
 								value="#{raceController.raceModel.alignment}" required="true"
-								requiredMessage="Alignment required">
-								<f:selectItem itemLabel="Select One" itemValue="" />
+								requiredMessage="#{messages['message.alignment.required']}">
+								<f:selectItem itemLabel="#{messages['label.select.one']}" itemValue="" />
 								<f:selectItems value="#{raceController.alignments}"
-									var="alignment" itemLabel="#{alignment.description}" itemValue="#{alignment}"/>
+									var="alignment" itemLabel="#{alignment.getLocaleDescription()}" itemValue="#{alignment}"/>
 							</p:selectOneMenu>
 
-							<p:outputLabel for="languages" value="Languages" />
+							<p:outputLabel for="languages" value="#{messages['label.languages']}" />
 							<p:selectManyMenu id="languages"
 								value="#{raceController.raceModel.languages}" filter="true"
 								converter="languageConverter" filterMatchMode="contains"
 								showCheckbox="true" styleClass="manymenu-advanced"
 								scrollHeight="90">
 								<f:selectItems value="#{raceController.languages}"
-									var="language" itemLabel="#{language.name}"
+									var="language" itemLabel="#{language.getLocaleName()}"
 									itemValue="#{language}" />
 							</p:selectManyMenu>
-							<p:outputLabel for="size" value="Size" />
+							<p:outputLabel for="size" value="#{messages['label.race.size']}" />
 							<p:selectOneRadio id="size"
 								value="#{raceController.raceModel.size}" layout="grid"
-								columns="2" styleClass="grid-radio" label="Size" required="true"
-								requiredMessage="Size required">
+								columns="2" styleClass="grid-radio" label="#{messages['label.size']}" required="true"
+								requiredMessage="#{messages['message.size.required']}">
 								<f:selectItems value="#{raceController.sizes}" var="size"
-									itemLabel="#{size.description}" itemValue="#{size}" />
+									itemLabel="#{size.getLocaleDescription()}" itemValue="#{size}" />
 							</p:selectOneRadio>
 						</h:panelGrid>
 						<h:panelGrid id="panelGrid-form-fields-2" columns="2"
 							layout="flex" cellpadding="10" styleClass="sliderGrid">
 							<p:inputText id="inputText-age"
 								value="#{raceController.raceModel.age}"
-								placeholder="Maximum age" required="true"
-								requiredMessage="Maximum age required" size="10" />
+								placeholder="#{messages['label.race.max.age']}" required="true"
+								requiredMessage="#{messages['message.max.age.required']}" size="10" />
 							<p:slider for="inputText-age" range="false" />
 
 							<p:inputText id="inputText-movement"
 								value="#{raceController.raceModel.movement}"
-								placeholder="Movement" required="true"
-								requiredMessage="Movement required" size="10" />
+								placeholder="#{messages['label.race.movement']}" required="true"
+								requiredMessage="#{messages['message.moviment.required']}" size="10" />
 							<p:slider for="inputText-movement" range="false" minValue="5"
 								maxValue="20" />
 
 							<p:inputText id="inputText-speed"
-								value="#{raceController.raceModel.speed}" placeholder="Speed"
-								required="true" requiredMessage="Speed required" size="10" />
+								value="#{raceController.raceModel.speed}" placeholder="#{messages['label.race.speed']}"
+								required="true" requiredMessage="#{messages['message.speed.required']}" size="10" />
 							<p:slider for="inputText-speed" range="false" minValue="5"
 								maxValue="20" style="width:100px" />
 
 							<p:inputText id="inputText-baseHeight"
 								value="#{raceController.raceModel.baseHeight}"
-								placeholder="Base height" required="true"
-								requiredMessage="Base height required" size="10" />
+								placeholder="#{messages['label.race.base.height']}" required="true"
+								requiredMessage="#{messages['message.base.height.required']}" size="10" />
 							<p:slider for="inputText-baseHeight" range="false" minValue="100"
 								maxValue="250" style="width:100px" />
 
 							<p:inputText id="inputText-baseWeight"
 								value="#{raceController.raceModel.baseWeight}"
-								placeholder="Base weight" required="true"
-								requiredMessage="Base weight required" size="10" />
+								placeholder="#{messages['label.race.base.weight']}" required="true"
+								requiredMessage="#{messages['message.base.weight.required']}" size="10" />
 							<p:slider for="inputText-baseWeight" range="false" minValue="30"
 								maxValue="250" style="width:100px" />
 						</h:panelGrid>
 
 						<h:panelGrid id="panelGrid-form-fields-3" columns="1"
 							layout="flex" cellpadding="10" styleClass="panelGrid-c">
-							<p:outputLabel for="ability_bonus" value="Ability bonus" />
+							<p:outputLabel for="ability_bonus" value="#{messages['label.ability.bonus']}" />
 							<p:selectManyCheckbox id="ability_bonus"
 								value="#{raceController.raceModel.abilityBonus}" layout="grid"
 								columns="3" styleClass="grid-checkbox" required="true"
 								style="width:max-content; float:left"
 								converter="abilityBonusConverter"
-								requiredMessage="Ability bonus required">
+								requiredMessage="#{messages['message.ability.bonus.required']}">
 								<f:selectItems value="#{raceController.abilityBonus}"
 									var="ability" itemLabel="#{ability}" itemValue="#{ability}" />
 							</p:selectManyCheckbox>
@@ -141,7 +141,7 @@
 						<p:spacer />
 						<p:spacer />
 
-						<p:commandButton value="Save" id="commandButton-save"
+						<p:commandButton value="#{messages['label.save']}" id="commandButton-save"
 							icon="pi pi-save"
 							actionListener="#{raceController.insertNewRace}"
 							update="form-register" />
@@ -149,7 +149,7 @@
 				</h:form>
 
 			</p:tab>
-			<p:tab title="Race Database">
+			<p:tab title="#{messages['label.race.database']}">
 				<div class="card">
 					<p:dataTable id="raceBrowserTable" var="race"
 						value="#{raceController.races}" scrollable="true"
@@ -159,9 +159,9 @@
 								style="text-align-last: right">
 								<div
 									style="float: left; margin-top: 10px; vertical-align: center">
-									List of Races</div>
+									<h:outputText value="#{label.language.list}" /></div>
 								<div>
-									<p:commandButton id="toggler" type="button" value="Columns"
+									<p:commandButton id="toggler" type="button" value="#{messages['label.columns']}"
 										icon="pi pi-align-justify" />
 									<p:columnToggler datasource="raceBrowserTable"
 										trigger="toggler" />
@@ -169,70 +169,70 @@
 							</div>
 						</f:facet>
 
-						<p:column headerText="Name">
+						<p:column headerText="#{messages['label.name']}">
 							<h:outputText value="#{race.name}" />
 						</p:column>
 
-						<p:column headerText="Alignment">
-							<h:outputText value="#{race.alignment.description}" />
+						<p:column headerText="#{messages['label.race.common.alignment']}">
+							<h:outputText value="#{race.alignment.getLocaleDescription()}" />
 						</p:column>
 						
-						<p:column headerText="Size">
-							<h:outputText value="#{race.size.description}" />
+						<p:column headerText="#{messages['label.race.size']}">
+							<h:outputText value="#{race.size.getLocaleDescription()}" />
 						</p:column>
 
-						<p:column headerText="Maximum Age">
+						<p:column headerText="#{messages['label.race.max.age']}">
 							<h:outputText value="#{race.age}" />
 						</p:column>
 
-						<p:column headerText="Movement">
+						<p:column headerText="#{messages['label.race.movement']}">
 							<h:outputText value="#{race.movement}" />
 						</p:column>
 						
-						<p:column headerText="Speed">
+						<p:column headerText="#{messages['label.race.speed']}">
 							<h:outputText value="#{race.speed}" />
 						</p:column>
 						
-						<p:column headerText="Base height">
+						<p:column headerText="#{messages['label.race.base.height']}">
 							<h:outputText value="#{race.baseHeight}" />
 						</p:column>
 						
-						<p:column headerText="Base weight">
+						<p:column headerText="#{messages['label.race.base.weight']}">
 							<h:outputText value="#{race.baseWeight}" />
 						</p:column>
 						
-						<p:column headerText="Ability bonus">
+						<p:column headerText="#{messages['label.ability.bonus']}">
 							<h:outputText
-								value="#{empty race.abilityBonus ? 'None' : race.abilityBonus }" />
+								value="#{empty race.abilityBonus ? messages['label.none'] : race.abilityBonus }" />
 						</p:column>
 
-						<p:column headerText="Languages">
+						<p:column headerText="#{messages['label.languages']}">
 							<h:outputText
-								value="#{empty race.languages ? 'None' : race.languages }" />
+								value="#{empty race.languages ? messages['label.none'] : race.languages }" />
 						</p:column>
 						
-						<p:column headerText="Edit" style="width:25px;">
-							<p:commandButton icon="pi pi-pencil" title="Update Race"
+						<p:column headerText="#{messages['label.edit']}" style="width:25px;">
+							<p:commandButton icon="pi pi-pencil" title="#{messages['label.update.race']}"
 								ajax="true"
 								actionListener="#{raceController.openUpdateDialog(race)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
 						</p:column>
 						
-						<p:column headerText="Remove" style="width:35px;">
-							<p:commandButton icon="pi pi-trash" title="Delete Race"
+						<p:column headerText="#{messages['label.remove']}" style="width:35px;">
+							<p:commandButton icon="pi pi-trash" title="#{messages['label.delete.race']}"
 								styleClass="ui-button-danger"
 								action="#{raceController.deleteRace(race)}"
 								update="raceBrowserTable, @([id$=message])">
 								<p:confirm type="popup" header="Confirmation"
-									message="Are you sure you want to proceed?"
+									message="#{messages['label.are.you.sure']}"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
 
 							<p:confirmPopup global="true">
-								<p:commandButton value="No" type="button"
+								<p:commandButton value="#{messages['label.no']}" type="button"
 									styleClass="ui-confirm-popup-no ui-button-flat" />
-								<p:commandButton value="Yes" type="button"
+								<p:commandButton value="#{messages['label.yes']}" type="button"
 									styleClass="ui-confirm-popup-yes" />
 							</p:confirmPopup>
 						</p:column>				

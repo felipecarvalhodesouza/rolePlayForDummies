@@ -1,9 +1,6 @@
 package br.com.roleplay.enums;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.faces.context.FacesContext;
+import br.com.roleplay.interfaces.EnumLocation;
 
 public enum LanguageType implements EnumLocation{
 	STANDARD(1, "label.language.type.description.standard"),
@@ -32,10 +29,5 @@ public enum LanguageType implements EnumLocation{
 
 	private void setCod(Integer cod) {
 		this.cod = cod;
-	}
-	
-	public String getLocaleDescription() {
-		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		return ResourceBundle.getBundle("br.com.roleplay.messages.messages", locale).getString(description);
 	}
 }

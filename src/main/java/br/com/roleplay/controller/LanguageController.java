@@ -1,6 +1,5 @@
 package br.com.roleplay.controller;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class LanguageController {
 	@Inject
 	RaceRepository raceRepository;
 
-	private Set<Script> scripts = new HashSet<Script>();
+	private Set<Script> scripts = new LinkedHashSet<Script>();
 	private Set<LanguageType> languageTypes = new LinkedHashSet<LanguageType>();
 	private Set<RaceModel> typicalSpeakers = new LinkedHashSet<RaceModel>();
 
@@ -66,7 +65,7 @@ public class LanguageController {
 		this.languageModel = new LanguageModel();
 		languages = languageRepository.getAllLanguages();
 
-		Utils.infoMessage("Record succesfully inserted.");
+		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
 	}
 
 	public void openUpdateDialog(LanguageModel languageModel) {
@@ -83,7 +82,7 @@ public class LanguageController {
 		languageRepository.deleteLanguage(languageModel.getId());
 		this.languages.remove(languageModel);
 		
-		Utils.warningMessage("Record deleted.");
+		Utils.warningMessage(Utils.getLocaleName("message.record.deleted"));
 	}
 
 	public Set<Script> getScripts() {

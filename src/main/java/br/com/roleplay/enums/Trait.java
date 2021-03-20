@@ -1,13 +1,16 @@
 package br.com.roleplay.enums;
 
-public enum Trait {
-	STRENGTH(1, "Strength"),
-	DEXTERITY(2, "Dexterity"),
-	CONSTITUTION(3, "Constitution"),
-	INTELLIGENCE(4, "Intelligence"),
-	WISDOM(5, "Wisdom"),
-	CHARISMA(6, "Charisma"),
-	ANY(7, "Any");
+import br.com.roleplay.interfaces.EnumLocation;
+
+public enum Trait implements EnumLocation{
+	
+	STRENGTH(1, "label.enum.trait.strength"),
+	DEXTERITY(2, "label.enum.trait.dexterity"),
+	CONSTITUTION(3, "label.enum.trait.constitution"),
+	INTELLIGENCE(4, "label.enum.trait.intelligence"),
+	WISDOM(5, "label.enum.trait.wisdom"),
+	CHARISMA(6, "label.enum.trait.charisma"),
+	ANY(7, "label.enum.trait.any");
 	
 	private int cod;
 	private String description;
