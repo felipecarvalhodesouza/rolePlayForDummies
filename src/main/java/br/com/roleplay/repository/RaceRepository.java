@@ -54,7 +54,7 @@ public class RaceRepository {
 
 		raceEntity.setLanguages(languages);
 		raceEntity.setAbilityBonus(abilityBonusList);
-
+		
 		entityManager.persist(raceEntity);
 
 	}

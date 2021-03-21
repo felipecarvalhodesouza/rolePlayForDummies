@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<style>
+.form-weapon tbody>tr>td:nth-child(3) {
+	border-left: outset;
+	padding-left: 8%;
+}
+
+.form-weapon tbody>tr>td:nth-child(4) {
+	text-align: center;
+}
+
+.rangeLabel {
+    width: 100%;
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 1em;
+ }
+</style>
+<h:form id="form-register">
+
+	<p:growl id="message" showDetail="true" />
+	<h:panelGrid id="panelGrid-form-fields" columns="4" cellpadding="10"
+		width="100%" styleClass="form-weapon">
+
+		<p:outputLabel value="Name" for="inputText-name" />
+		<p:inputText id="inputText-name" style="width:160px" maxlength="50"
+			value="#{weaponController.weaponModel.name}" required="true"
+			requiredMessage="Name required" />
+
+		<p:spacer />
+		<p:commandButton value="Save" id="commandButton-save"
+			icon="pi pi-save" style="text-align:left"
+			actionListener="#{weaponController.insertNewWeapon}"
+			update="panelGrid-form-fields, message" />
+
+		<p:outputLabel for="weaponCategory" value="Weapon Category" />
+		<p:selectOneRadio id="weaponCategory"
+			value="#{weaponController.weaponModel.weaponCategory}" layout="grid"
+			columns="2" styleClass="grid-radio" label="Weapon Category"
+			required="true" requiredMessage="Weapon category required">
+			<f:selectItems value="#{weaponController.weaponCategories}"
+				var="category" itemLabel="#{category.description}"
+				itemValue="#{category}" />
+		</p:selectOneRadio>
+
+		<p:outputLabel value="Cost" for="inputText-cost" />
+		<p:inputText type="number" id="inputText-cost" style="width:75px"
+			maxlength="8" value="#{weaponController.weaponModel.cost}"
+			required="true" requiredMessage="Cost required" />
+
+		<p:inputText id="inputText-weight"
+			value="#{weaponController.weaponModel.weight}" placeholder="Weight"
+			required="true" requiredMessage="Weight required" size="10" />
+		<p:slider for="inputText-weight" range="false" style="width:160px" />
+
+		<p:outputLabel for="weaponProperty" value="Property" />
+		<p:selectCheckboxMenu id="weaponProperty" widgetVar="weaponProperties"
+			value="#{weaponController.weaponModel.weaponProperties}"
+			required="true" multiple="true" style="width: 120px;" filter="true"
+			filterMatchMode="startsWith" scrollHeight="200" converter="weaponPropertyConverter">
+			<f:selectItems value="#{weaponController.weaponProperties}"
+				var="property" itemLabel="#{property.getLocaleDescription()}"
+				itemValue="#{property}" />
+			<p:ajax event="change" onstart="hideShowRange(); return false" />
+		</p:selectCheckboxMenu>
+
+	</h:panelGrid>
+	<div id="weapon-range">
+		<h:panelGrid columns="1" style="margin-bottom: 10px"  styleClass="rangeLabel">
+			<h:outputText id="displayRange" value="Range" />
+			<p:slider for="minRange, maxRange" display="displayRange"
+				style="width: 100%; margin-top: 10px;" range="true"
+				minValue="#{weaponController.minRange}"
+				maxValue="#{weaponController.maxRange}"
+				displayTemplate="Between {min} and {max}" />
+		</h:panelGrid>
+		<h:inputHidden id="minRange"
+			value="#{weaponController.weaponModel.minRange}" />
+		<h:inputHidden id="maxRange"
+			value="#{weaponController.weaponModel.maxRange}" />
+	</div>
+
+
+	<h:panelGrid columns="1" cellpadding="10">
+		<p:outputLabel for="damage" value="Damage" style="text-align:center" />
+		<p:selectManyCheckbox id="damage"
+			value="#{raceController.raceModel.abilityBonus}" layout="grid"
+			columns="10" styleClass="grid-checkbox" required="true"
+			style="width:max-content; float:left">
+			<f:selectItems value="#{weaponController.dices}" var="dice"
+				itemLabel="#{dice.description}" itemValue="#{dice}" />
+		</p:selectManyCheckbox>
+
+		<p:outputLabel for="damageType" value="Damage Type" />
+		<p:selectOneRadio id="damageType"
+			value="#{weaponController.weaponModel.damageType}" layout="grid"
+			columns="7" styleClass="grid-checkbox" required="true"
+			style="width:max-content; float:left" converter="damageTypeConverter">
+			<f:selectItems value="#{weaponController.damageTypes}"
+				var="damageType" itemLabel="#{damageType.description}"
+				itemValue="#{damageType}" />
+		</p:selectOneRadio>
+
+	</h:panelGrid>
+
+</h:form>
+<script>
+	$(document).ready(function() {
+		hideShowRange();
+	});
+
+	function hideShowRange() {
+		let checkedOptions = PF('weaponProperties').inputs.filter(':checked');
+		if (checkedOptions) {
+			
+			let ammo   = "label.enum.weapon.property.ammunition";
+			let range  = "label.enum.weapon.property.range";
+			let thrown = "label.enum.weapon.property.thrown";
+			
+			let propertiesList = "";
+			checkedOptions.each(function() {
+				propertiesList += $(this).val();
+			});
+			if (propertiesList.indexOf(ammo)   == -1 &amp;&amp; 
+				propertiesList.indexOf(range)  == -1 &amp;&amp; 
+				propertiesList.indexOf(thrown) == -1) {
+				$("#weapon-range").hide();
+			} else {
+				$("#weapon-range").show();
+			}
+		}
+	}
+</script>
+</html>
+

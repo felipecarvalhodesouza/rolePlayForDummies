@@ -1,9 +1,19 @@
 package br.com.roleplay.enums.weapon;
 
-public enum WeaponProperty {
+import br.com.roleplay.interfaces.EnumLocation;
 
-	AMMUNITION(1, "Ammunition"), FINESSE(2, "Finesse"), HEAVY(3, "Heavy"), LIGTH(4, "Light"), LOADING(5, "Loading"),
-	RANGE(6, "Range"), REACH(7, "Reach"), THROWN(8, "Thrown"), TWO_HANDED(9, "Two-Handed"), VERSATILE(10, "Versatile");
+public enum WeaponProperty implements EnumLocation{
+
+	AMMUNITION(1, "label.enum.weapon.property.ammunition"),
+	FINESSE(2, "label.enum.weapon.property.finesse"),
+	HEAVY(3, "label.enum.weapon.property.heavy"),
+	LIGTH(4, "label.enum.weapon.property.light"),
+	LOADING(5, "label.enum.weapon.property.loading"),
+	RANGE(6, "label.enum.weapon.property.range"),
+	REACH(7, "label.enum.weapon.property.reach"),
+	THROWN(8, "label.enum.weapon.property.thrown"),
+	TWO_HANDED(9, "label.enum.weapon.property.two_handed"),
+	VERSATILE(10, "label.enum.weapon.property.versatile");
 
 	private Integer cod;
 	private String description;

@@ -23,8 +23,11 @@ public class WeaponRepository {
 		entityManager = Utils.JpaEntityManager();
 
 		weaponEntity = UtilsConverter.getWeaponEntityFromWeaponModel(weaponModel);
-
+		
 		entityManager.persist(weaponEntity);
+		
+		System.out.println(weaponEntity.getWeaponProperties());
+		entityManager.flush();
 	}
 
 	public Set<WeaponModel> getAllWeapons() {

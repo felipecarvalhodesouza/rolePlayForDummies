@@ -2,7 +2,7 @@ package br.com.roleplay.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
 import br.com.roleplay.enums.weapon.WeaponProperty;
 import br.com.roleplay.model.WeaponModel;
+import br.com.roleplay.repository.WeaponRepository;
 import br.com.roleplay.utils.Utils;
 
 @Named(value = "weaponController")
@@ -24,11 +25,17 @@ public class WeaponController {
 
 	@Inject
 	private WeaponModel weaponModel;
+	
+	@Inject
+	private WeaponRepository weaponRepository;
 
-	Set<DamageType> damageTypes = new HashSet<DamageType>();
-	Set<WeaponCategory> weaponCategories = new HashSet<WeaponCategory>();
-	Set<WeaponProperty> weaponProperties = new HashSet<WeaponProperty>();
+	Set<DamageType> damageTypes = new LinkedHashSet<DamageType>();
+	Set<WeaponCategory> weaponCategories = new LinkedHashSet<WeaponCategory>();
+	Set<WeaponProperty> weaponProperties = new LinkedHashSet<WeaponProperty>();
 	private List<Dice> dices = new ArrayList<Dice>();
+	
+	private final int minRange = 0;
+	private final int maxRange = 600;
 
 	@PostConstruct
 	public void init() {
@@ -91,9 +98,22 @@ public class WeaponController {
 		this.dices = dices;
 	}
 
-	public void insertNewWeapon() {
+	public int getMinRange() {
+		return minRange;
+	}
 
-		Utils.infoMessage("Record succesfully inserted.");
+	public int getMaxRange() {
+		return maxRange;
+	}
+
+	public void insertNewWeapon() {
+		
+		weaponRepository.insertWeapon(this.weaponModel);
+
+		this.weaponModel = new WeaponModel();
+
+		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
+		
 	}
 
 }

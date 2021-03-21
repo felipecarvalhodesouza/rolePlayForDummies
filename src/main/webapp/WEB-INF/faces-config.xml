@@ -31,4 +31,14 @@
 		<converter-id>abilityBonusConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.AbilityBonusConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Weapon property converter</description>
+		<converter-id>weaponPropertyConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.WeaponPropertyConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Damage type converter</description>
+		<converter-id>damagetypeConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.DamageTypeConverter</converter-class>
+	</converter>
 </faces-config>

@@ -158,6 +158,8 @@ public class UtilsConverter {
 			weaponModel.setWeaponCategory(weaponEntity.getWeaponCategory());
 			weaponModel.setDamage(weaponEntity.getDamage());
 			weaponModel.setDamageType(weaponEntity.getDamageType());
+			weaponModel.setMinRange(weaponEntity.getMinRange());
+			weaponModel.setMaxRange(weaponEntity.getMaxRange());
 		}
 		return weaponModelSet;
 	}
@@ -181,6 +183,8 @@ public class UtilsConverter {
 		weaponEntity.setWeaponCategory(weaponModel.getWeaponCategory());
 		weaponEntity.setDamage(weaponModel.getDamage());
 		weaponEntity.setDamageType(weaponModel.getDamageType());
+		weaponEntity.setMinRange(weaponModel.getMinRange());
+		weaponEntity.setMaxRange(weaponModel.getMaxRange());
 		return weaponEntity;
 	}
 }

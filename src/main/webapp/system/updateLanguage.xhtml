@@ -42,7 +42,7 @@
 
 			<p:spacer />
 
-			<p:commandButton value="Update" id="commandButton-update"
+			<p:commandButton value="#{messages['label.update']}" id="commandButton-update"
 				icon="pi pi-save"
 				actionListener="#{languageController.updateLanguage(languageController.languageModel)}"
 				oncomplete="if(#update-language-form.valid) PF('dialog-update-modal').hide();"

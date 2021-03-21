@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form>
+	<h:form id="update-race-form">
 		<h:inputHidden id="inputHidden-id"
 			value="#{raceController.raceModel.id}" />
 		<p:growl id="message" showDetail="true" />
@@ -13,80 +13,80 @@
 			columnClasses="panelGrid, panelGrid, panelGrid" cellpadding="10">
 			<h:panelGrid id="panelGrid-form-fields-1" columns="2" layout="flex"
 				cellpadding="10">
-				<p:outputLabel value="Name" for="inputText-name" />
+				<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
 				<p:inputText id="inputText-name" style="width:200px" maxlength="70"
 					value="#{raceController.raceModel.name}" required="true"
-					requiredMessage="Name required" />
+					requiredMessage="#{messages['label.name.required']}" />
 
-				<p:outputLabel for="alignment" value="Common Alignment" />
+				<p:outputLabel for="alignment" value="#{messages['label.race.common.alignment']}" />
 				<p:selectOneMenu id="alignment"
 					value="#{raceController.raceModel.alignment}" required="true"
-					requiredMessage="Alignment required">
-					<f:selectItem itemLabel="Select One" itemValue="" />
+					requiredMessage="#{messages['message.alignment.required']}">
+					<f:selectItem itemLabel="#{messages['label.select.one']}" itemValue="" />
 					<f:selectItems value="#{raceController.alignments}" var="alignment"
-						itemLabel="#{alignment.description}" />
+						itemLabel="#{alignment.getLocaleDescription()}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel for="languages" value="Languages" />
+				<p:outputLabel for="languages" value="#{messages['label.languages']}" />
 				<p:selectManyMenu id="languages"
 					value="#{raceController.raceModel.languages}" filter="true"
 					converter="languageConverter" filterMatchMode="contains"
 					showCheckbox="true" styleClass="manymenu-advanced"
 					scrollHeight="90">
 					<f:selectItems value="#{raceController.languages}" var="language"
-						itemLabel="#{language.name}" itemValue="#{language}" />
+						itemLabel="#{language.getLocaleName()}" itemValue="#{language}" />
 				</p:selectManyMenu>
-				<p:outputLabel for="size" value="Size" />
+				<p:outputLabel for="size" value="#{messages['label.race.size']}" />
 				<p:selectOneRadio id="size" value="#{raceController.raceModel.size}"
 					layout="grid" columns="2" styleClass="grid-radio" label="Size"
-					required="true" requiredMessage="Size required">
+					required="true" requiredMessage="#{messages['message.size.required']}">
 					<f:selectItems value="#{raceController.sizes}" var="size"
-						itemLabel="#{size.description}" itemValue="#{size}" />
+						itemLabel="#{size.getLocaleDescription()}" itemValue="#{size}" />
 				</p:selectOneRadio>
 			</h:panelGrid>
 			<h:panelGrid id="panelGrid-form-fields-2" columns="2" layout="flex"
 				cellpadding="10" styleClass="sliderGrid">
 				<p:inputText id="inputText-age"
-					value="#{raceController.raceModel.age}" placeholder="Maximum age"
-					required="true" requiredMessage="Maximum age required" size="10" />
+					value="#{raceController.raceModel.age}" placeholder="#{messages['label.race.max.age']}"
+					required="true" requiredMessage="#{messages['message.max.age.required']}" size="10" />
 				<p:slider for="inputText-age" range="false" />
 
 				<p:inputText id="inputText-movement"
-					value="#{raceController.raceModel.movement}" placeholder="Movement"
-					required="true" requiredMessage="Movement required" size="10" />
+					value="#{raceController.raceModel.movement}" placeholder="#{messages['label.race.movement']}"
+					required="true" requiredMessage="#{messages['message.moviment.required']}" size="10" />
 				<p:slider for="inputText-movement" range="false" minValue="5"
 					maxValue="20" />
 
 				<p:inputText id="inputText-speed"
-					value="#{raceController.raceModel.speed}" placeholder="Speed"
-					required="true" requiredMessage="Speed required" size="10" />
+					value="#{raceController.raceModel.speed}" placeholder="#{messages['label.race.speed']}"
+					required="true" requiredMessage="#{messages['message.speed.required']}" size="10" />
 				<p:slider for="inputText-speed" range="false" minValue="5"
 					maxValue="20" style="width:100px" />
 
 				<p:inputText id="inputText-baseHeight"
 					value="#{raceController.raceModel.baseHeight}"
-					placeholder="Base height" required="true"
-					requiredMessage="Base height required" size="10" />
+					placeholder="#{messages['label.race.base.height']}" required="true"
+					requiredMessage="#{messages['message.base.height.required']}" size="10" />
 				<p:slider for="inputText-baseHeight" range="false" minValue="100"
 					maxValue="250" style="width:100px" />
 
 				<p:inputText id="inputText-baseWeight"
 					value="#{raceController.raceModel.baseWeight}"
-					placeholder="Base weight" required="true"
-					requiredMessage="Base weight required" size="10" />
+					placeholder="#{messages['label.race.base.weight']}" required="true"
+					requiredMessage="#{messages['message.base.weight.required']}" size="10" />
 				<p:slider for="inputText-baseWeight" range="false" minValue="30"
 					maxValue="250" style="width:100px" />
 			</h:panelGrid>
 
 			<h:panelGrid id="panelGrid-form-fields-3" columns="1" layout="flex"
 				cellpadding="10" styleClass="panelGrid-c">
-				<p:outputLabel for="ability_bonus" value="Ability bonus" />
+				<p:outputLabel for="ability_bonus" value="#{messages['label.ability.bonus']}" />
 				<p:selectManyCheckbox id="ability_bonus"
 					value="#{raceController.raceModel.abilityBonus}" layout="grid"
 					columns="3" styleClass="grid-checkbox" required="true"
 					style="width:max-content; float:left"
 					converter="abilityBonusConverter"
-					requiredMessage="Ability bonus required">
+					requiredMessage="#{messages['message.ability.bonus.required']}">
 					<f:selectItems value="#{raceController.abilityBonus}" var="ability"
 						itemLabel="#{ability}" itemValue="#{ability}" />
 				</p:selectManyCheckbox>
@@ -95,10 +95,10 @@
 			<p:spacer />
 			<p:spacer />
 
-			<p:commandButton value="Update" id="commandButton-update"
+			<p:commandButton value="#{messages['label.update']}" id="commandButton-update"
 				icon="pi pi-save"
 				actionListener="#{raceController.updateRace(raceController.raceModel)}"
-				oncomplete="PF('dialog-update-modal').hide();"
+				oncomplete="if(#update-race-form.valid) PF('dialog-update-modal').hide();"
 				update="@([id$=raceBrowserTable])" />
 		</h:panelGrid>
 

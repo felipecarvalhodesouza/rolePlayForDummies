@@ -10,7 +10,7 @@ import br.com.roleplay.enums.weapon.WeaponProperty;
 
 public class WeaponModel {
 
-	private Integer id;
+	private long id;
 	private String name;
 	private Integer cost;
 	private Double weight;
@@ -18,12 +18,14 @@ public class WeaponModel {
 	private WeaponCategory weaponCategory;
 	private List<Dice> damage;
 	private DamageType damageType;
+	private int minRange;
+	private int maxRange;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -81,5 +83,21 @@ public class WeaponModel {
 
 	public void setDamageType(DamageType damageType) {
 		this.damageType = damageType;
+	}
+
+	public int getMinRange() {
+		return minRange;
+	}
+
+	public void setMinRange(int minRange) {
+		this.minRange = minRange;
+	}
+
+	public int getMaxRange() {
+		return maxRange;
+	}
+
+	public void setMaxRange(int maxRange) {
+		this.maxRange = maxRange;
 	}
 }

@@ -3,14 +3,17 @@ package br.com.roleplay.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
@@ -26,7 +29,7 @@ public class WeaponEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private long id;
 	
 	@Column(name = "name")
 	private String name;
@@ -37,8 +40,11 @@ public class WeaponEntity {
 	@Column(name = "weight")
 	private Double weight;
 	
-	@ElementCollection
-	@JoinTable(name = "weapon_properties")
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = WeaponProperty.class)
+	@CollectionTable(name = "weapon_property",
+	joinColumns = @JoinColumn(name="weapon_id", referencedColumnName="id"))
+	@Column(name = "property", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Set<WeaponProperty> weaponProperties;
 	
 	@Column(name="weaponCategory")
@@ -50,13 +56,20 @@ public class WeaponEntity {
 	private List<Dice> damage;
 	
 	@Column(name="damageType")
+	@Enumerated(EnumType.STRING)
 	private DamageType damageType;
+	
+	@Column(name="minRange")
+	private Integer minRange;
+	
+	@Column(name="maxRange")
+	private Integer maxRange;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -83,7 +96,7 @@ public class WeaponEntity {
 	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
-
+	
 	public Set<WeaponProperty> getWeaponProperties() {
 		return weaponProperties;
 	}
@@ -114,5 +127,21 @@ public class WeaponEntity {
 
 	public void setDamageType(DamageType damageType) {
 		this.damageType = damageType;
+	}
+
+	public Integer getMinRange() {
+		return minRange;
+	}
+
+	public void setMinRange(Integer minRange) {
+		this.minRange = minRange;
+	}
+
+	public Integer getMaxRange() {
+		return maxRange;
+	}
+
+	public void setMaxRange(Integer maxRange) {
+		this.maxRange = maxRange;
 	}
 }
