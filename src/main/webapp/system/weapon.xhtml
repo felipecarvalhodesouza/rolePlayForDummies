@@ -16,15 +16,96 @@
 }
 </style>
 
+		<p:dialog header="#{messages['label.update.weapon']}"
+			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
+			<ui:include src="/system/updateWeapon.xhtml" />
+		</p:dialog>
+
 		<p:tabView style="width:720px;height:500px;margin:auto;">
-			<p:tab title="Weapon Registration"
+			<p:tab title="#{messages['label.weapon.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 
-				<ui:include src="/form/weaponForm.xhtml"/>
-				
+				<ui:include src="/form/weaponForm.xhtml" />
+
 			</p:tab>
-			
-			
+			<p:tab title="#{messages['label.weapon.database']}">
+				<div class="card">
+					<p:dataTable id="weaponBrowserTable" var="weapon"
+						value="#{weaponController.weapons}" scrollable="true"
+						scrollHeight="750">
+						<f:facet name="header">
+							<div class="p-d-flex p-jc-between p-ai-center"
+								style="text-align-last: right">
+								<div
+									style="float: left; margin-top: 10px; vertical-align: center">
+									<h:outputText value="#{messages['label.weapon.list']}" />
+								</div>
+								<div>
+									<p:commandButton id="toggler" type="button"
+										value="#{messages['label.columns']}"
+										icon="pi pi-align-justify" />
+									<p:columnToggler datasource="weaponBrowserTable"
+										trigger="toggler" />
+								</div>
+							</div>
+						</f:facet>
+
+						<p:column headerText="#{messages['label.name']}">
+							<h:outputText value="#{weapon.name}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.weapon.category']}">
+							<h:outputText value="#{weapon.weaponCategory.getLocaleDescription()}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.cost']}">
+							<h:outputText value="#{weapon.cost}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.weight']}">
+							<h:outputText value="#{weapon.weight}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.property']}" style="width:100px">
+							<h:outputText value="#{weapon.weaponProperties}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.range']}" style="text-align:center" >
+							<h:outputText value="#{weapon.minRange == 0 ? '--' : weapon.getRange()}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.edit']}"
+							style="width:25px;">
+							<p:commandButton icon="pi pi-pencil"
+								title="#{messages['label.update.weapon']}" ajax="true"
+								actionListener="#{weaponController.openUpdateDialog(weapon)}"
+								oncomplete="PF('dialog-update-modal').show();"
+								update="dialog-update-modal" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.remove']}"
+							style="width:35px;">
+							<p:commandButton icon="pi pi-trash"
+								title="#{messages['label.delete.weapon']}"
+								styleClass="ui-button-danger"
+								action="#{weaponController.deleteWeapon(weapon)}"
+								update="weaponBrowserTable, @([id$=message])">
+								<p:confirm type="popup" header="Confirmation"
+									message="#{messages['label.are.you.sure']}"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+
+							<p:confirmPopup global="true">
+								<p:commandButton value="#{messages['label.no']}" type="button"
+									styleClass="ui-confirm-popup-no ui-button-flat" />
+								<p:commandButton value="#{messages['label.yes']}" type="button"
+									styleClass="ui-confirm-popup-yes" />
+							</p:confirmPopup>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+			</p:tab>
 		</p:tabView>
 
 	</ui:define>

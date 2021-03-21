@@ -1,8 +1,11 @@
 package br.com.roleplay.enums.weapon;
 
-public enum WeaponCategory {
+import br.com.roleplay.interfaces.EnumLocation;
 
-	SIMPLE(1, "Simple"), MARTIAL(2, "Martial");
+public enum WeaponCategory implements EnumLocation{
+
+	SIMPLE(1, "label.enum.weapon.category.simple"),
+	MARTIAL(2, "label.enum.weapon.category.martial");
 
 	private Integer cod;
 	private String description;
@@ -27,5 +30,4 @@ public enum WeaponCategory {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 }

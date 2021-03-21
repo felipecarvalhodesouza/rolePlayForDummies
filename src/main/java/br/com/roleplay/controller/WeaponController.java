@@ -25,15 +25,17 @@ public class WeaponController {
 
 	@Inject
 	private WeaponModel weaponModel;
-	
+
 	@Inject
 	private WeaponRepository weaponRepository;
 
-	Set<DamageType> damageTypes = new LinkedHashSet<DamageType>();
-	Set<WeaponCategory> weaponCategories = new LinkedHashSet<WeaponCategory>();
-	Set<WeaponProperty> weaponProperties = new LinkedHashSet<WeaponProperty>();
+	private Set<DamageType> damageTypes = new LinkedHashSet<DamageType>();
+	private Set<WeaponCategory> weaponCategories = new LinkedHashSet<WeaponCategory>();
+	private Set<WeaponProperty> weaponProperties = new LinkedHashSet<WeaponProperty>();
 	private List<Dice> dices = new ArrayList<Dice>();
-	
+
+	private Set<WeaponModel> weapons = new LinkedHashSet<WeaponModel>();
+
 	private final int minRange = 0;
 	private final int maxRange = 600;
 
@@ -55,7 +57,12 @@ public class WeaponController {
 		for (Dice dice : Dice.values()) {
 			getDices().addAll(Arrays.asList(dice, dice));
 		}
+		
+		weapons = weaponRepository.getAllWeapons();
+	}
 
+	public void openUpdateDialog(WeaponModel weaponModel) {
+		this.weaponModel = weaponModel;
 	}
 
 	public WeaponModel getWeaponModel() {
@@ -98,6 +105,14 @@ public class WeaponController {
 		this.dices = dices;
 	}
 
+	public Set<WeaponModel> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(Set<WeaponModel> weapons) {
+		this.weapons = weapons;
+	}
+
 	public int getMinRange() {
 		return minRange;
 	}
@@ -107,13 +122,15 @@ public class WeaponController {
 	}
 
 	public void insertNewWeapon() {
-		
+
 		weaponRepository.insertWeapon(this.weaponModel);
+		
+		weapons.add(weaponModel);
 
 		this.weaponModel = new WeaponModel();
 
 		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
-		
+
 	}
 
 }

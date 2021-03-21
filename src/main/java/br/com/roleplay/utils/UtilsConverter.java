@@ -160,6 +160,7 @@ public class UtilsConverter {
 			weaponModel.setDamageType(weaponEntity.getDamageType());
 			weaponModel.setMinRange(weaponEntity.getMinRange());
 			weaponModel.setMaxRange(weaponEntity.getMaxRange());
+			weaponModelSet.add(weaponModel);
 		}
 		return weaponModelSet;
 	}

@@ -100,4 +100,12 @@ public class WeaponModel {
 	public void setMaxRange(int maxRange) {
 		this.maxRange = maxRange;
 	}
+	
+	public String getRange() {
+		StringBuffer sb = new StringBuffer();
+		return sb.append(getMinRange())
+				  .append(" - ")
+				  .append(getMaxRange())
+				  .toString();
+	}
 }

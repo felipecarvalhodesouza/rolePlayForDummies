@@ -74,7 +74,7 @@ public class RaceController {
 
 		this.setRaceModel(new RaceModel());
 
-		Utils.infoMessage("Record succesfully inserted.");
+		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
 	}
 	
 	public void openUpdateDialog(RaceModel raceModel) {
@@ -91,7 +91,7 @@ public class RaceController {
 		raceRepository.deleteRace(raceModel.getId());
 		this.races.remove(raceModel);
 		
-		Utils.warningMessage("Record deleted.");
+		Utils.warningMessage(Utils.getLocaleName("message.record.deleted"));
 	}
 
 	public Set<LanguageModel> getLanguages() {

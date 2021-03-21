@@ -144,7 +144,7 @@
 						<p:commandButton value="#{messages['label.save']}" id="commandButton-save"
 							icon="pi pi-save"
 							actionListener="#{raceController.insertNewRace}"
-							update="form-register" />
+							update="form-register, @([id$=raceBrowserTable])" />
 					</h:panelGrid>
 				</h:form>
 
