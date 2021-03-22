@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 import br.com.roleplay.enums.Dice;
@@ -51,8 +50,11 @@ public class WeaponEntity {
 	@Enumerated(EnumType.STRING)
 	private WeaponCategory weaponCategory;
 	
-	@ElementCollection
-	@JoinTable(name = "weapon_damage")
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Dice.class)
+	@CollectionTable(name = "weapon_damage",
+	joinColumns = @JoinColumn(name="weapon_id", referencedColumnName="id"))
+	@Column(name = "dice", nullable = false)
+	@Enumerated(EnumType.ORDINAL)
 	private List<Dice> damage;
 	
 	@Column(name="damageType")

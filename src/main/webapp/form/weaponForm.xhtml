@@ -36,7 +36,7 @@
 		<p:commandButton value="#{messages['label.save']}"
 			id="commandButton-save" icon="pi pi-save" style="text-align:left"
 			actionListener="#{weaponController.insertNewWeapon}"
-			update="panelGrid-form-fields, message" />
+			update="panelGrid-form-fields, message, @([id$=weapon-range-slider]), @([id$=form-fields-2]), @([id$=weaponBrowserTable])" />
 
 		<p:outputLabel for="weaponCategory"
 			value="#{messages['label.weapon.category']}" />
@@ -77,9 +77,9 @@
 		</p:selectCheckboxMenu>
 
 	</h:panelGrid>
-	<div id="weapon-range">
+	<div id="weaponRange">
 		<h:panelGrid columns="1" style="margin-bottom: 10px"
-			styleClass="rangeLabel">
+			id="weapon-range-slider" styleClass="rangeLabel">
 			<h:outputText id="displayRange" value="#{messages['label.range']}" />
 			<p:slider for="minRange, maxRange" display="displayRange"
 				style="width: 100%; margin-top: 10px;" range="true"
@@ -94,17 +94,21 @@
 	</div>
 
 
-	<h:panelGrid columns="1" cellpadding="10">
-		<p:outputLabel for="damage" value="#{messages['label.damage']}" style="text-align:center" />
+	<h:panelGrid columns="1" cellpadding="10" id="form-fields-2">
+		<p:outputLabel for="damage" value="#{messages['label.damage']}"
+			style="text-align:center" />
 		<p:selectManyCheckbox id="damage"
-			value="#{raceController.raceModel.abilityBonus}" layout="grid"
+			value="#{weaponController.weaponModel.damage}" layout="grid"
 			columns="10" styleClass="grid-checkbox" required="true"
-			style="width:max-content; float:left" requiredMessage="#{messages['message.damage.required']}">
+			style="width:max-content; float:left"
+			requiredMessage="#{messages['message.damage.required']}"
+			converter="diceConverter">
 			<f:selectItems value="#{weaponController.dices}" var="dice"
 				itemLabel="#{dice.description}" itemValue="#{dice}" />
 		</p:selectManyCheckbox>
 
-		<p:outputLabel for="damageType" value="#{messages['label.damage.type']}" />
+		<p:outputLabel for="damageType"
+			value="#{messages['label.damage.type']}" />
 		<p:selectOneRadio id="damageType"
 			value="#{weaponController.weaponModel.damageType}" layout="grid"
 			columns="7" styleClass="grid-checkbox" required="true"
@@ -116,7 +120,6 @@
 		</p:selectOneRadio>
 
 	</h:panelGrid>
-
 </h:form>
 <script>
 	$(document).ready(function() {
@@ -138,13 +141,11 @@
 			if (propertiesList.indexOf(ammo)   == -1 &amp;&amp; 
 				propertiesList.indexOf(range)  == -1 &amp;&amp; 
 				propertiesList.indexOf(thrown) == -1) {
-				$("#weapon-range").hide();
+				$("#tabview\\:form-register\\:weapon-range-slider").hide();
 			} else {
-				$("#weapon-range").show();
-				return true;
+				$("#tabview\\:form-register\\:weapon-range-slider").show();
 			}
 		}
-		return false;
 	}
 </script>
 </html>

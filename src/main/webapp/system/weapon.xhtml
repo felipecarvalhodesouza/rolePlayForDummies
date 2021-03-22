@@ -21,7 +21,7 @@
 			<ui:include src="/system/updateWeapon.xhtml" />
 		</p:dialog>
 
-		<p:tabView style="width:720px;height:500px;margin:auto;">
+		<p:tabView style="width:720px;height:500px;margin:auto;" id="tabview">
 			<p:tab title="#{messages['label.weapon.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 
@@ -55,7 +55,8 @@
 						</p:column>
 
 						<p:column headerText="#{messages['label.weapon.category']}">
-							<h:outputText value="#{weapon.weaponCategory.getLocaleDescription()}" />
+							<h:outputText
+								value="#{weapon.weaponCategory.getLocaleDescription()}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.cost']}">
@@ -66,12 +67,15 @@
 							<h:outputText value="#{weapon.weight}" />
 						</p:column>
 
-						<p:column headerText="#{messages['label.property']}" style="width:100px">
+						<p:column headerText="#{messages['label.property']}"
+							style="width:100px">
 							<h:outputText value="#{weapon.weaponProperties}" />
 						</p:column>
 
-						<p:column headerText="#{messages['label.range']}" style="text-align:center" >
-							<h:outputText value="#{weapon.minRange == 0 ? '--' : weapon.getRange()}" />
+						<p:column headerText="#{messages['label.range']}"
+							style="text-align:center">
+							<h:outputText
+								value="#{weapon.minRange == 0 ? '--' : weapon.getRange()}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.edit']}"
@@ -107,8 +111,7 @@
 				</div>
 			</p:tab>
 		</p:tabView>
-
 	</ui:define>
-
 </ui:composition>
+
 </html>

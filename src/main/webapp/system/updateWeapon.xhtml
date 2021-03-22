@@ -5,4 +5,28 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:include src="/form/weaponForm.xhtml" />
+<script>
+function hideShowRange() {
+		let checkedOptions = PF('weaponProperties').inputs.filter(':checked');
+		if (checkedOptions) {
+			
+			let ammo   = "label.enum.weapon.property.ammunition";
+			let range  = "label.enum.weapon.property.range";
+			let thrown = "label.enum.weapon.property.thrown";
+			
+			let propertiesList = "";
+			checkedOptions.each(function() {
+				propertiesList += $(this).val();
+			});
+			if (propertiesList.indexOf(ammo)   == -1 &amp;&amp; 
+				propertiesList.indexOf(range)  == -1 &amp;&amp; 
+				propertiesList.indexOf(thrown) == -1) {
+				$("#form-register\\:weapon-range-slider").hide();
+			} else {
+				$("#form-register\\:weapon-range-slider").show();
+			}
+		}
+	}
+</script>
+
 </ui:composition>

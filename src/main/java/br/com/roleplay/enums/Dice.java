@@ -1,12 +1,19 @@
 package br.com.roleplay.enums;
 
-public enum Dice {
+import java.io.Serializable;
+
+public enum Dice implements Serializable {
 	
 	D4(1, "D4", 4),
-	D6(1, "D6", 6),
-	D8(1, "D8", 8),
-	D10(1, "D10", 10),
-	D12(1, "D12", 12);
+	D4_2(6, "D4", 4),
+	D6(2, "D6", 6),
+	D6_2(7, "D6", 6),
+	D8(3, "D8", 8),
+	D8_2(8, "D8", 8),
+	D10(4, "D10", 10),
+	D10_2(9, "D10", 10),
+	D12(5, "D12", 12),
+	D12_2(10, "D12", 12);
 	
 	private Integer cod;
 	private String description;

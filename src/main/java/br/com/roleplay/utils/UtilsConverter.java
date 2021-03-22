@@ -1,7 +1,6 @@
 package br.com.roleplay.utils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -147,10 +146,11 @@ public class UtilsConverter {
 
 	public static Set<WeaponModel> getWeaponModelSetFromWeaponEntitySet(Set<WeaponEntity> weaponEntitySet) {
 		
-		Set<WeaponModel> weaponModelSet = new HashSet<WeaponModel>();
+		Set<WeaponModel> weaponModelSet = new LinkedHashSet<WeaponModel>();
 		
 		for (WeaponEntity weaponEntity : weaponEntitySet) {
 			WeaponModel weaponModel = new WeaponModel();
+			weaponModel.setId(weaponEntity.getId());
 			weaponModel.setName(weaponEntity.getName());
 			weaponModel.setCost(weaponEntity.getCost());
 			weaponModel.setWeight(weaponEntity.getWeight());
@@ -167,7 +167,7 @@ public class UtilsConverter {
 	
 	public static Set<WeaponEntity> getWeaponEntitySetFromWeaponModelSet(Set<WeaponModel> weaponModelSet) {
 		
-		Set<WeaponEntity> weaponEntitySet = new HashSet<WeaponEntity>();
+		Set<WeaponEntity> weaponEntitySet = new LinkedHashSet<WeaponEntity>();
 		
 		for (WeaponModel weaponModel : weaponModelSet) {
 			weaponEntitySet.add(getWeaponEntityFromWeaponModel(weaponModel));

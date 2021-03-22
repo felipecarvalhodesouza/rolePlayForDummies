@@ -1,7 +1,6 @@
 package br.com.roleplay.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,7 +54,7 @@ public class WeaponController {
 		}
 
 		for (Dice dice : Dice.values()) {
-			getDices().addAll(Arrays.asList(dice, dice));
+			getDices().add(dice);
 		}
 		
 		weapons = weaponRepository.getAllWeapons();
@@ -131,6 +130,14 @@ public class WeaponController {
 
 		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
 
+	}
+	
+	public void deleteWeapon(WeaponModel weaponModel) {
+
+		weaponRepository.deleteWeapon(weaponModel.getId());
+		this.weapons.remove(weaponModel);
+		
+		Utils.warningMessage(Utils.getLocaleName("message.record.deleted"));
 	}
 
 }
