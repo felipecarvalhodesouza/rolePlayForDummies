@@ -3,6 +3,7 @@ package br.com.roleplay.model;
 import java.util.List;
 import java.util.Set;
 
+import br.com.roleplay.enums.Coin;
 import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
@@ -13,6 +14,7 @@ public class WeaponModel {
 	private long id;
 	private String name;
 	private Integer cost;
+	private Coin coin;
 	private Double weight;
 	private Set<WeaponProperty> weaponProperties;
 	private WeaponCategory weaponCategory;
@@ -106,6 +108,21 @@ public class WeaponModel {
 		return sb.append(getMinRange())
 				  .append(" - ")
 				  .append(getMaxRange())
+				  .toString();
+	}
+
+	public Coin getCoin() {
+		return coin;
+	}
+
+	public void setCoin(Coin coin) {
+		this.coin = coin;
+	}
+	
+	public String getValue() {
+		StringBuffer sb = new StringBuffer();
+		return sb.append(getCost())
+				  .append(getCoin().getLocaleDescription())
 				  .toString();
 	}
 }

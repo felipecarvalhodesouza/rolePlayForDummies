@@ -149,18 +149,7 @@ public class UtilsConverter {
 		Set<WeaponModel> weaponModelSet = new LinkedHashSet<WeaponModel>();
 		
 		for (WeaponEntity weaponEntity : weaponEntitySet) {
-			WeaponModel weaponModel = new WeaponModel();
-			weaponModel.setId(weaponEntity.getId());
-			weaponModel.setName(weaponEntity.getName());
-			weaponModel.setCost(weaponEntity.getCost());
-			weaponModel.setWeight(weaponEntity.getWeight());
-			weaponModel.setWeaponProperties(weaponEntity.getWeaponProperties());
-			weaponModel.setWeaponCategory(weaponEntity.getWeaponCategory());
-			weaponModel.setDamage(weaponEntity.getDamage());
-			weaponModel.setDamageType(weaponEntity.getDamageType());
-			weaponModel.setMinRange(weaponEntity.getMinRange());
-			weaponModel.setMaxRange(weaponEntity.getMaxRange());
-			weaponModelSet.add(weaponModel);
+			weaponModelSet.add(getWeaponModelFromWeaponEntity(weaponEntity));
 		}
 		return weaponModelSet;
 	}
@@ -179,6 +168,7 @@ public class UtilsConverter {
 		WeaponEntity weaponEntity = new WeaponEntity();
 		weaponEntity.setName(weaponModel.getName());
 		weaponEntity.setCost(weaponModel.getCost());
+		weaponEntity.setCoin(weaponModel.getCoin());
 		weaponEntity.setWeight(weaponModel.getWeight());
 		weaponEntity.setWeaponProperties(weaponModel.getWeaponProperties());
 		weaponEntity.setWeaponCategory(weaponModel.getWeaponCategory());
@@ -187,5 +177,21 @@ public class UtilsConverter {
 		weaponEntity.setMinRange(weaponModel.getMinRange());
 		weaponEntity.setMaxRange(weaponModel.getMaxRange());
 		return weaponEntity;
+	}
+	
+	public static WeaponModel getWeaponModelFromWeaponEntity(WeaponEntity weaponEntity) {
+		WeaponModel weaponModel = new WeaponModel();
+		weaponModel.setId(weaponEntity.getId());
+		weaponModel.setName(weaponEntity.getName());
+		weaponModel.setCost(weaponEntity.getCost());
+		weaponModel.setCoin(weaponEntity.getCoin());
+		weaponModel.setWeight(weaponEntity.getWeight());
+		weaponModel.setWeaponProperties(weaponEntity.getWeaponProperties());
+		weaponModel.setWeaponCategory(weaponEntity.getWeaponCategory());
+		weaponModel.setDamage(weaponEntity.getDamage());
+		weaponModel.setDamageType(weaponEntity.getDamageType());
+		weaponModel.setMinRange(weaponEntity.getMinRange());
+		weaponModel.setMaxRange(weaponEntity.getMaxRange());
+		return weaponModel;
 	}
 }

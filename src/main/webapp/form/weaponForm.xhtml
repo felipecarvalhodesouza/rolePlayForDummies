@@ -8,10 +8,16 @@
 .form-weapon tbody>tr>td:nth-child(3) {
 	border-left: outset;
 	padding-left: 8%;
+	width: 20%;
 }
 
 .form-weapon tbody>tr>td:nth-child(4) {
 	text-align: center;
+}
+
+.cost-panel	{
+	margin-left:auto; 
+	margin-right:auto;
 }
 
 .rangeLabel {
@@ -19,6 +25,11 @@
 	text-align: center;
 	padding-top: 2em;
 	padding-bottom: 1em;
+}
+
+.grid-checkbox td {
+	padding-right: 2rem;
+	padding-bottom: .5rem;
 }
 </style>
 <h:form id="form-register">
@@ -28,7 +39,7 @@
 		width="100%" styleClass="form-weapon">
 
 		<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
-		<p:inputText id="inputText-name" style="width:160px" maxlength="50"
+		<p:inputText id="inputText-name" maxlength="50"
 			value="#{weaponController.weaponModel.name}" required="true"
 			requiredMessage="#{messages['message.name.required']}" />
 
@@ -36,6 +47,7 @@
 		<p:commandButton value="#{messages['label.save']}"
 			id="commandButton-save" icon="pi pi-save" style="text-align:left"
 			actionListener="#{weaponController.insertNewWeapon}"
+			oncomplete="hideShowRange()"
 			update="panelGrid-form-fields, message, @([id$=weapon-range-slider]), @([id$=form-fields-2]), @([id$=weaponBrowserTable])" />
 
 		<p:outputLabel for="weaponCategory"
@@ -51,10 +63,20 @@
 		</p:selectOneRadio>
 
 		<p:outputLabel value="#{messages['label.cost']}" for="inputText-cost" />
-		<p:inputText type="number" id="inputText-cost" style="width:75px"
-			maxlength="8" value="#{weaponController.weaponModel.cost}"
-			required="true"
-			requiredMessage="#{messages['message.cost.required']}" />
+		<h:panelGrid columns="2" styleClass="cost-panel">
+			<p:inputText type="number" id="inputText-cost" maxlength="8"
+				value="#{weaponController.weaponModel.cost}" required="true"
+				style="width:50px"
+				requiredMessage="#{messages['message.cost.required']}">
+				<f:validateLongRange minimum="0" />
+			</p:inputText>
+			<p:selectOneMenu id="coin"
+				value="#{weaponController.weaponModel.coin}" required="true"
+				requiredMessage="#{messages['message.coin.required']}">
+				<f:selectItems value="#{weaponController.coins}" var="coin"
+					itemLabel="#{coin.getLocaleDescription()}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
 
 		<p:inputText id="inputText-weight"
 			value="#{weaponController.weaponModel.weight}"
@@ -66,7 +88,7 @@
 			value="#{messages['label.property']}" />
 		<p:selectCheckboxMenu id="weaponProperty" widgetVar="weaponProperties"
 			value="#{weaponController.weaponModel.weaponProperties}"
-			required="true" multiple="true" style="width: 120px;" filter="true"
+			required="true" multiple="true" style="width: 200px;" filter="true"
 			filterMatchMode="startsWith" scrollHeight="200"
 			converter="weaponPropertyConverter"
 			requiredMessage="#{messages['message.property.required']}">
@@ -94,7 +116,8 @@
 	</div>
 
 
-	<h:panelGrid columns="1" cellpadding="10" id="form-fields-2">
+	<h:panelGrid columns="1" cellpadding="10" id="form-fields-2"
+		width="100%">
 		<p:outputLabel for="damage" value="#{messages['label.damage']}"
 			style="text-align:center" />
 		<p:selectManyCheckbox id="damage"
@@ -111,7 +134,7 @@
 			value="#{messages['label.damage.type']}" />
 		<p:selectOneRadio id="damageType"
 			value="#{weaponController.weaponModel.damageType}" layout="grid"
-			columns="7" styleClass="grid-checkbox" required="true"
+			columns="8" styleClass="grid-checkbox" required="true"
 			style="width:max-content; float:left" converter="damageTypeConverter"
 			requiredMessage="#{messages['message.damage.type.required']}">
 			<f:selectItems value="#{weaponController.damageTypes}"

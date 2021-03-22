@@ -10,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.roleplay.enums.Coin;
 import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
@@ -32,6 +33,7 @@ public class WeaponController {
 	private Set<WeaponCategory> weaponCategories = new LinkedHashSet<WeaponCategory>();
 	private Set<WeaponProperty> weaponProperties = new LinkedHashSet<WeaponProperty>();
 	private List<Dice> dices = new ArrayList<Dice>();
+	private List<Coin> coins = new ArrayList<Coin>();
 
 	private Set<WeaponModel> weapons = new LinkedHashSet<WeaponModel>();
 
@@ -55,6 +57,10 @@ public class WeaponController {
 
 		for (Dice dice : Dice.values()) {
 			getDices().add(dice);
+		}
+		
+		for (Coin coin : Coin.values()) {
+			getCoins().add(coin);
 		}
 		
 		weapons = weaponRepository.getAllWeapons();
@@ -118,6 +124,14 @@ public class WeaponController {
 
 	public int getMaxRange() {
 		return maxRange;
+	}
+
+	public List<Coin> getCoins() {
+		return coins;
+	}
+
+	public void setCoins(List<Coin> coins) {
+		this.coins = coins;
 	}
 
 	public void insertNewWeapon() {

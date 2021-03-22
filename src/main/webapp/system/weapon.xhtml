@@ -14,6 +14,7 @@
 .panelGrid2>tbody>tr:first-child>td:first-child {
 	padding: 0;
 }
+
 </style>
 
 		<p:dialog header="#{messages['label.update.weapon']}"
@@ -21,12 +22,10 @@
 			<ui:include src="/system/updateWeapon.xhtml" />
 		</p:dialog>
 
-		<p:tabView style="width:720px;height:500px;margin:auto;" id="tabview">
+		<p:tabView style="width:75%;height:500px;margin:auto;" id="tabview">
 			<p:tab title="#{messages['label.weapon.registration']}"
 				rendered="#{userController.userModel.id == 1}">
-
 				<ui:include src="/form/weaponForm.xhtml" />
-
 			</p:tab>
 			<p:tab title="#{messages['label.weapon.database']}">
 				<div class="card">
@@ -54,21 +53,21 @@
 							<h:outputText value="#{weapon.name}" />
 						</p:column>
 
-						<p:column headerText="#{messages['label.weapon.category']}">
+						<p:column headerText="#{messages['label.weapon.category']}"
+							width="110px">
 							<h:outputText
 								value="#{weapon.weaponCategory.getLocaleDescription()}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.cost']}">
-							<h:outputText value="#{weapon.cost}" />
+							<h:outputText value="#{weapon.getValue()}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.weight']}">
 							<h:outputText value="#{weapon.weight}" />
 						</p:column>
 
-						<p:column headerText="#{messages['label.property']}"
-							style="width:100px">
+						<p:column headerText="#{messages['label.property']}">
 							<h:outputText value="#{weapon.weaponProperties}" />
 						</p:column>
 
@@ -76,6 +75,16 @@
 							style="text-align:center">
 							<h:outputText
 								value="#{weapon.minRange == 0 ? '--' : weapon.getRange()}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.damage.type']}"
+							style="text-align:center" width="110px">
+							<h:outputText value="#{weapon.damageType.getLocaleDescription()}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.damage']}"
+							style="text-align:center">
+							<h:outputText value="#{weapon.damage}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.edit']}"

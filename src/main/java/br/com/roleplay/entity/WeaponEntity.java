@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import br.com.roleplay.enums.Coin;
 import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
@@ -32,6 +33,10 @@ public class WeaponEntity {
 	
 	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "coin")
+	@Enumerated(EnumType.STRING)
+	private Coin coin;
 	
 	@Column(name = "cost")
 	private Integer cost;
@@ -145,5 +150,13 @@ public class WeaponEntity {
 
 	public void setMaxRange(Integer maxRange) {
 		this.maxRange = maxRange;
+	}
+
+	public Coin getCoin() {
+		return coin;
+	}
+
+	public void setCoin(Coin coin) {
+		this.coin = coin;
 	}
 }
