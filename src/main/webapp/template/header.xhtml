@@ -4,27 +4,49 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:form>
-	<style>
-.internationalization {
-	float: right;
-}
+<h:form id="form">
+<style>
+	.internationalization {
+		float: right;
+	}
+	
+	.ui-toggleswitch-slider{
+	    margin-top: 0.5rem;
+	    height: 100%;
+	    margin-right: 0.5rem;
+	    margin-left: -0.5rem;
+	}
 </style>
-<f:view locale="#{internationalizationController.locale}"/>
-	<p:menubar>
-		<p:menuitem value="#{messages['label.home']}"
-			icon="pi pi-home" url="home.xhtml" />
-		<p:menuitem value="#{messages['label.new.character']}" icon="pi pi-user-plus" />
-		<p:menuitem value="#{messages['label.my.characters']}" icon="pi pi-users" />
+<script>
+
+	function changeLabelStyle(){
+		if($("#form\\:switch").hasClass('ui-toggleswitch-checked')){
+			$("#form\\:labelDarkMode").css("color", "white");
+		}else{
+			$("#form\\:labelDarkMode").css("color", "back");
+		}
+	}
+	
+</script>
+	<f:view locale="#{internationalizationController.locale}" />
+	<p:menubar id="menubar">
+		<p:menuitem value="#{messages['label.home']}" icon="pi pi-home"
+			url="home.xhtml" />
+		<p:menuitem value="#{messages['label.new.character']}"
+			icon="pi pi-user-plus" />
+		<p:menuitem value="#{messages['label.my.characters']}"
+			icon="pi pi-users" />
 		<p:submenu label="#{messages['label.database']}" icon="pi pi-book">
-			<p:menuitem value="#{messages['label.languages']}" icon="pi pi-info" url="language.xhtml" />
-			<p:menuitem value="#{messages['label.races']}" icon="pi pi-id-card" url="race.xhtml" />
-			<p:menuitem value="#{messages['label.weapons']}" icon="pi pi-folder-open"
-				url="weapon.xhtml" />
+			<p:menuitem value="#{messages['label.languages']}" icon="pi pi-info"
+				url="language.xhtml" />
+			<p:menuitem value="#{messages['label.races']}" icon="pi pi-id-card"
+				url="race.xhtml" />
+			<p:menuitem value="#{messages['label.weapons']}"
+				icon="pi pi-folder-open" url="weapon.xhtml" />
 		</p:submenu>
 		<p:menuitem value="#{messages['label.print']}" icon="pi pi-print" />
-
-		<p:submenu label="#{messages['label.change.language']}" styleClass="internationalization">
+		<p:submenu label="#{messages['label.change.language']}"
+			styleClass="internationalization">
 			<p:menuitem icon="pi pi-info"
 				actionListener="#{internationalizationController.localeChanged(internationalizationController.countries.get('Brazil'))}"
 				value="#{messages['label.language.portuguese']}" update="@all" />
@@ -33,11 +55,18 @@
 				value="#{messages['label.language.english']}" update="@all" />
 		</p:submenu>
 		<f:facet name="options">
-			<p:commandButton value="#{messages['label.logout']}" icon="pi pi-sign-out"
-				action="#{userController.logout}" />
+			<p:outputLabel value="#{messages['label.dark.mode']}"
+				style="padding-right:1rem" id="labelDarkMode"/>
+			<p:toggleSwitch value="#{viewController.darkMode}" id="switch" style="margin-top:0" >
+				<p:ajax
+					oncomplete="changeLabelStyle()"
+					listener="#{viewController.changeView(viewController.darkMode)}"
+					update="@all" />
+			</p:toggleSwitch>
+		<p:commandButton value="#{messages['label.logout']}"
+			icon="pi pi-sign-out" action="#{userController.logout}" />
 		</f:facet>
 	</p:menubar>
-
 </h:form>
 
 </html>
