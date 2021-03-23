@@ -39,6 +39,8 @@ public class RaceRepository {
 		raceEntity.setMovement(raceModel.getMovement());
 		raceEntity.setSpeed(raceModel.getSpeed());
 		raceEntity.setSize(raceModel.getSize());
+		raceEntity.setHeightModifier(raceModel.getHeightModifier());
+		raceEntity.setWeightModifier(raceModel.getWeightModifier());
 
 		Set<LanguageEntity> languages = new HashSet<LanguageEntity>();
 		for (LanguageModel language : raceModel.getLanguages()) {
@@ -85,6 +87,8 @@ public class RaceRepository {
 		raceEntity.setMovement(raceModel.getMovement());
 		raceEntity.setSpeed(raceModel.getSpeed());
 		raceEntity.setSize(raceModel.getSize());
+		raceEntity.setHeightModifier(raceModel.getHeightModifier());
+		raceEntity.setWeightModifier(raceModel.getWeightModifier());
 
 		Set<LanguageEntity> languages = new HashSet<LanguageEntity>();
 		for (LanguageModel language : raceModel.getLanguages()) {

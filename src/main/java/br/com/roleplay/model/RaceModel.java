@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.roleplay.enums.Alignment;
+import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.Size;
 
 public class RaceModel {
@@ -22,6 +23,9 @@ public class RaceModel {
 
 	private Double baseHeight;
 	private Double baseWeight;
+	
+	private List<Dice> heightModifier;
+	private List<Dice> weightModifier;
 
 	private Alignment alignment;
 	
@@ -120,6 +124,22 @@ public class RaceModel {
 
 	public void setSize(Size size) {
 		this.size = size;
+	}
+
+	public List<Dice> getHeightModifier() {
+		return heightModifier;
+	}
+
+	public void setHeightModifier(List<Dice> heightModifier) {
+		this.heightModifier = heightModifier;
+	}
+
+	public List<Dice> getWeightModifier() {
+		return weightModifier;
+	}
+
+	public void setWeightModifier(List<Dice> weightModifier) {
+		this.weightModifier = weightModifier;
 	}
 
 	@Override

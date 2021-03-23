@@ -3,10 +3,13 @@ package br.com.roleplay.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.roleplay.enums.Alignment;
+import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.Size;
 
 @NamedQuery(name = "RaceEntity.findAll",query= "SELECT r FROM RaceEntity r")
@@ -68,6 +72,20 @@ public class RaceEntity {
 	@Column(name = "size")
 	@Enumerated(EnumType.STRING)
 	private Size size;
+	
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Dice.class)
+	@CollectionTable(name = "race_height_modifier",
+	joinColumns = @JoinColumn(name="race_id", referencedColumnName="id"))
+	@Column(name = "dice", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private List<Dice> heightModifier;
+	
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Dice.class)
+	@CollectionTable(name = "race_weight_modifier",
+	joinColumns = @JoinColumn(name="race_id", referencedColumnName="id"))
+	@Column(name = "dice", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private List<Dice> weightModifier;
 
 	public long getId() {
 		return id;
@@ -155,5 +173,21 @@ public class RaceEntity {
 
 	public void setSize(Size size) {
 		this.size = size;
+	}
+	
+	public List<Dice> getHeightModifier() {
+		return heightModifier;
+	}
+
+	public void setHeightModifier(List<Dice> heightModifier) {
+		this.heightModifier = heightModifier;
+	}
+
+	public List<Dice> getWeightModifier() {
+		return weightModifier;
+	}
+
+	public void setWeightModifier(List<Dice> weightModifier) {
+		this.weightModifier = weightModifier;
 	}
 }

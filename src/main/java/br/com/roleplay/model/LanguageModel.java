@@ -76,7 +76,7 @@ public class LanguageModel implements Comparable<LanguageModel>, Serializable, L
 	
 	@Override
 	public String toString() {
-		return name;
+		return getLocaleName();
 	}
 
 	@Override

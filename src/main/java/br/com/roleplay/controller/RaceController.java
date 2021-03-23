@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.enums.Alignment;
+import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.Size;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.LanguageModel;
@@ -42,6 +43,7 @@ public class RaceController {
 	private Set<Alignment> alignments = new LinkedHashSet<Alignment>();
 	private List<AbilityBonusModel> abilityBonus = new ArrayList<AbilityBonusModel>();
 	private List<Size> sizes = new ArrayList<Size>();
+	private List<Dice> dices = new ArrayList<Dice>();
 	
 	private Set<RaceModel> races = new LinkedHashSet<RaceModel>();
 
@@ -55,6 +57,10 @@ public class RaceController {
 		
 		for(Size size: Size.values()) {
 			getSizes().add(size);
+		}
+		
+		for (Dice dice : Dice.values()) {
+			getDices().add(dice);
 		}
 		
 		abilityBonus = abilityBonusRepository.getAllAbilityBonus();
@@ -83,7 +89,10 @@ public class RaceController {
 
 	public void updateRace(RaceModel raceModel) {
 		raceRepository.updateRace(raceModel);
+		
 		this.init();
+		
+		Utils.warningMessage(Utils.getLocaleName("message.record.updated"));
 	}
 	
 	public void deleteRace(RaceModel raceModel) {
@@ -140,5 +149,13 @@ public class RaceController {
 
 	public void setRaces(Set<RaceModel> races) {
 		this.races = races;
+	}
+
+	public List<Dice> getDices() {
+		return dices;
+	}
+
+	public void setDices(List<Dice> dices) {
+		this.dices = dices;
 	}
 }

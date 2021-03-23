@@ -13,141 +13,52 @@
 
 	<ui:define name="content">
 		<style>
-		.panelGrid tr {
-			vertical-align: top;
-		}
-		
-		.grid-checkbox td {
-			padding: 0.3rem;
-		}
-		
-		.sliderGrid td {
-			vertical-align: middle;
-		}
-		
-		.panelGrid-c>tbody:first-child>tr:first-child>td:first-of-type {
-			text-align: center;
-			font-weight: 600;
-		}
-		
-		tr+tr>.panelGrid+.panelGrid+.panelGrid:nth-child(3) {
-			text-align: end;
-		}
-		
-		.panelGrid>table>tbody>tr>td {
-			vertical-align: middle;
-		}
-		</style>
-		<p:dialog header="#{messages['label.update.race']}" id="dialog-update-modal"
-			widgetVar="dialog-update-modal" modal="true">
-			<ui:include src="/system/updateRace.xhtml" />
+.panelGrid tr {
+	vertical-align: top;
+}
+
+.grid-checkbox td {
+	padding: 0.3rem;
+}
+
+.sliderGrid td {
+	vertical-align: middle;
+}
+
+.panelGrid-c>tbody:first-child>tr:first-child>td:first-of-type {
+	text-align: center;
+	font-weight: 600;
+}
+
+tr+tr>.panelGrid+.panelGrid+.panelGrid:nth-child(3) {
+	text-align: end;
+}
+
+.panelGrid>table>tbody>tr>td {
+	vertical-align: middle;
+}
+</style>
+		<p:growl id="messages" showDetail="true" />
+
+		<p:dialog header="#{messages['label.update.race']}"
+			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
+			<p:commandButton value="#{messages['label.update']}"
+				id="commandButton-update" icon="pi pi-save" style="float:right"
+				actionListener="#{raceController.updateRace(raceController.raceModel)}"
+				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
+				update="@([id$=raceBrowserTable]), @([id$=messages])" />
+			<ui:include src="/form/raceForm.xhtml" />
 		</p:dialog>
 		<p:tabView
-			style="width:90%;height:500px;margin:auto; align-itens: top">
+			style="width:90%;height:500px;margin:auto; align-itens: top;margin-top:-2.5rem">
 			<p:tab title="#{messages['label.race.registration']}"
 				rendered="#{userController.userModel.id == 1}">
-
-				<h:form id="form-register">
-
-					<p:growl id="message" showDetail="true" />
-
-					<h:panelGrid id="panelGrid-form-fields" columns="3" layout="flex"
-						columnClasses="panelGrid, panelGrid, panelGrid" cellpadding="10">
-						<h:panelGrid id="panelGrid-form-fields-1" columns="2"
-							layout="flex" cellpadding="10">
-							<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
-							<p:inputText id="inputText-name" style="width:200px"
-								maxlength="70" value="#{raceController.raceModel.name}"
-								required="true" requiredMessage="#{messages['label.name.required']}" />
-
-							<p:outputLabel for="alignment" value="#{messages['label.race.common.alignment']}" />
-							<p:selectOneMenu id="alignment"
-								value="#{raceController.raceModel.alignment}" required="true"
-								requiredMessage="#{messages['message.alignment.required']}">
-								<f:selectItem itemLabel="#{messages['label.select.one']}" itemValue="" />
-								<f:selectItems value="#{raceController.alignments}"
-									var="alignment" itemLabel="#{alignment.getLocaleDescription()}" itemValue="#{alignment}"/>
-							</p:selectOneMenu>
-
-							<p:outputLabel for="languages" value="#{messages['label.languages']}" />
-							<p:selectManyMenu id="languages"
-								value="#{raceController.raceModel.languages}" filter="true"
-								converter="languageConverter" filterMatchMode="contains"
-								showCheckbox="true" styleClass="manymenu-advanced"
-								scrollHeight="90">
-								<f:selectItems value="#{raceController.languages}"
-									var="language" itemLabel="#{language.getLocaleName()}"
-									itemValue="#{language}" />
-							</p:selectManyMenu>
-							<p:outputLabel for="size" value="#{messages['label.race.size']}" />
-							<p:selectOneRadio id="size"
-								value="#{raceController.raceModel.size}" layout="grid"
-								columns="2" styleClass="grid-radio" label="#{messages['label.size']}" required="true"
-								requiredMessage="#{messages['message.size.required']}">
-								<f:selectItems value="#{raceController.sizes}" var="size"
-									itemLabel="#{size.getLocaleDescription()}" itemValue="#{size}" />
-							</p:selectOneRadio>
-						</h:panelGrid>
-						<h:panelGrid id="panelGrid-form-fields-2" columns="2"
-							layout="flex" cellpadding="10" styleClass="sliderGrid">
-							<p:inputText id="inputText-age"
-								value="#{raceController.raceModel.age}"
-								placeholder="#{messages['label.race.max.age']}" required="true"
-								requiredMessage="#{messages['message.max.age.required']}" size="10" />
-							<p:slider for="inputText-age" range="false" />
-
-							<p:inputText id="inputText-movement"
-								value="#{raceController.raceModel.movement}"
-								placeholder="#{messages['label.race.movement']}" required="true"
-								requiredMessage="#{messages['message.moviment.required']}" size="10" />
-							<p:slider for="inputText-movement" range="false" minValue="5"
-								maxValue="20" />
-
-							<p:inputText id="inputText-speed"
-								value="#{raceController.raceModel.speed}" placeholder="#{messages['label.race.speed']}"
-								required="true" requiredMessage="#{messages['message.speed.required']}" size="10" />
-							<p:slider for="inputText-speed" range="false" minValue="5"
-								maxValue="20" style="width:100px" />
-
-							<p:inputText id="inputText-baseHeight"
-								value="#{raceController.raceModel.baseHeight}"
-								placeholder="#{messages['label.race.base.height']}" required="true"
-								requiredMessage="#{messages['message.base.height.required']}" size="10" />
-							<p:slider for="inputText-baseHeight" range="false" minValue="100"
-								maxValue="250" style="width:100px" />
-
-							<p:inputText id="inputText-baseWeight"
-								value="#{raceController.raceModel.baseWeight}"
-								placeholder="#{messages['label.race.base.weight']}" required="true"
-								requiredMessage="#{messages['message.base.weight.required']}" size="10" />
-							<p:slider for="inputText-baseWeight" range="false" minValue="30"
-								maxValue="250" style="width:100px" />
-						</h:panelGrid>
-
-						<h:panelGrid id="panelGrid-form-fields-3" columns="1"
-							layout="flex" cellpadding="10" styleClass="panelGrid-c">
-							<p:outputLabel for="ability_bonus" value="#{messages['label.ability.bonus']}" />
-							<p:selectManyCheckbox id="ability_bonus"
-								value="#{raceController.raceModel.abilityBonus}" layout="grid"
-								columns="3" styleClass="grid-checkbox" required="true"
-								style="width:max-content; float:left"
-								converter="abilityBonusConverter"
-								requiredMessage="#{messages['message.ability.bonus.required']}">
-								<f:selectItems value="#{raceController.abilityBonus}"
-									var="ability" itemLabel="#{ability}" itemValue="#{ability}" />
-							</p:selectManyCheckbox>
-						</h:panelGrid>
-
-						<p:spacer />
-						<p:spacer />
-
-						<p:commandButton value="#{messages['label.save']}" id="commandButton-save"
-							icon="pi pi-save"
-							actionListener="#{raceController.insertNewRace}"
-							update="form-register, @([id$=raceBrowserTable])" />
-					</h:panelGrid>
-				</h:form>
-
+				<p:commandButton value="#{messages['label.save']}"
+					id="commandButton-save" icon="pi pi-save" style="float:right"
+					form="form-register"
+					actionListener="#{raceController.insertNewRace}"
+					update="form-register, @([id$=raceBrowserTable])" />
+				<ui:include src="/form/raceForm.xhtml" />
 			</p:tab>
 			<p:tab title="#{messages['label.race.database']}">
 				<div class="card">
@@ -159,9 +70,11 @@
 								style="text-align-last: right">
 								<div
 									style="float: left; margin-top: 10px; vertical-align: center">
-									<h:outputText value="#{label.language.list}" /></div>
+									<h:outputText value="#{label.language.list}" />
+								</div>
 								<div>
-									<p:commandButton id="toggler" type="button" value="#{messages['label.columns']}"
+									<p:commandButton id="toggler" type="button"
+										value="#{messages['label.columns']}"
 										icon="pi pi-align-justify" />
 									<p:columnToggler datasource="raceBrowserTable"
 										trigger="toggler" />
@@ -176,7 +89,7 @@
 						<p:column headerText="#{messages['label.race.common.alignment']}">
 							<h:outputText value="#{race.alignment.getLocaleDescription()}" />
 						</p:column>
-						
+
 						<p:column headerText="#{messages['label.race.size']}">
 							<h:outputText value="#{race.size.getLocaleDescription()}" />
 						</p:column>
@@ -188,19 +101,19 @@
 						<p:column headerText="#{messages['label.race.movement']}">
 							<h:outputText value="#{race.movement}" />
 						</p:column>
-						
+
 						<p:column headerText="#{messages['label.race.speed']}">
 							<h:outputText value="#{race.speed}" />
 						</p:column>
-						
+
 						<p:column headerText="#{messages['label.race.base.height']}">
 							<h:outputText value="#{race.baseHeight}" />
 						</p:column>
-						
+
 						<p:column headerText="#{messages['label.race.base.weight']}">
 							<h:outputText value="#{race.baseWeight}" />
 						</p:column>
-						
+
 						<p:column headerText="#{messages['label.ability.bonus']}">
 							<h:outputText
 								value="#{empty race.abilityBonus ? messages['label.none'] : race.abilityBonus }" />
@@ -210,17 +123,20 @@
 							<h:outputText
 								value="#{empty race.languages ? messages['label.none'] : race.languages }" />
 						</p:column>
-						
-						<p:column headerText="#{messages['label.edit']}" style="width:25px;">
-							<p:commandButton icon="pi pi-pencil" title="#{messages['label.update.race']}"
-								ajax="true"
+
+						<p:column headerText="#{messages['label.edit']}"
+							style="width:25px;">
+							<p:commandButton icon="pi pi-pencil"
+								title="#{messages['label.update.race']}" ajax="true"
 								actionListener="#{raceController.openUpdateDialog(race)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
 						</p:column>
-						
-						<p:column headerText="#{messages['label.remove']}" style="width:35px;">
-							<p:commandButton icon="pi pi-trash" title="#{messages['label.delete.race']}"
+
+						<p:column headerText="#{messages['label.remove']}"
+							style="width:35px;">
+							<p:commandButton icon="pi pi-trash"
+								title="#{messages['label.delete.race']}"
 								styleClass="ui-button-danger"
 								action="#{raceController.deleteRace(race)}"
 								update="raceBrowserTable, @([id$=message])">
@@ -235,7 +151,7 @@
 								<p:commandButton value="#{messages['label.yes']}" type="button"
 									styleClass="ui-confirm-popup-yes" />
 							</p:confirmPopup>
-						</p:column>				
+						</p:column>
 
 					</p:dataTable>
 				</div>

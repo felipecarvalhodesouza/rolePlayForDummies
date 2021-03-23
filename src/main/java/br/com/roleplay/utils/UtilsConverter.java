@@ -88,6 +88,8 @@ public class UtilsConverter {
 			raceModel.setBaseWeight(raceEntity.getBaseWeight());
 			raceModel.setAlignment(raceEntity.getAlignment());
 			raceModel.setSize(raceEntity.getSize());
+			raceModel.setHeightModifier(raceEntity.getHeightModifier());
+			raceModel.setWeightModifier(raceEntity.getWeightModifier());
 			raceModelSet.add(raceModel);
 		}		
 		return raceModelSet;
@@ -109,6 +111,8 @@ public class UtilsConverter {
 			raceEntity.setBaseWeight(raceModel.getBaseWeight());
 			raceEntity.setAlignment(raceModel.getAlignment());
 			raceEntity.setSize(raceModel.getSize());
+			raceEntity.setHeightModifier(raceModel.getHeightModifier());
+			raceEntity.setWeightModifier(raceModel.getWeightModifier());
 			raceEntitySet.add(raceEntity);
 		}		
 		return raceEntitySet;
