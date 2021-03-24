@@ -33,7 +33,7 @@ public class ToolRepository {
 
 		entityManager = Utils.JpaEntityManager();
 
-		String jpql = "select t from ToolEntity l order by name";
+		String jpql = "select t from ToolEntity t order by name";
 
 		TypedQuery<ToolEntity> query = entityManager.createQuery(jpql, ToolEntity.class);
 		Set<ToolEntity> toolSet = UtilsConverter.getSetFromList(query.getResultList());

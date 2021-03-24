@@ -41,7 +41,8 @@ public class ToolController {
 		for(ToolType toolType: ToolType.values()){
 			getTypes().add(toolType);
 		}
-		//setTools(toolRepository.getAllTools());
+		
+		setTools(toolRepository.getAllTools());
 	}
 
 	public ToolModel getToolModel() {
@@ -102,6 +103,10 @@ public class ToolController {
 		this.init();
 		
 		Utils.warningMessage(Utils.getLocaleName("message.record.updated"));
+	}
+	
+	public void openUpdateDialog(ToolModel toolModel) {
+		this.toolModel = toolModel;
 	}
 
 }
