@@ -23,10 +23,8 @@ public class WeaponRepository {
 		entityManager = Utils.JpaEntityManager();
 
 		weaponEntity = UtilsConverter.getWeaponEntityFromWeaponModel(weaponModel);
-		
+
 		entityManager.persist(weaponEntity);
-		
-		System.out.println(weaponEntity.getWeaponProperties());
 		entityManager.flush();
 	}
 
@@ -57,5 +55,23 @@ public class WeaponRepository {
 		entityManager.remove(weaponEntity);
 	}
 
+	public void updateWeapon(WeaponModel weaponModel) {
+		entityManager = Utils.JpaEntityManager();
+
+		WeaponEntity weaponEntity = this.getWeapon(weaponModel.getId());
+
+		weaponEntity.setName(weaponModel.getName());
+		weaponEntity.setCost(weaponModel.getCost());
+		weaponEntity.setCoin(weaponModel.getCoin());
+		weaponEntity.setWeight(weaponModel.getWeight());
+		weaponEntity.setWeaponProperties(weaponModel.getWeaponProperties());
+		weaponEntity.setWeaponCategory(weaponModel.getWeaponCategory());
+		weaponEntity.setDamage(weaponModel.getDamage());
+		weaponEntity.setDamageType(weaponModel.getDamageType());
+		weaponEntity.setMinRange(weaponModel.getMinRange());
+		weaponEntity.setMaxRange(weaponModel.getMaxRange());
+		
+		entityManager.merge(weaponEntity);
+	}
 
 }

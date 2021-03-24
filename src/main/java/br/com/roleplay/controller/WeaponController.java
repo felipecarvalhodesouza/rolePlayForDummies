@@ -69,6 +69,14 @@ public class WeaponController {
 	public void openUpdateDialog(WeaponModel weaponModel) {
 		this.weaponModel = weaponModel;
 	}
+	
+	public void updateWeapon(WeaponModel weaponModel) {
+		weaponRepository.updateWeapon(weaponModel);
+		
+		this.init();
+		
+		Utils.warningMessage(Utils.getLocaleName("message.record.updated"));
+	}
 
 	public WeaponModel getWeaponModel() {
 		return weaponModel;

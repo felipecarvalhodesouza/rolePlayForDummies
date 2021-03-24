@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+		<style>
+.panelGrid2>tbody>tr:first-child>td:first-child {
+	padding: 0;
+}
+</style>
+		<p:tabView style="width:450px;height:500px;margin:auto;" id="tabview">
+			<p:tab title="#{messages['label.tool.registration']}"
+				rendered="#{userController.userModel.id == 1}">
+				<ui:include src="/form/toolForm.xhtml" />
+				<p:commandButton value="#{messages['label.save']}"
+					id="commandButton-save" icon="pi pi-save" style="float:right"
+					form="form-register"
+					actionListener="#{toolController.insertNewTool}"
+					update="form-register" />
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+
+</html>

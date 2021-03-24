@@ -14,17 +14,28 @@
 .panelGrid2>tbody>tr:first-child>td:first-child {
 	padding: 0;
 }
-
 </style>
 
 		<p:dialog header="#{messages['label.update.weapon']}"
 			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
+			<p:commandButton value="#{messages['label.update']}"
+				id="commandButton-update" icon="pi pi-save" style="float:right; margin-bottom:-5rem; margin-right:2rem"
+				actionListener="#{weaponController.updateWeapon(weaponController.weaponModel)}"
+				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
+				update="@([id$=weaponBrowserTable]), @([id$=message])" />
 			<ui:include src="/system/updateWeapon.xhtml" />
 		</p:dialog>
 
 		<p:tabView style="width:75%;height:500px;margin:auto;" id="tabview">
 			<p:tab title="#{messages['label.weapon.registration']}"
 				rendered="#{userController.userModel.id == 1}">
+				<p:commandButton value="#{messages['label.save']}"
+					id="commandButton-save" icon="pi pi-save"
+					style="margin-bottom: -5rem; float:right"
+					actionListener="#{weaponController.insertNewWeapon}"
+					oncomplete="hideShowRange()" form="form-register"
+					update="@([id$=panelGrid-form-fields]), @([id$=message]),
+					 @([id$=weapon-range-slider]), @([id$=form-fields-2]), @([id$=weaponBrowserTable])" />
 				<ui:include src="/form/weaponForm.xhtml" />
 			</p:tab>
 			<p:tab title="#{messages['label.weapon.database']}">

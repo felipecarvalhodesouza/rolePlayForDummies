@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<style>
+</style>
+<h:form id="form-register">
+	<h:inputHidden id="inputHidden-id"
+		value="#{toolController.toolModel.id}" />
+	<p:growl id="message" showDetail="true" />
+	<h:panelGrid id="panelGrid-form-fields" columns="2" cellpadding="10"
+		width="100%">
+
+		<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
+		<p:inputText id="inputText-name" maxlength="50"
+			value="#{toolController.toolModel.name}" required="true"
+			requiredMessage="#{messages['message.name.required']}" />
+
+		<p:outputLabel for="toolType" value="#{messages['label.tooltype']}" />
+		<p:selectOneMenu id="toolType"
+			value="#{toolController.toolModel.toolType}" required="true"
+			requiredMessage="#{messages['message.tooltype.required']}">
+			<f:selectItem itemLabel="#{messages['label.select.one']}"
+				itemValue="" />
+			<f:selectItems value="#{toolController.types}" var="tooltype"
+				itemLabel="#{tooltype.getLocaleDescription()}"
+				itemValue="#{tooltype}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="#{messages['label.cost']}" for="inputText-cost" />
+		<h:panelGrid columns="2" styleClass="cost-panel">
+			<p:inputText type="number" id="inputText-cost" maxlength="8"
+				value="#{toolController.toolModel.cost}" required="true"
+				style="width:50px"
+				requiredMessage="#{messages['message.cost.required']}">
+				<f:validateLongRange minimum="0" />
+			</p:inputText>
+			<p:selectOneMenu id="coin" value="#{toolController.toolModel.coin}"
+				required="true"
+				requiredMessage="#{messages['message.coin.required']}">
+				<f:selectItems value="#{toolController.coins}" var="coin"
+					itemLabel="#{coin.getLocaleDescription()}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<p:inputText id="inputText-weight"
+			value="#{toolController.toolModel.weight}"
+			placeholder="#{messages['label.weight']}" required="true"
+			requiredMessage="#{messages['message.weight.required']}" size="10" />
+		<p:slider for="inputText-weight" range="false" style="width:160px" />
+
+		<p:outputLabel value="#{messages['label.description']}"
+			for="inputText-description" />
+		<p:inputTextarea id="inputText-description" style="width:90%" value="#{toolController.toolModel.description}" autoResize="false" />
+
+	</h:panelGrid>
+</h:form>
+</html>
+

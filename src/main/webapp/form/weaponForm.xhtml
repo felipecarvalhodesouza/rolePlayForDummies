@@ -15,9 +15,9 @@
 	text-align: center;
 }
 
-.cost-panel	{
-	margin-left:auto; 
-	margin-right:auto;
+.cost-panel {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .rangeLabel {
@@ -33,7 +33,8 @@
 }
 </style>
 <h:form id="form-register">
-
+	<h:inputHidden id="inputHidden-id"
+		value="#{weaponController.weaponModel.id}" />
 	<p:growl id="message" showDetail="true" />
 	<h:panelGrid id="panelGrid-form-fields" columns="4" cellpadding="10"
 		width="100%" styleClass="form-weapon">
@@ -44,11 +45,7 @@
 			requiredMessage="#{messages['message.name.required']}" />
 
 		<p:spacer />
-		<p:commandButton value="#{messages['label.save']}"
-			id="commandButton-save" icon="pi pi-save" style="text-align:left"
-			actionListener="#{weaponController.insertNewWeapon}"
-			oncomplete="hideShowRange()"
-			update="panelGrid-form-fields, message, @([id$=weapon-range-slider]), @([id$=form-fields-2]), @([id$=weaponBrowserTable])" />
+		<p:spacer />
 
 		<p:outputLabel for="weaponCategory"
 			value="#{messages['label.weapon.category']}" />
