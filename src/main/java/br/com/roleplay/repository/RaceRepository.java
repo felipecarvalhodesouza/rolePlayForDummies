@@ -37,7 +37,6 @@ public class RaceRepository {
 		raceEntity.setBaseWeight(raceModel.getBaseWeight());
 		raceEntity.setAlignment(raceModel.getAlignment());
 		raceEntity.setMovement(raceModel.getMovement());
-		raceEntity.setSpeed(raceModel.getSpeed());
 		raceEntity.setSize(raceModel.getSize());
 		raceEntity.setHeightModifier(raceModel.getHeightModifier());
 		raceEntity.setWeightModifier(raceModel.getWeightModifier());
@@ -85,7 +84,6 @@ public class RaceRepository {
 		raceEntity.setBaseWeight(raceModel.getBaseWeight());
 		raceEntity.setAlignment(raceModel.getAlignment());
 		raceEntity.setMovement(raceModel.getMovement());
-		raceEntity.setSpeed(raceModel.getSpeed());
 		raceEntity.setSize(raceModel.getSize());
 		raceEntity.setHeightModifier(raceModel.getHeightModifier());
 		raceEntity.setWeightModifier(raceModel.getWeightModifier());

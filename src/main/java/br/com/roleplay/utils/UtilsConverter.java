@@ -85,7 +85,6 @@ public class UtilsConverter {
 			raceModel.setAge(raceEntity.getAge());
 			raceModel.setAbilityBonus(getAbilityBonusModelListFromAbilityBonusEntityList(raceEntity.getAbilityBonus()));
 			raceModel.setMovement(raceEntity.getMovement());
-			raceModel.setSpeed(raceEntity.getSpeed());
 			raceModel.setBaseHeight(raceEntity.getBaseHeight());
 			raceModel.setBaseWeight(raceEntity.getBaseWeight());
 			raceModel.setAlignment(raceEntity.getAlignment());
@@ -108,7 +107,6 @@ public class UtilsConverter {
 			raceEntity.setAge(raceModel.getAge());
 			raceEntity.setAbilityBonus(getAbilityBonusEntityListFromAbilityBonusModelList(raceModel.getAbilityBonus()));
 			raceEntity.setMovement(raceModel.getMovement());
-			raceEntity.setSpeed(raceModel.getSpeed());
 			raceEntity.setBaseHeight(raceModel.getBaseHeight());
 			raceEntity.setBaseWeight(raceModel.getBaseWeight());
 			raceEntity.setAlignment(raceModel.getAlignment());

@@ -56,9 +56,6 @@ public class RaceEntity {
 	@Column(name = "movement")
 	private Integer movement;
 	
-	@Column(name = "speed")
-	private Integer speed;
-	
 	@Column(name = "baseHeight")
 	private Double baseHeight;
 	
@@ -133,14 +130,6 @@ public class RaceEntity {
 
 	public void setAbilityBonus(List<AbilityBonusEntity> abilityBonus) {
 		this.abilityBonus = abilityBonus;
-	}
-
-	public Integer getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(Integer speed) {
-		this.speed = speed;
 	}
 
 	public Double getBaseHeight() {

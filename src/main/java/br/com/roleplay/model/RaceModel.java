@@ -19,7 +19,6 @@ public class RaceModel {
 	private List<AbilityBonusModel> abilityBonus;
 
 	private Integer movement;
-	private Integer speed;
 
 	private Double baseHeight;
 	private Double baseWeight;
@@ -84,14 +83,6 @@ public class RaceModel {
 
 	public void setAbilityBonus(List<AbilityBonusModel> abilityBonus) {
 		this.abilityBonus = abilityBonus;
-	}
-
-	public Integer getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(Integer speed) {
-		this.speed = speed;
 	}
 
 	public Double getBaseHeight() {
