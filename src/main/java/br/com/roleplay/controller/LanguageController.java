@@ -56,6 +56,8 @@ public class LanguageController {
 		languages = languageRepository.getAllLanguages();
 		
 		typicalSpeakers = raceRepository.getAllRaces();
+		
+		this.languageModel = new LanguageModel();
 	}
 
 	public void insertNewLanguage() {

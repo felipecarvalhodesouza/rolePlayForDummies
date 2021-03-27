@@ -22,7 +22,7 @@ public class ToolRepository {
 
 		entityManager = Utils.JpaEntityManager();
 
-		toolEntity = UtilsConverter.getToolEntityFromToolModel(toolModel);
+		UtilsConverter.copyProperties(toolEntity, toolModel);
 		
 		entityManager.persist(toolEntity);
 		

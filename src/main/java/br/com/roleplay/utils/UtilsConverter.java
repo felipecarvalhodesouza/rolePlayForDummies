@@ -1,16 +1,21 @@
 package br.com.roleplay.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import br.com.roleplay.entity.AbilityBonusEntity;
+import br.com.roleplay.entity.BackgroundEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.RaceEntity;
 import br.com.roleplay.entity.ToolEntity;
 import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
+import br.com.roleplay.model.BackgroundModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.model.ToolModel;
@@ -172,56 +177,25 @@ public class UtilsConverter {
 
 	public static WeaponEntity getWeaponEntityFromWeaponModel(WeaponModel weaponModel) {
 		WeaponEntity weaponEntity = new WeaponEntity();
-		weaponEntity.setName(weaponModel.getName());
-		weaponEntity.setCost(weaponModel.getCost());
-		weaponEntity.setCoin(weaponModel.getCoin());
-		weaponEntity.setWeight(weaponModel.getWeight());
-		weaponEntity.setWeaponProperties(weaponModel.getWeaponProperties());
-		weaponEntity.setWeaponCategory(weaponModel.getWeaponCategory());
-		weaponEntity.setDamage(weaponModel.getDamage());
-		weaponEntity.setDamageType(weaponModel.getDamageType());
-		weaponEntity.setMinRange(weaponModel.getMinRange());
-		weaponEntity.setMaxRange(weaponModel.getMaxRange());
+		copyProperties(weaponEntity, weaponModel);
 		return weaponEntity;
 	}
 
 	public static WeaponModel getWeaponModelFromWeaponEntity(WeaponEntity weaponEntity) {
 		WeaponModel weaponModel = new WeaponModel();
-		weaponModel.setId(weaponEntity.getId());
-		weaponModel.setName(weaponEntity.getName());
-		weaponModel.setCost(weaponEntity.getCost());
-		weaponModel.setCoin(weaponEntity.getCoin());
-		weaponModel.setWeight(weaponEntity.getWeight());
-		weaponModel.setWeaponProperties(weaponEntity.getWeaponProperties());
-		weaponModel.setWeaponCategory(weaponEntity.getWeaponCategory());
-		weaponModel.setDamage(weaponEntity.getDamage());
-		weaponModel.setDamageType(weaponEntity.getDamageType());
-		weaponModel.setMinRange(weaponEntity.getMinRange());
-		weaponModel.setMaxRange(weaponEntity.getMaxRange());
+		copyProperties(weaponModel, weaponEntity);
 		return weaponModel;
 	}
 
 	public static ToolModel getToolModelFromToolEntity(ToolEntity toolEntity) {
 		ToolModel toolModel = new ToolModel();
-		toolModel.setId(toolEntity.getId());
-		toolModel.setName(toolEntity.getName());
-		toolModel.setToolType(toolEntity.getToolType());
-		toolModel.setCost(toolEntity.getCost());
-		toolModel.setCoin(toolEntity.getCoin());
-		toolModel.setWeight(toolEntity.getWeight());
-		toolModel.setDescription(toolEntity.getDescription());
+		copyProperties(toolModel, toolEntity);
 		return toolModel;
 	}
 
 	public static ToolEntity getToolEntityFromToolModel(ToolModel toolModel) {
 		ToolEntity toolEntity = new ToolEntity();
-		toolEntity.setId(toolModel.getId());
-		toolEntity.setName(toolModel.getName());
-		toolEntity.setToolType(toolModel.getToolType());
-		toolEntity.setCost(toolModel.getCost());
-		toolEntity.setCoin(toolModel.getCoin());
-		toolEntity.setWeight(toolModel.getWeight());
-		toolEntity.setDescription(toolModel.getDescription());
+		copyProperties(toolEntity, toolModel);
 		return toolEntity;
 	}
 
@@ -233,4 +207,28 @@ public class UtilsConverter {
 		}
 		return toolModelSet;
 	}	
+	
+	public static void copyProperties(Object to, Object from){
+		try {
+			BeanUtils.copyProperties(to, from);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+
+	public static Set<BackgroundModel> getBackgroundModelSetFromBackgroundEntitySet(Set<BackgroundEntity> backgroundSet) {
+		Set<BackgroundModel> backgroundModelSet = new LinkedHashSet<BackgroundModel>();
+
+		for (BackgroundEntity backgroundEntity : backgroundSet) {
+			backgroundModelSet.add(getBackgroundModelFromBackgroundEntity(backgroundEntity));
+		}
+		return backgroundModelSet;
+	}
+
+	private static BackgroundModel getBackgroundModelFromBackgroundEntity(BackgroundEntity backgroundEntity) {
+		BackgroundModel backgroundModel = new BackgroundModel();
+		copyProperties(backgroundModel, backgroundEntity);
+		return backgroundModel;
+	}
 }

@@ -15,65 +15,57 @@
 	padding: 0;
 }
 </style>
-		<p:dialog header="#{messages['label.update.tool']}"
+		<p:dialog header="#{messages['label.update.background']}"
 			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
-			<ui:include src="/form/toolForm.xhtml" />
+			<ui:include src="/form/backgroundForm.xhtml" />
 			<p:commandButton value="#{messages['label.update']}"
 				id="commandButton-update" icon="pi pi-save" style="float:right"
-				actionListener="#{toolController.updateTool(toolController.toolModel)}"
+				actionListener="#{backgroundController.updateBackground(backgroundController.backgroundModel)}"
 				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
-				update="@([id$=toolBrowserTable]), @([id$=messages])" />
+				update="@([id$=backgroundBrowserTable]), @([id$=messages])" />
 		</p:dialog>
 
 		<p:tabView style="width:450px;height:500px;margin:auto;" id="tabview">
-			<p:tab title="#{messages['label.tool.registration']}"
+			<p:tab title="#{messages['label.background.registration']}"
 				rendered="#{userController.userModel.id == 1}">
-				<ui:include src="/form/toolForm.xhtml" />
+				<ui:include src="/form/backgroundForm.xhtml" />
 				<p:commandButton value="#{messages['label.save']}"
 					id="commandButton-save" icon="pi pi-save" style="float:right"
 					form="form-register"
-					actionListener="#{toolController.insertNewTool}"
-					update="form-register, @([id$=toolBrowserTable]), @([id$=messages])" />
+					actionListener="#{backgroundController.insertNewBackground}"
+					update="form-register, @([id$=backgroundBrowserTable]), @([id$=messages])" />
 			</p:tab>
-			<p:tab title="#{messages['label.tool.database']}">
+			<p:tab title="#{messages['label.background.database']}">
 				<div class="card">
-					<p:dataTable id="toolBrowserTable" var="tool"
-						value="#{toolController.tools}" scrollable="true"
+					<p:dataTable id="backgroundBrowserTable" var="background"
+						value="#{backgroundController.backgrounds}" scrollable="true"
 						scrollHeight="750">
 						<f:facet name="header">
 							<div class="p-d-flex p-jc-between p-ai-center"
 								style="text-align-last: right">
 								<div
 									style="float: left; margin-top: 10px; vertical-align: center">
-									<h:outputText value="#{messages['label.tool.list']}" />
+									<h:outputText value="#{messages['label.background.list']}" />
 								</div>
 								<div>
 									<p:commandButton id="toggler" type="button"
 										value="#{messages['label.columns']}"
 										icon="pi pi-align-justify" />
-									<p:columnToggler datasource="toolBrowserTable"
+									<p:columnToggler datasource="backgroundBrowserTable"
 										trigger="toggler" />
 								</div>
 							</div>
 						</f:facet>
 
 						<p:column headerText="#{messages['label.name']}">
-							<h:outputText value="#{tool.name}" />
-						</p:column>
-
-						<p:column headerText="#{messages['label.tooltype']}">
-							<h:outputText value="#{tool.toolType.getLocaleDescription()}" />
-						</p:column>
-
-						<p:column headerText="#{messages['label.weight']}">
-							<h:outputText value="#{tool.weight}" />
+							<h:outputText value="#{background.name}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.edit']}"
 							style="width:25px;">
 							<p:commandButton icon="pi pi-pencil"
 								title="#{messages['label.update.race']}" ajax="true"
-								actionListener="#{toolController.openUpdateDialog(tool)}"
+								actionListener="#{backgroundController.openUpdateDialog(background)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
 						</p:column>
@@ -81,10 +73,10 @@
 						<p:column headerText="#{messages['label.remove']}"
 							style="width:35px;">
 							<p:commandButton icon="pi pi-trash"
-								title="#{messages['label.delete.tool']}"
+								title="#{messages['label.delete.background']}"
 								styleClass="ui-button-danger"
-								action="#{toolController.deleteTool(tool)}"
-								update="toolBrowserTable, @([id$=message])">
+								action="#{backgroundController.deleteBackground(background)}"
+								update="backgroundBrowserTable, @([id$=message])">
 								<p:confirm type="popup" header="Confirmation"
 									message="#{messages['label.are.you.sure']}"
 									icon="pi pi-exclamation-triangle" />
