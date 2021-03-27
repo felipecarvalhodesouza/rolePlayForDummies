@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.BackgroundEntity;
+import br.com.roleplay.entity.BondEntity;
 import br.com.roleplay.entity.IdealEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.PersonalityEntity;
@@ -18,6 +19,7 @@ import br.com.roleplay.entity.ToolEntity;
 import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.BackgroundModel;
+import br.com.roleplay.model.BondModel;
 import br.com.roleplay.model.IdealModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.PersonalityModel;
@@ -298,5 +300,34 @@ public class UtilsConverter {
 		idealModel.setDescriptionEn(idealEntity.getDescriptionEn());
 		idealModel.setDescriptionPt(idealEntity.getDescriptionPt());
 		return idealModel;
+	}
+
+	public static BondEntity getBondEntityFromBondModel(BondModel bondModel) {
+		BondEntity bondEntity = new BondEntity();
+		bondEntity.setId(bondModel.getId());
+		bondEntity.setValue(bondModel.getValue());
+		bondEntity.setBackground(getBackgroundEntityFromBackgroundModel(bondModel.getBackground()));
+		bondEntity.setDescriptionEn(bondModel.getDescriptionEn());
+		bondEntity.setDescriptionPt(bondModel.getDescriptionPt());
+		return bondEntity;
+	}
+
+	public static Set<BondModel> getBondModelSetFromBondEntitySet(Set<BondEntity> bondEntitySet) {
+		Set<BondModel> bondModelSet = new LinkedHashSet<BondModel>();
+
+		for (BondEntity bondEntity : bondEntitySet) {
+			bondModelSet.add(getBondModelFromBondEntity(bondEntity));
+		}
+		return bondModelSet;
+	}
+
+	private static BondModel getBondModelFromBondEntity(BondEntity bondEntity) {
+		BondModel bondModel = new BondModel();
+		bondModel.setId(bondEntity.getId());
+		bondModel.setValue(bondEntity.getValue());
+		bondModel.setBackground(getBackgroundModelFromBackgroundEntity(bondEntity.getBackground()));
+		bondModel.setDescriptionEn(bondEntity.getDescriptionEn());
+		bondModel.setDescriptionPt(bondEntity.getDescriptionPt());
+		return bondModel;
 	}
 }

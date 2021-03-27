@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+		<style>
+.panelGrid2>tbody>tr:first-child>td:first-child {
+	padding: 0;
+}
+</style>
+
+		<p:dialog header="#{messages['label.update.bond']}"
+			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
+			<ui:include src="/form/bondForm.xhtml" />
+			<p:commandButton value="#{messages['label.update']}"
+				id="commandButton-update" icon="pi pi-save"
+				style="float:right; margin-bottom:-5rem; margin-right:2rem"
+				actionListener="#{bondController.updateBond(bondController.bondModel)}"
+				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
+				update="@([id$=bondBrowserTable]), @([id$=message])" />
+		</p:dialog>
+
+		<p:tabView style="width:80%;height:600px;margin:auto;" id="tabview">
+			<p:tab title="#{messages['label.bond.registration']}"
+				rendered="#{userController.userModel.id == 1}">
+				<p:commandButton value="#{messages['label.save']}"
+					id="commandButton-save" icon="pi pi-save"
+					style="margin-bottom: -5rem; float:right"
+					actionListener="#{bondController.insertNewBond}"
+					form="form-register"
+					update="@([id$=panelGrid-form-fields]), @([id$=message]),
+					 @([id$=bond-range-slider]), @([id$=form-fields-2]), @([id$=bondBrowserTable])" />
+				<ui:include src="/form/bondForm.xhtml" />
+			</p:tab>
+			<p:tab title="#{messages['label.bond.database']}">
+				<div class="card">
+					<p:dataTable id="bondBrowserTable" var="bond"
+						value="#{bondController.personalities}" scrollable="true"
+						scrollHeight="250">
+						<f:facet name="header">
+							<div class="p-d-flex p-jc-between p-ai-center"
+								style="text-align-last: right">
+								<div
+									style="float: left; margin-top: 10px; vertical-align: center">
+									<h:outputText value="#{messages['label.bond.list']}" />
+								</div>
+								<div>
+									<p:commandButton id="toggler" type="button"
+										value="#{messages['label.columns']}"
+										icon="pi pi-align-justify" />
+									<p:columnToggler datasource="bondBrowserTable"
+										trigger="toggler" />
+								</div>
+							</div>
+						</f:facet>
+
+						<p:column headerText="#{messages['label.value']}" width="5%">
+							<h:outputText value="#{bond.value}" />
+						</p:column>
+						
+						<p:column headerText="#{messages['label.background']}" width="10%">
+							<h:outputText value="#{bond.background.name}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.description']}" width="60%">
+							<h:outputText value="#{bond.getLocaleDescription(internationalizationController.locale)}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.edit']}"
+							style="width:25px;">
+							<p:commandButton icon="pi pi-pencil"
+								title="#{messages['label.update.bond']}" ajax="true"
+								actionListener="#{bondController.openUpdateDialog(bond)}"
+								oncomplete="PF('dialog-update-modal').show();"
+								update="dialog-update-modal" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.remove']}"
+							style="width:35px;">
+							<p:commandButton icon="pi pi-trash"
+								title="#{messages['label.delete.bond']}"
+								styleClass="ui-button-danger"
+								action="#{bondController.deleteBond(bond)}"
+								update="bondBrowserTable, @([id$=message])">
+								<p:confirm type="popup" header="Confirmation"
+									message="#{messages['label.are.you.sure']}"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+
+							<p:confirmPopup global="true">
+								<p:commandButton value="#{messages['label.no']}" type="button"
+									styleClass="ui-confirm-popup-no ui-button-flat" />
+								<p:commandButton value="#{messages['label.yes']}" type="button"
+									styleClass="ui-confirm-popup-yes" />
+							</p:confirmPopup>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+
+</html>

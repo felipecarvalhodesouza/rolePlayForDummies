@@ -5,29 +5,27 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:form id="form">
-<style>
-	.internationalization {
-		float: right;
-	}
-	
-	.ui-toggleswitch-slider{
-	    margin-top: 0.5rem;
-	    height: 100%;
-	    margin-right: 0.5rem;
-	    margin-left: -0.5rem;
-	}
-</style>
-<script>
+	<style>
+.internationalization {
+	float: right;
+}
 
-	function changeLabelStyle(){
-		if($("#form\\:switch").hasClass('ui-toggleswitch-checked')){
-			$("#form\\:labelDarkMode").css("color", "white");
-		}else{
-			$("#form\\:labelDarkMode").css("color", "back");
+.ui-toggleswitch-slider {
+	margin-top: 0.5rem;
+	height: 100%;
+	margin-right: 0.5rem;
+	margin-left: -0.5rem;
+}
+</style>
+	<script>
+		function changeLabelStyle() {
+			if ($("#form\\:switch").hasClass('ui-toggleswitch-checked')) {
+				$("#form\\:labelDarkMode").css("color", "white");
+			} else {
+				$("#form\\:labelDarkMode").css("color", "back");
+			}
 		}
-	}
-	
-</script>
+	</script>
 	<f:view locale="#{internationalizationController.locale}" />
 	<p:menubar id="menubar">
 		<p:menuitem value="#{messages['label.home']}" icon="pi pi-home"
@@ -49,10 +47,12 @@
 				<p:menuitem value="#{messages['label.background']}"
 					icon="pi pi-folder-open" url="background.xhtml" />
 				<p:menuitem value="#{messages['label.personality']}"
-					icon="pi pi-folder-open" url="personality.xhtml" />	
+					icon="pi pi-folder-open" url="personality.xhtml" />
 				<p:menuitem value="#{messages['label.ideals']}"
-					icon="pi pi-folder-open" url="ideal.xhtml" />				
-			</p:submenu>			
+					icon="pi pi-folder-open" url="ideal.xhtml" />
+				<p:menuitem value="#{messages['label.bonds']}"
+					icon="pi pi-folder-open" url="bond.xhtml" />
+			</p:submenu>
 		</p:submenu>
 		<p:menuitem value="#{messages['label.print']}" icon="pi pi-print" />
 		<p:submenu label="#{messages['label.change.language']}"
@@ -66,15 +66,15 @@
 		</p:submenu>
 		<f:facet name="options">
 			<p:outputLabel value="#{messages['label.dark.mode']}"
-				style="padding-right:1rem" id="labelDarkMode"/>
-			<p:toggleSwitch value="#{viewController.darkMode}" id="switch" style="margin-top:0" >
-				<p:ajax
-					oncomplete="changeLabelStyle()"
+				style="padding-right:1rem" id="labelDarkMode" />
+			<p:toggleSwitch value="#{viewController.darkMode}" id="switch"
+				style="margin-top:0">
+				<p:ajax oncomplete="changeLabelStyle()"
 					listener="#{viewController.changeView(viewController.darkMode)}"
 					update="@all" />
 			</p:toggleSwitch>
-		<p:commandButton value="#{messages['label.logout']}"
-			icon="pi pi-sign-out" action="#{userController.logout}" />
+			<p:commandButton value="#{messages['label.logout']}"
+				icon="pi pi-sign-out" action="#{userController.logout}" />
 		</f:facet>
 	</p:menubar>
 </h:form>
