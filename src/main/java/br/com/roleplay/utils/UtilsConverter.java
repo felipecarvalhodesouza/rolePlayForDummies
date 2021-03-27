@@ -11,12 +11,14 @@ import org.apache.commons.beanutils.BeanUtils;
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.BackgroundEntity;
 import br.com.roleplay.entity.LanguageEntity;
+import br.com.roleplay.entity.PersonalityEntity;
 import br.com.roleplay.entity.RaceEntity;
 import br.com.roleplay.entity.ToolEntity;
 import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.BackgroundModel;
 import br.com.roleplay.model.LanguageModel;
+import br.com.roleplay.model.PersonalityModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.model.ToolModel;
 import br.com.roleplay.model.WeaponModel;
@@ -230,5 +232,40 @@ public class UtilsConverter {
 		BackgroundModel backgroundModel = new BackgroundModel();
 		copyProperties(backgroundModel, backgroundEntity);
 		return backgroundModel;
+	}
+	
+	public static BackgroundEntity getBackgroundEntityFromBackgroundModel(BackgroundModel backgroundModel) {
+		BackgroundEntity backgroundEntity = new BackgroundEntity();
+		copyProperties(backgroundEntity, backgroundModel);
+		return backgroundEntity;
+	}
+
+	public static Set<PersonalityModel> getPersonalityModelSetFromPersonalityEntitySet(Set<PersonalityEntity> personalitySet) {
+		Set<PersonalityModel> personalityModelSet = new LinkedHashSet<PersonalityModel>();
+
+		for (PersonalityEntity personalityEntity : personalitySet) {
+			personalityModelSet.add(getPersonalityModelFromPersonalityEntity(personalityEntity));
+		}
+		return personalityModelSet;
+	}
+
+	private static PersonalityModel getPersonalityModelFromPersonalityEntity(PersonalityEntity personalityEntity) {
+		PersonalityModel personalityModel = new PersonalityModel();
+		personalityModel.setId(personalityEntity.getId());
+		personalityModel.setValue(personalityEntity.getValue());
+		personalityModel.setBackground(getBackgroundModelFromBackgroundEntity(personalityEntity.getBackground()));
+		personalityModel.setDescriptionEn(personalityEntity.getDescriptionEn());
+		personalityModel.setDescriptionPt(personalityEntity.getDescriptionPt());
+		return personalityModel;
+	}
+
+	public static PersonalityEntity getPersonalityEntityFromPersonalityModel(PersonalityModel personalityModel) {
+		PersonalityEntity entity = new PersonalityEntity();
+		entity.setId(personalityModel.getId());
+		entity.setValue(personalityModel.getValue());
+		entity.setBackground(getBackgroundEntityFromBackgroundModel(personalityModel.getBackground()));
+		entity.setDescriptionEn(personalityModel.getDescriptionEn());
+		entity.setDescriptionPt(personalityModel.getDescriptionPt());
+		return entity;
 	}
 }

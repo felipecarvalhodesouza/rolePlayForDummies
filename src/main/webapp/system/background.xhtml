@@ -25,7 +25,7 @@
 				update="@([id$=backgroundBrowserTable]), @([id$=messages])" />
 		</p:dialog>
 
-		<p:tabView style="width:450px;height:500px;margin:auto;" id="tabview">
+		<p:tabView style="width:550px;height:500px;margin:auto;" id="tabview">
 			<p:tab title="#{messages['label.background.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 				<ui:include src="/form/backgroundForm.xhtml" />
@@ -39,7 +39,7 @@
 				<div class="card">
 					<p:dataTable id="backgroundBrowserTable" var="background"
 						value="#{backgroundController.backgrounds}" scrollable="true"
-						scrollHeight="750">
+						scrollHeight="250">
 						<f:facet name="header">
 							<div class="p-d-flex p-jc-between p-ai-center"
 								style="text-align-last: right">
@@ -57,14 +57,14 @@
 							</div>
 						</f:facet>
 
-						<p:column headerText="#{messages['label.name']}">
+						<p:column headerText="#{messages['label.name']}" width="70%">
 							<h:outputText value="#{background.name}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.edit']}"
 							style="width:25px;">
 							<p:commandButton icon="pi pi-pencil"
-								title="#{messages['label.update.race']}" ajax="true"
+								title="#{messages['label.update.background']}" ajax="true"
 								actionListener="#{backgroundController.openUpdateDialog(background)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />

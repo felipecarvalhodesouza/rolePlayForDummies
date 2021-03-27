@@ -46,4 +46,9 @@
 		<converter-id>diceConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.DiceConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Background converter</description>
+		<converter-id>backgroundConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.BackgroundConverter</converter-class>
+	</converter>
 </faces-config>
