@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.BackgroundEntity;
+import br.com.roleplay.entity.IdealEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.PersonalityEntity;
 import br.com.roleplay.entity.RaceEntity;
@@ -17,6 +18,7 @@ import br.com.roleplay.entity.ToolEntity;
 import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.BackgroundModel;
+import br.com.roleplay.model.IdealModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.PersonalityModel;
 import br.com.roleplay.model.RaceModel;
@@ -267,5 +269,34 @@ public class UtilsConverter {
 		entity.setDescriptionEn(personalityModel.getDescriptionEn());
 		entity.setDescriptionPt(personalityModel.getDescriptionPt());
 		return entity;
+	}
+
+	public static IdealEntity getIdealEntityFromIdealModel(IdealModel idealModel) {
+		IdealEntity entity = new IdealEntity();
+		entity.setId(idealModel.getId());
+		entity.setValue(idealModel.getValue());
+		entity.setBackground(getBackgroundEntityFromBackgroundModel(idealModel.getBackground()));
+		entity.setDescriptionEn(idealModel.getDescriptionEn());
+		entity.setDescriptionPt(idealModel.getDescriptionPt());
+		return entity;
+	}
+
+	public static Set<IdealModel> getIdealModelSetFromIdealEntitySet(Set<IdealEntity> idealSet) {
+		Set<IdealModel> idealModelSet = new LinkedHashSet<IdealModel>();
+
+		for (IdealEntity idealEntity : idealSet) {
+			idealModelSet.add(getIdealModelFromIdealEntity(idealEntity));
+		}
+		return idealModelSet;
+	}
+
+	private static IdealModel getIdealModelFromIdealEntity(IdealEntity idealEntity) {
+		IdealModel idealModel = new IdealModel();
+		idealModel.setId(idealEntity.getId());
+		idealModel.setValue(idealEntity.getValue());
+		idealModel.setBackground(getBackgroundModelFromBackgroundEntity(idealEntity.getBackground()));
+		idealModel.setDescriptionEn(idealEntity.getDescriptionEn());
+		idealModel.setDescriptionPt(idealEntity.getDescriptionPt());
+		return idealModel;
 	}
 }
