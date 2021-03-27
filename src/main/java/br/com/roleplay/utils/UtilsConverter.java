@@ -11,6 +11,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.BackgroundEntity;
 import br.com.roleplay.entity.BondEntity;
+import br.com.roleplay.entity.FlawEntity;
 import br.com.roleplay.entity.IdealEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.PersonalityEntity;
@@ -20,6 +21,7 @@ import br.com.roleplay.entity.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.BackgroundModel;
 import br.com.roleplay.model.BondModel;
+import br.com.roleplay.model.FlawModel;
 import br.com.roleplay.model.IdealModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.PersonalityModel;
@@ -330,4 +332,34 @@ public class UtilsConverter {
 		bondModel.setDescriptionPt(bondEntity.getDescriptionPt());
 		return bondModel;
 	}
+	
+	public static FlawEntity getFlawEntityFromFlawModel(FlawModel flawModel) {
+		FlawEntity flawEntity = new FlawEntity();
+		flawEntity.setId(flawModel.getId());
+		flawEntity.setValue(flawModel.getValue());
+		flawEntity.setBackground(getBackgroundEntityFromBackgroundModel(flawModel.getBackground()));
+		flawEntity.setDescriptionEn(flawModel.getDescriptionEn());
+		flawEntity.setDescriptionPt(flawModel.getDescriptionPt());
+		return flawEntity;
+	}
+
+	public static Set<FlawModel> getFlawModelSetFromFlawEntitySet(Set<FlawEntity> flawEntitySet) {
+		Set<FlawModel> flawModelSet = new LinkedHashSet<FlawModel>();
+
+		for (FlawEntity flawEntity : flawEntitySet) {
+			flawModelSet.add(getFlawModelFromFlawEntity(flawEntity));
+		}
+		return flawModelSet;
+	}
+
+	private static FlawModel getFlawModelFromFlawEntity(FlawEntity flawEntity) {
+		FlawModel flawModel = new FlawModel();
+		flawModel.setId(flawEntity.getId());
+		flawModel.setValue(flawEntity.getValue());
+		flawModel.setBackground(getBackgroundModelFromBackgroundEntity(flawEntity.getBackground()));
+		flawModel.setDescriptionEn(flawEntity.getDescriptionEn());
+		flawModel.setDescriptionPt(flawEntity.getDescriptionPt());
+		return flawModel;
+	}
+
 }
