@@ -15,69 +15,57 @@
 	padding: 0;
 }
 </style>
-
-		<p:dialog header="#{messages['label.update.bond']}"
+		<p:dialog header="#{messages['label.update.item']}"
 			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
-			<ui:include src="/form/bondForm.xhtml" />
+			<ui:include src="/form/itemForm.xhtml" />
 			<p:commandButton value="#{messages['label.update']}"
-				id="commandButton-update" icon="pi pi-save"
-				style="float:right; margin-bottom:-5rem; margin-right:2rem"
-				actionListener="#{bondController.updateBond(bondController.bondModel)}"
+				id="commandButton-update" icon="pi pi-save" style="float:right"
+				actionListener="#{itemController.updateItem(itemController.itemModel)}"
 				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
-				update="@([id$=bondBrowserTable]), @([id$=message])" />
+				update="@([id$=itemBrowserTable]), @([id$=messages])" />
 		</p:dialog>
 
-		<p:tabView style="width:80%;height:600px;margin:auto;" id="tabview">
-			<p:tab title="#{messages['label.bond.registration']}"
+		<p:tabView style="width:550px;height:500px;margin:auto;" id="tabview">
+			<p:tab title="#{messages['label.item.registration']}"
 				rendered="#{userController.userModel.id == 1}">
+				<ui:include src="/form/itemForm.xhtml" />
 				<p:commandButton value="#{messages['label.save']}"
-					id="commandButton-save" icon="pi pi-save"
-					style="margin-bottom: -5rem; float:right"
-					actionListener="#{bondController.insertNewBond}"
+					id="commandButton-save" icon="pi pi-save" style="float:right"
 					form="form-register"
-					update="@([id$=panelGrid-form-fields]), @([id$=message]),
-					 @([id$=bond-range-slider]), @([id$=form-fields-2]), @([id$=bondBrowserTable])" />
-				<ui:include src="/form/bondForm.xhtml" />
+					actionListener="#{itemController.insertNewItem}"
+					update="form-register, @([id$=itemBrowserTable]), @([id$=messages])" />
 			</p:tab>
-			<p:tab title="#{messages['label.bond.database']}">
+			<p:tab title="#{messages['label.item.database']}">
 				<div class="card">
-					<p:dataTable id="bondBrowserTable" var="bond"
-						value="#{bondController.bonds}" scrollable="true"
+					<p:dataTable id="itemBrowserTable" var="item"
+						value="#{itemController.items}" scrollable="true"
 						scrollHeight="250">
 						<f:facet name="header">
 							<div class="p-d-flex p-jc-between p-ai-center"
 								style="text-align-last: right">
 								<div
 									style="float: left; margin-top: 10px; vertical-align: center">
-									<h:outputText value="#{messages['label.bond.list']}" />
+									<h:outputText value="#{messages['label.item.list']}" />
 								</div>
 								<div>
 									<p:commandButton id="toggler" type="button"
 										value="#{messages['label.columns']}"
 										icon="pi pi-align-justify" />
-									<p:columnToggler datasource="bondBrowserTable"
+									<p:columnToggler datasource="itemBrowserTable"
 										trigger="toggler" />
 								</div>
 							</div>
 						</f:facet>
 
-						<p:column headerText="#{messages['label.value']}" width="5%">
-							<h:outputText value="#{bond.value}" />
-						</p:column>
-						
-						<p:column headerText="#{messages['label.background']}" width="10%">
-							<h:outputText value="#{bond.background.name}" />
-						</p:column>
-
-						<p:column headerText="#{messages['label.description']}" width="60%">
-							<h:outputText value="#{bond.getLocaleDescription(internationalizationController.locale)}" />
+						<p:column headerText="#{messages['label.name']}" width="70%">
+							<h:outputText value="#{item.name}" />
 						</p:column>
 
 						<p:column headerText="#{messages['label.edit']}"
 							style="width:25px;">
 							<p:commandButton icon="pi pi-pencil"
-								title="#{messages['label.update.bond']}" ajax="true"
-								actionListener="#{bondController.openUpdateDialog(bond)}"
+								title="#{messages['label.update.item']}" ajax="true"
+								actionListener="#{itemController.openUpdateDialog(item)}"
 								oncomplete="PF('dialog-update-modal').show();"
 								update="dialog-update-modal" />
 						</p:column>
@@ -85,10 +73,10 @@
 						<p:column headerText="#{messages['label.remove']}"
 							style="width:35px;">
 							<p:commandButton icon="pi pi-trash"
-								title="#{messages['label.delete.bond']}"
+								title="#{messages['label.delete.item']}"
 								styleClass="ui-button-danger"
-								action="#{bondController.deleteBond(bond)}"
-								update="bondBrowserTable, @([id$=message])">
+								action="#{itemController.deleteItem(item)}"
+								update="itemBrowserTable, @([id$=message])">
 								<p:confirm type="popup" header="Confirmation"
 									message="#{messages['label.are.you.sure']}"
 									icon="pi pi-exclamation-triangle" />

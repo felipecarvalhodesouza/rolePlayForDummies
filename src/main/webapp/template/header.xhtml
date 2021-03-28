@@ -39,10 +39,16 @@
 				url="language.xhtml" />
 			<p:menuitem value="#{messages['label.races']}" icon="pi pi-id-card"
 				url="race.xhtml" />
-			<p:menuitem value="#{messages['label.weapons']}"
-				icon="pi pi-folder-open" url="weapon.xhtml" />
 			<p:menuitem value="#{messages['label.tools']}"
 				icon="pi pi-folder-open" url="tool.xhtml" />
+			<p:submenu label="#{messages['label.items']}" icon="pi pi-book">
+				<p:menuitem value="#{messages['label.weapons']}"
+					icon="pi pi-folder-open" url="weapon.xhtml" />
+				<p:menuitem value="#{messages['label.items']}"
+					icon="pi pi-folder-open" url="item.xhtml" />
+				<p:menuitem value="#{messages['label.optional.items']}"
+					icon="pi pi-folder-open" url="optionalItem.xhtml" />
+			</p:submenu>
 			<p:submenu label="#{messages['label.background']}" icon="pi pi-book">
 				<p:menuitem value="#{messages['label.background']}"
 					icon="pi pi-folder-open" url="background.xhtml" />

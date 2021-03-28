@@ -7,10 +7,10 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import br.com.roleplay.model.background.BackgroundModel;
+import br.com.roleplay.model.items.ItemModel;
 
-@FacesConverter("backgroundConverter")
-public class BackgroundConverter implements Converter {
+@FacesConverter("itemConverter")
+public class ItemConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -19,13 +19,13 @@ public class BackgroundConverter implements Converter {
 		}
 
 		try {
-			long id = Long.valueOf(value.substring(17, value.indexOf(",")));
+			long id = Long.valueOf(value.substring(11, value.indexOf(",")));
 			String name = value.substring(value.lastIndexOf("=") + 2, value.lastIndexOf("]") - 1);
 
-			return new BackgroundModel(id, name);
+			return new ItemModel(id, name);
 		} catch (Exception e) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Conversion error", "Conversion error");
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion error",
+					"Conversion error");
 
 			throw new ConverterException(facesMessage);
 		}
@@ -38,8 +38,8 @@ public class BackgroundConverter implements Converter {
 			return null;
 		}
 
-		BackgroundModel background = (BackgroundModel) value;
-		return "Background[ id = " + background.getId() + ", name = " + background.getName() + " ]";
+		ItemModel item = (ItemModel) value;
+		return "Item[ id = " + item.getId() + ", name = " + item.getName() + " ]";
 	}
 
 }

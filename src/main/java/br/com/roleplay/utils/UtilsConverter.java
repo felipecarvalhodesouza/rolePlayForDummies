@@ -9,25 +9,29 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.roleplay.entity.AbilityBonusEntity;
-import br.com.roleplay.entity.BackgroundEntity;
-import br.com.roleplay.entity.BondEntity;
-import br.com.roleplay.entity.FlawEntity;
-import br.com.roleplay.entity.IdealEntity;
 import br.com.roleplay.entity.LanguageEntity;
-import br.com.roleplay.entity.PersonalityEntity;
 import br.com.roleplay.entity.RaceEntity;
 import br.com.roleplay.entity.ToolEntity;
-import br.com.roleplay.entity.WeaponEntity;
+import br.com.roleplay.entity.background.BackgroundEntity;
+import br.com.roleplay.entity.background.BondEntity;
+import br.com.roleplay.entity.background.FlawEntity;
+import br.com.roleplay.entity.background.IdealEntity;
+import br.com.roleplay.entity.background.PersonalityEntity;
+import br.com.roleplay.entity.items.ItemEntity;
+import br.com.roleplay.entity.items.OptionalItemEntity;
+import br.com.roleplay.entity.items.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
-import br.com.roleplay.model.BackgroundModel;
-import br.com.roleplay.model.BondModel;
-import br.com.roleplay.model.FlawModel;
-import br.com.roleplay.model.IdealModel;
 import br.com.roleplay.model.LanguageModel;
-import br.com.roleplay.model.PersonalityModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.model.ToolModel;
-import br.com.roleplay.model.WeaponModel;
+import br.com.roleplay.model.background.BackgroundModel;
+import br.com.roleplay.model.background.BondModel;
+import br.com.roleplay.model.background.FlawModel;
+import br.com.roleplay.model.background.IdealModel;
+import br.com.roleplay.model.background.PersonalityModel;
+import br.com.roleplay.model.items.ItemModel;
+import br.com.roleplay.model.items.OptionalItemModel;
+import br.com.roleplay.model.items.WeaponModel;
 
 public class UtilsConverter {
 
@@ -362,4 +366,56 @@ public class UtilsConverter {
 		return flawModel;
 	}
 
+	public static Set<ItemModel> getItemModelSetFromItemEntitySet(Set<ItemEntity> itemEntitySet) {
+		Set<ItemModel> itemModelSet = new LinkedHashSet<ItemModel>();
+		
+		for (ItemEntity itemEntity : itemEntitySet) {
+			ItemModel itemModel = new ItemModel();
+			copyProperties(itemModel, itemEntity);
+			itemModelSet.add(itemModel);
+		}
+		
+		return itemModelSet;
+	}
+	
+	public static List<ItemEntity> getItemEntityListFromItemModelList(List<ItemModel> itemModelList) {
+		List<ItemEntity> itemEntityList = new ArrayList<ItemEntity>();
+		
+		for (ItemModel itemModel : itemModelList) {
+			ItemEntity itemEntity = new ItemEntity();
+			copyProperties(itemEntity, itemModel);
+			itemEntityList.add(itemEntity);
+		}
+		
+		return itemEntityList;
+	}
+
+	public static Set<OptionalItemModel> getOptionalItemModelSetFromOptionalItemEntitySet(Set<OptionalItemEntity> optionalItemEntitySet) {
+		Set<OptionalItemModel> optionalItemModelSet = new LinkedHashSet<OptionalItemModel>();
+		
+		for (OptionalItemEntity optionalItemEntity : optionalItemEntitySet) {
+			optionalItemModelSet.add(getOptionalItemModelFromOptionalItemEntity(optionalItemEntity));
+		}
+		
+		return optionalItemModelSet;
+	}
+
+	public static OptionalItemEntity getOptionalItemEntityFromOptionalItemModel(OptionalItemModel optionalItemModel) {
+		OptionalItemEntity optionalItemEntity = new OptionalItemEntity();
+		optionalItemEntity.setId(optionalItemModel.getId());
+		optionalItemEntity.setBackground(getBackgroundEntityFromBackgroundModel(optionalItemModel.getBackground()));
+		optionalItemEntity.setCod(optionalItemModel.getCod());
+		optionalItemEntity.setItems(getItemEntityListFromItemModelList(optionalItemModel.getItems()));
+		return optionalItemEntity;
+	}
+	
+	public static OptionalItemModel getOptionalItemModelFromOptionalItemEntity(OptionalItemEntity optionalItemEntity) {
+		OptionalItemModel optionalItemModel = new OptionalItemModel();
+		optionalItemModel.setId(optionalItemEntity.getId());
+		optionalItemModel.setBackground(getBackgroundModelFromBackgroundEntity(optionalItemEntity.getBackground()));
+		optionalItemModel.setCod(optionalItemEntity.getCod());
+		optionalItemModel.setItems(getListFromSet(getItemModelSetFromItemEntitySet(getSetFromList(optionalItemEntity.getItems()))));
+		return optionalItemModel;
+	}
+	
 }

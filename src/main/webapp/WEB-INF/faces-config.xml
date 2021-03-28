@@ -51,4 +51,9 @@
 		<converter-id>backgroundConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.BackgroundConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Item converter</description>
+		<converter-id>itemConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.ItemConverter</converter-class>
+	</converter>
 </faces-config>
