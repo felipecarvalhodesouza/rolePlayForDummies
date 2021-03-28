@@ -56,4 +56,14 @@
 		<converter-id>itemConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.ItemConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Optional Item converter</description>
+		<converter-id>optionalItemConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.OptionalItemConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Skill converter</description>
+		<converter-id>skillConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.SkillConverter</converter-class>
+	</converter>
 </faces-config>

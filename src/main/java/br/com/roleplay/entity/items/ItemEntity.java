@@ -7,11 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.com.roleplay.interfaces.Equipment;
-
 @Entity
 @Table(name = "item")
-public class ItemEntity implements Equipment{
+public class ItemEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

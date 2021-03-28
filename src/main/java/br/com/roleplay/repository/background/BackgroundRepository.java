@@ -22,9 +22,10 @@ public class BackgroundRepository {
 
 		entityManager = Utils.JpaEntityManager();
 
-		UtilsConverter.copyProperties(backgroundEntity, backgroundModel);
+		backgroundEntity = UtilsConverter.getBackgroundEntityFromBackgroundModel(backgroundModel);
 		
 		entityManager.persist(backgroundEntity);
+		entityManager.flush();
 		
 	}
 
@@ -60,7 +61,7 @@ public class BackgroundRepository {
 
 		BackgroundEntity backgroundEntity = this.getBackground(backgroundModel.getId());
 
-		backgroundEntity.setName(backgroundModel.getName());
+		backgroundEntity = UtilsConverter.getBackgroundEntityFromBackgroundModel(backgroundModel);
 
 		entityManager.merge(backgroundEntity);
 	}

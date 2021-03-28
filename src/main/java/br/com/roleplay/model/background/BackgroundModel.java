@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.Set;
 
 import br.com.roleplay.enums.Skill;
-import br.com.roleplay.interfaces.Equipment;
 import br.com.roleplay.model.LanguageModel;
+import br.com.roleplay.model.items.ItemModel;
 import br.com.roleplay.model.items.OptionalItemModel;
 
 public class BackgroundModel {
@@ -15,8 +15,8 @@ public class BackgroundModel {
 	private String name;
 	private Set<Skill> skillProficiencies;
 	private List<LanguageModel> languages;
-	private List<Equipment> itens;
-	private List<OptionalItemModel> optionalItens;
+	private List<ItemModel> items;
+	private List<OptionalItemModel> optionalItems;
 	private String featureDescriptionEn;
 	private String featureDescriptionPt;
 	private String characteristicsDescriptionEn;
@@ -95,20 +95,20 @@ public class BackgroundModel {
 		this.characteristicsDescriptionPt = characteristicsDescriptionPt;
 	}
 
-	public List<Equipment> getItens() {
-		return itens;
+	public List<ItemModel> getItems() {
+		return items;
 	}
 
-	public void setItens(List<Equipment> itens) {
-		this.itens = itens;
+	public void setItems(List<ItemModel> items) {
+		this.items = items;
 	}
 
-	public List<OptionalItemModel> getOptionalItens() {
-		return optionalItens;
+	public List<OptionalItemModel> getOptionalItems() {
+		return optionalItems;
 	}
 
-	public void setOptionalItens(List<OptionalItemModel> optionalItens) {
-		this.optionalItens = optionalItens;
+	public void setOptionalItems(List<OptionalItemModel> optionalItems) {
+		this.optionalItems = optionalItems;
 	}
 
 	@Override

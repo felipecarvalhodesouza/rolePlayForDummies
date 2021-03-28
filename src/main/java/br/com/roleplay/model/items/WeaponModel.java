@@ -8,9 +8,8 @@ import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
 import br.com.roleplay.enums.weapon.WeaponProperty;
-import br.com.roleplay.interfaces.Equipment;
 
-public class WeaponModel implements Equipment{
+public class WeaponModel{
 
 	private long id;
 	private String name;

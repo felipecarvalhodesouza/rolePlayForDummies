@@ -1,8 +1,6 @@
 package br.com.roleplay.model.items;
 
-import br.com.roleplay.interfaces.Equipment;
-
-public class ItemModel implements Equipment {
+public class ItemModel{
 
 	private long id;
 	private String name;

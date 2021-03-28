@@ -22,15 +22,16 @@
 				id="commandButton-update" icon="pi pi-save" style="float:right"
 				actionListener="#{backgroundController.updateBackground(backgroundController.backgroundModel)}"
 				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
-				update="@([id$=backgroundBrowserTable]), @([id$=messages])" />
+				update="@([id$=backgroundBrowserTable]), @([id$=message])" />
 		</p:dialog>
 
-		<p:tabView style="width:550px;height:500px;margin:auto;" id="tabview">
+		<p:tabView style="width:75%;height:500px;margin:auto;" id="tabview">
 			<p:tab title="#{messages['label.background.registration']}"
 				rendered="#{userController.userModel.id == 1}">
 				<ui:include src="/form/backgroundForm.xhtml" />
 				<p:commandButton value="#{messages['label.save']}"
-					id="commandButton-save" icon="pi pi-save" style="float:right"
+					id="commandButton-save" icon="pi pi-save"
+					style="float:right; margin-bottom:-5rem; margin-right:1rem"
 					form="form-register"
 					actionListener="#{backgroundController.insertNewBackground}"
 					update="form-register, @([id$=backgroundBrowserTable]), @([id$=messages])" />
@@ -57,9 +58,41 @@
 							</div>
 						</f:facet>
 
-						<p:column headerText="#{messages['label.name']}" width="70%">
+						<p:column headerText="#{messages['label.expand']}"
+							style="width:2rem">
+							<p:rowToggler />
+						</p:column>
+
+						<p:column headerText="#{messages['label.name']}" width="10%">
 							<h:outputText value="#{background.name}" />
 						</p:column>
+
+						<p:column headerText="#{messages['label.skill.proficiencies']}" width="15%">
+							<h:outputText value="#{background.skillProficiencies}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.languages']}" width="10%">
+							<h:outputText
+								value="#{empty background.languages ? messages['label.language.script.none'] : background.languages }" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.items']}" width="25%">
+							<h:outputText value="#{background.items}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.optional.items']}">
+							<h:outputText value="#{background.optionalItems}" />
+						</p:column>
+
+						<p:rowExpansion>
+							<div class="description">
+								<h:outputText
+									value="#{background.getLocaleFeatureDescription(internationalizationController.locale)}" />
+								<p:divider />
+								<h:outputText
+									value="#{background.getLocaleCharacteristicsDescription(internationalizationController.locale)}" />
+							</div>
+						</p:rowExpansion>
 
 						<p:column headerText="#{messages['label.edit']}"
 							style="width:25px;">

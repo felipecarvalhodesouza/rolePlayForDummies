@@ -5,18 +5,90 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <style>
+	table > tbody >	tr > td:first-child{
+		width: 250px;
+	}
+	table > tbody >	tr > td:nth-child(3){
+		width: 300px;
+	}
 </style>
 <h:form id="form-register">
 	<h:inputHidden id="inputHidden-id"
 		value="#{backgroundController.backgroundModel.id}" />
 	<p:growl id="message" showDetail="true" />
-	<h:panelGrid id="panelGrid-form-fields" columns="2" cellpadding="10"
+	<h:panelGrid id="panelGrid-form-fields" columns="4" cellpadding="10"
 		width="100%">
 
-		<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
+		<p:outputLabel value="#{messages['label.name']}" for="inputText-name"/>
 		<p:inputText id="inputText-name" maxlength="50"
 			value="#{backgroundController.backgroundModel.name}" required="true"
 			requiredMessage="#{messages['message.name.required']}" />
+
+		<p:outputLabel for="skillProficiencies"
+			value="#{messages['label.skill.proficiencies']}" />
+		<p:selectCheckboxMenu id="skillProficiencies"
+			value="#{backgroundController.backgroundModel.skillProficiencies}"
+			required="true" multiple="true" style="width: 200px;" filter="true"
+			filterMatchMode="startsWith" scrollHeight="200" converter="skillConverter"
+			requiredMessage="#{messages['message.skill.proficiency.required']}">
+			<f:selectItems value="#{backgroundController.skills}" var="skill"
+				itemLabel="#{skill.getLocaleDescription()}" itemValue="#{property}" />
+		</p:selectCheckboxMenu>
+
+		<p:outputLabel for="languages" value="#{messages['label.languages']}" />
+		<p:selectCheckboxMenu id="languages"
+			value="#{backgroundController.backgroundModel.languages}"
+			filter="true" converter="languageConverter"
+			filterMatchMode="contains" showCheckbox="true" scrollHeight="90"
+			required="true" multiple="true" style="width: 200px;">
+			<f:selectItems value="#{backgroundController.languages}"
+				var="language" itemLabel="#{language.getLocaleName()}"
+				itemValue="#{language}" />
+		</p:selectCheckboxMenu>
+
+		<p:outputLabel for="items"
+			value="#{messages['label.items']}" />
+		<p:selectCheckboxMenu id="items"
+			value="#{backgroundController.backgroundModel.items}"
+			required="true" multiple="true" style="width: 200px;" filter="true"
+			filterMatchMode="startsWith" scrollHeight="200" converter="itemConverter"
+			requiredMessage="#{messages['message.item.required']}">
+			<f:selectItems value="#{backgroundController.items}" var="item"
+				itemLabel="#{item.name}" itemValue="#{item}" />
+		</p:selectCheckboxMenu>
+
+		<p:outputLabel for="optionalItems"
+			value="#{messages['label.optional.items']}" />
+		<p:selectCheckboxMenu id="optionalItems"
+			value="#{backgroundController.backgroundModel.optionalItems}"
+			multiple="true" style="width: 200px;" filter="true" converter="optionalItemConverter"
+			filterMatchMode="startsWith" scrollHeight="200">
+			<f:selectItems value="#{backgroundController.optionalItems}" var="optionalItem"
+				itemLabel="#{optionalItem.items}" itemValue="#{optionalItem}" />
+		</p:selectCheckboxMenu>
+		
+		<p:spacer/>
+		<p:spacer/>
+		
+		<p:outputLabel value="#{messages['label.feature.description.en']}"
+			for="inputText-featureDescriptionEn" />
+		<p:inputTextarea id="inputText-featureDescriptionEn" style="width:200px"
+			value="#{backgroundController.backgroundModel.featureDescriptionEn}" autoResize="false" required="true"/>
+			
+		<p:outputLabel value="#{messages['label.feature.description.pt']}"
+			for="inputText-featureDescriptionPt" />
+		<p:inputTextarea id="inputText-featureDescriptionPt" style="width:200px"
+			value="#{backgroundController.backgroundModel.featureDescriptionPt}" autoResize="false" required="true"/>
+			
+		<p:outputLabel value="#{messages['label.characteristics.description.en']}"
+			for="inputText-characteristicsDescriptionEn" />
+		<p:inputTextarea id="inputText-characteristicsDescriptionEn" style="width:200px"
+			value="#{backgroundController.backgroundModel.characteristicsDescriptionEn}" autoResize="false" required="true"/>
+			
+		<p:outputLabel value="#{messages['label.characteristics.description.pt']}"
+			for="inputText-characteristicsDescriptionPt" />
+		<p:inputTextarea id="inputText-characteristicsDescriptionPt" style="width:200px"
+			value="#{backgroundController.backgroundModel.characteristicsDescriptionPt}" autoResize="false" required="true"/>
 
 	</h:panelGrid>
 </h:form>

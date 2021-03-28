@@ -2,6 +2,7 @@ package br.com.roleplay.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,11 +85,17 @@ public class UtilsConverter {
 			entity.setLanguageType(languageModel.getLanguageType());
 			entity.setScript(languageModel.getScript());
 			entity.setName(languageModel.getName());
-			entity.setTypicalSpeakers(getRaceEntitySetFromRaceModelSet(languageModel.getTypicalSpeakers()));
+			if(!isNullOrEmptyCollection(languageModel.getTypicalSpeakers())) {
+				entity.setTypicalSpeakers(getRaceEntitySetFromRaceModelSet(languageModel.getTypicalSpeakers()));
+			}
 			languagelEntitySet.add(entity);
 		}
 
 		return languagelEntitySet;
+	}
+
+	private static <T> boolean isNullOrEmptyCollection(Collection<T> collection) {
+		return collection == null || collection.isEmpty();
 	}
 
 	public static Set<RaceModel> getSetRaceModelFromSetRaceEntity(Set<RaceEntity> raceEntitySet) {
@@ -238,15 +245,39 @@ public class UtilsConverter {
 		return backgroundModelSet;
 	}
 
-	private static BackgroundModel getBackgroundModelFromBackgroundEntity(BackgroundEntity backgroundEntity) {
+	private static BackgroundModel getBackgroundModelFromBackgroundEntity(BackgroundEntity backgroundEntity){
 		BackgroundModel backgroundModel = new BackgroundModel();
-		copyProperties(backgroundModel, backgroundEntity);
+		backgroundModel.setId(backgroundEntity.getId());
+		backgroundModel.setName(backgroundEntity.getName());
+		backgroundModel.setSkillProficiencies(backgroundEntity.getSkillProficiencies());
+		backgroundModel.setLanguages(getListFromSet(getLanguageModelSetFromLanguageEntitySet(getSetFromList(backgroundEntity.getLanguages()))));
+		backgroundModel.setItems(getListFromSet(getItemModelSetFromItemEntitySet(getSetFromList(backgroundEntity.getItems()))));
+		backgroundModel.setOptionalItems(getOptionalItemModelListFromOptionalItemEntityList(backgroundEntity.getOptionalItems()));
+		backgroundModel.setFeatureDescriptionEn(backgroundEntity.getFeatureDescriptionEn());
+		backgroundModel.setFeatureDescriptionPt(backgroundEntity.getFeatureDescriptionPt());
+		backgroundModel.setCharacteristicsDescriptionEn(backgroundEntity.getCharacteristicsDescriptionEn());
+		backgroundModel.setCharacteristicsDescriptionPt(backgroundEntity.getCharacteristicsDescriptionPt());
 		return backgroundModel;
 	}
 	
 	public static BackgroundEntity getBackgroundEntityFromBackgroundModel(BackgroundModel backgroundModel) {
 		BackgroundEntity backgroundEntity = new BackgroundEntity();
-		copyProperties(backgroundEntity, backgroundModel);
+		backgroundEntity.setId(backgroundModel.getId());
+		backgroundEntity.setName(backgroundModel.getName());
+		backgroundEntity.setSkillProficiencies(backgroundModel.getSkillProficiencies());
+		if(backgroundModel.getLanguages() != null) {
+			backgroundEntity.setLanguages(getListFromSet(getLanguageEntitySetFromLanguageModelSet(getSetFromList(backgroundModel.getLanguages()))));
+		}
+		if(backgroundModel.getItems() != null) {
+			backgroundEntity.setItems(getItemEntityListFromItemModelList(backgroundModel.getItems()));
+		}
+		if(backgroundModel.getOptionalItems() != null) {
+			backgroundEntity.setOptionalItems(getOptionalItemEntityListFromOptionalItemModelList(backgroundModel.getOptionalItems()));
+		}
+		backgroundEntity.setFeatureDescriptionEn(backgroundModel.getFeatureDescriptionEn());
+		backgroundEntity.setFeatureDescriptionPt(backgroundModel.getFeatureDescriptionPt());
+		backgroundEntity.setCharacteristicsDescriptionEn(backgroundModel.getCharacteristicsDescriptionEn());
+		backgroundEntity.setCharacteristicsDescriptionPt(backgroundModel.getCharacteristicsDescriptionPt());
 		return backgroundEntity;
 	}
 
@@ -399,23 +430,49 @@ public class UtilsConverter {
 		
 		return optionalItemModelSet;
 	}
+	
+	public static List<OptionalItemModel> getOptionalItemModelListFromOptionalItemEntityList(List<OptionalItemEntity> optionalItemEntityList) {
+		List<OptionalItemModel> optionalItemModelList = new ArrayList<OptionalItemModel>();
+		
+		for (OptionalItemEntity optionalItemEntity : optionalItemEntityList) {
+			optionalItemModelList.add(getOptionalItemModelFromOptionalItemEntity(optionalItemEntity));
+		}
+		
+		return optionalItemModelList;
+	}
 
 	public static OptionalItemEntity getOptionalItemEntityFromOptionalItemModel(OptionalItemModel optionalItemModel) {
 		OptionalItemEntity optionalItemEntity = new OptionalItemEntity();
 		optionalItemEntity.setId(optionalItemModel.getId());
-		optionalItemEntity.setBackground(getBackgroundEntityFromBackgroundModel(optionalItemModel.getBackground()));
+		if(optionalItemModel.getBackground() != null) {
+			optionalItemEntity.setBackground(getBackgroundEntityFromBackgroundModel(optionalItemModel.getBackground()));
+		}
 		optionalItemEntity.setCod(optionalItemModel.getCod());
-		optionalItemEntity.setItems(getItemEntityListFromItemModelList(optionalItemModel.getItems()));
+		if(optionalItemModel.getItems() != null) {
+			optionalItemEntity.setItems(getItemEntityListFromItemModelList(optionalItemModel.getItems()));
+		}
 		return optionalItemEntity;
 	}
 	
 	public static OptionalItemModel getOptionalItemModelFromOptionalItemEntity(OptionalItemEntity optionalItemEntity) {
 		OptionalItemModel optionalItemModel = new OptionalItemModel();
 		optionalItemModel.setId(optionalItemEntity.getId());
-		optionalItemModel.setBackground(getBackgroundModelFromBackgroundEntity(optionalItemEntity.getBackground()));
+		BackgroundModel bm = new BackgroundModel();
+		bm.setId(optionalItemEntity.getId());
+		optionalItemModel.setBackground(bm);
 		optionalItemModel.setCod(optionalItemEntity.getCod());
 		optionalItemModel.setItems(getListFromSet(getItemModelSetFromItemEntitySet(getSetFromList(optionalItemEntity.getItems()))));
 		return optionalItemModel;
+	}
+	
+	private static List<OptionalItemEntity> getOptionalItemEntityListFromOptionalItemModelList(List<OptionalItemModel> optionalItemModelList) {
+		List<OptionalItemEntity> optionalItemEntityList = new ArrayList<OptionalItemEntity>();
+		
+		for (OptionalItemModel optionalItemEntity : optionalItemModelList) {
+			optionalItemEntityList.add(getOptionalItemEntityFromOptionalItemModel(optionalItemEntity));
+		}
+		
+		return optionalItemEntityList;
 	}
 	
 }

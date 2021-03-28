@@ -21,11 +21,10 @@ import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
 import br.com.roleplay.enums.weapon.WeaponProperty;
-import br.com.roleplay.interfaces.Equipment;
 
 @Entity
 @Table(name = "weapon")
-public class WeaponEntity implements Equipment{
+public class WeaponEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
