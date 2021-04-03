@@ -9,7 +9,7 @@ import br.com.roleplay.enums.weapon.DamageType;
 import br.com.roleplay.enums.weapon.WeaponCategory;
 import br.com.roleplay.enums.weapon.WeaponProperty;
 
-public class WeaponModel{
+public class WeaponModel {
 
 	private long id;
 	private String name;
@@ -22,6 +22,14 @@ public class WeaponModel{
 	private DamageType damageType;
 	private int minRange;
 	private int maxRange;
+
+	public WeaponModel() {
+	}
+
+	public WeaponModel(long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public long getId() {
 		return id;
@@ -102,13 +110,10 @@ public class WeaponModel{
 	public void setMaxRange(int maxRange) {
 		this.maxRange = maxRange;
 	}
-	
+
 	public String getRange() {
 		StringBuffer sb = new StringBuffer();
-		return sb.append(getMinRange())
-				  .append(" - ")
-				  .append(getMaxRange())
-				  .toString();
+		return sb.append(getMinRange()).append(" - ").append(getMaxRange()).toString();
 	}
 
 	public Coin getCoin() {
@@ -118,11 +123,42 @@ public class WeaponModel{
 	public void setCoin(Coin coin) {
 		this.coin = coin;
 	}
-	
+
 	public String getValue() {
 		StringBuffer sb = new StringBuffer();
-		return sb.append(getCost())
-				  .append(getCoin().getLocaleDescription())
-				  .toString();
+		return sb.append(getCost()).append(getCoin().getLocaleDescription()).toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WeaponModel other = (WeaponModel) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return getName();
 	}
 }

@@ -66,4 +66,19 @@
 		<converter-id>skillConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.SkillConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Armor Type converter</description>
+		<converter-id>armorTypeConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.ArmorTypeConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Weapon Category converter</description>
+		<converter-id>weaponCategoryConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.WeaponCategoryConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Weapon converter</description>
+		<converter-id>weaponConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.WeaponConverter</converter-class>
+	</converter>
 </faces-config>

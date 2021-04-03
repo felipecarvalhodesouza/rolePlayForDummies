@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<style>
+.form-proficiency tbody>tr>td:nth-child(3) {
+	border-left: outset;
+	padding-left: 8%;
+	width: 30%;
+}
+
+.cost-panel {
+	margin-right: auto;
+}
+
+.proficiencyType td:nth-child(4) {
+	text-align: left;
+}
+
+.ui-chkbox-label {
+	float: left;
+}
+</style>
+<h:form id="form-register">
+	<h:inputHidden id="inputHidden-id"
+		value="#{proficiencyController.proficiencyModel.id}" />
+	<p:growl id="message" showDetail="true" />
+	<h:panelGrid id="panelGrid-form-fields" columns="4" cellpadding="10"
+		width="100%" styleClass="form-proficiency">
+
+		<p:outputLabel value="#{messages['label.cod']}" for="cod" />
+		<p:inputText id="cod" maxlength="10" type="number"
+			value="#{proficiencyController.proficiencyModel.cod}" required="true"
+			requiredMessage="#{messages['message.cod.required']}">
+			<f:validateLongRange minimum="0" />
+		</p:inputText>
+
+		<p:outputLabel for="armorTypeList"
+			value="#{messages['label.armor.type']}" />
+		<p:selectCheckboxMenu id="armorTypeList"
+			value="#{proficiencyController.proficiencyModel.armorTypeList}"
+			multiple="true" style="width: 200px;" filter="true"
+			converter="armorTypeConverter" filterMatchMode="startsWith"
+			scrollHeight="200">
+			<f:selectItems value="#{proficiencyController.armorTypes}" var="type"
+				itemLabel="#{type.getLocaleDescription()}" itemValue="#{type}" />
+		</p:selectCheckboxMenu>
+
+		<p:outputLabel for="weaponCategoryList"
+			value="#{messages['label.weapon.category']}" />
+		<p:selectCheckboxMenu id="weaponCategoryList"
+			value="#{proficiencyController.proficiencyModel.weaponCategoryList}"
+			multiple="true" style="width: 200px;" filter="true"
+			converter="weaponCategoryConverter" filterMatchMode="startsWith"
+			scrollHeight="200">
+			<f:selectItems value="#{proficiencyController.weaponCategories}"
+				var="category" itemLabel="#{category.getLocaleDescription()}"
+				itemValue="#{category}" />
+		</p:selectCheckboxMenu>
+
+		<p:outputLabel for="weaponList"
+			value="#{messages['label.weapon.list']}" />
+		<p:selectCheckboxMenu id="weaponList"
+			value="#{proficiencyController.proficiencyModel.weaponList}"
+			multiple="true" style="width: 200px;" filter="true"
+			converter="weaponConverter" filterMatchMode="startsWith"
+			scrollHeight="200">
+			<f:selectItems value="#{proficiencyController.weapons}" var="weapon"
+				itemLabel="#{weapon.name}" itemValue="#{weapon}" />
+		</p:selectCheckboxMenu>
+	</h:panelGrid>
+
+</h:form>
+</html>
+

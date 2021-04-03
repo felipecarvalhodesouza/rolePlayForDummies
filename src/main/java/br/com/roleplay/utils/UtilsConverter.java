@@ -11,6 +11,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.roleplay.entity.AbilityBonusEntity;
 import br.com.roleplay.entity.LanguageEntity;
+import br.com.roleplay.entity.ProficiencyEntity;
 import br.com.roleplay.entity.RaceEntity;
 import br.com.roleplay.entity.ToolEntity;
 import br.com.roleplay.entity.background.BackgroundEntity;
@@ -24,6 +25,7 @@ import br.com.roleplay.entity.items.OptionalItemEntity;
 import br.com.roleplay.entity.items.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
 import br.com.roleplay.model.LanguageModel;
+import br.com.roleplay.model.ProficiencyModel;
 import br.com.roleplay.model.RaceModel;
 import br.com.roleplay.model.ToolModel;
 import br.com.roleplay.model.background.BackgroundModel;
@@ -185,6 +187,16 @@ public class UtilsConverter {
 		}
 		return weaponModelSet;
 	}
+	
+	public static List<WeaponModel> getWeaponModelListFromWeaponEntityList(List<WeaponEntity> weaponEntityList) {
+
+		List<WeaponModel> weaponModelList = new ArrayList<WeaponModel>();
+
+		for (WeaponEntity weaponEntity : weaponEntityList) {
+			weaponModelList.add(getWeaponModelFromWeaponEntity(weaponEntity));
+		}
+		return weaponModelList;
+	}
 
 	public static Set<WeaponEntity> getWeaponEntitySetFromWeaponModelSet(Set<WeaponModel> weaponModelSet) {
 
@@ -194,6 +206,16 @@ public class UtilsConverter {
 			weaponEntitySet.add(getWeaponEntityFromWeaponModel(weaponModel));
 		}
 		return weaponEntitySet;
+	}
+	
+	public static List<WeaponEntity> getWeaponEntityListFromWeaponModelList(List<WeaponModel> weaponModelList) {
+
+		List<WeaponEntity> weaponEntityList = new ArrayList<WeaponEntity>();
+
+		for (WeaponModel weaponModel : weaponModelList) {
+			weaponEntityList.add(getWeaponEntityFromWeaponModel(weaponModel));
+		}
+		return weaponEntityList;
 	}
 
 	public static WeaponEntity getWeaponEntityFromWeaponModel(WeaponModel weaponModel) {
@@ -497,6 +519,41 @@ public class UtilsConverter {
 		}
 		
 		return armorModelList;
+	}
+
+	public static List<ProficiencyModel> getProficiencyModelListFromProficiencyEntityList(List<ProficiencyEntity> proficiencyList) {
+		
+		List<ProficiencyModel> modelList = new ArrayList<ProficiencyModel>();
+		
+		for (ProficiencyEntity entity : proficiencyList) {
+			modelList.add(getProficientyModelFromProficiencyEntity(entity));
+		}
+		
+		return modelList;
+	}
+
+	public static ProficiencyEntity getProficientyEntityFromProficiencyModel(ProficiencyModel proficiencyModel) {
+		ProficiencyEntity entity = new ProficiencyEntity();
+		
+		entity.setId(proficiencyModel.getId());
+		entity.setCod(proficiencyModel.getCod());
+		entity.setArmorTypeList(proficiencyModel.getArmorTypeList());
+		entity.setWeaponCategoryList(proficiencyModel.getWeaponCategoryList());
+		entity.setWeaponList(getWeaponEntityListFromWeaponModelList(proficiencyModel.getWeaponList()));
+		
+		return entity;
+	}
+	
+	public static ProficiencyModel getProficientyModelFromProficiencyEntity(ProficiencyEntity proficiencyEntity) {
+		ProficiencyModel model = new ProficiencyModel();
+		
+		model.setId(proficiencyEntity.getId());
+		model.setCod(proficiencyEntity.getCod());
+		model.setArmorTypeList(proficiencyEntity.getArmorTypeList());
+		model.setWeaponCategoryList(proficiencyEntity.getWeaponCategoryList());
+		model.setWeaponList(getWeaponModelListFromWeaponEntityList(proficiencyEntity.getWeaponList()));
+		
+		return model;
 	}
 	
 }
