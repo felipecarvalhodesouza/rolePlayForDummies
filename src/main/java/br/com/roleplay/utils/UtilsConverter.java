@@ -18,6 +18,7 @@ import br.com.roleplay.entity.background.BondEntity;
 import br.com.roleplay.entity.background.FlawEntity;
 import br.com.roleplay.entity.background.IdealEntity;
 import br.com.roleplay.entity.background.PersonalityEntity;
+import br.com.roleplay.entity.items.ArmorEntity;
 import br.com.roleplay.entity.items.ItemEntity;
 import br.com.roleplay.entity.items.OptionalItemEntity;
 import br.com.roleplay.entity.items.WeaponEntity;
@@ -30,6 +31,7 @@ import br.com.roleplay.model.background.BondModel;
 import br.com.roleplay.model.background.FlawModel;
 import br.com.roleplay.model.background.IdealModel;
 import br.com.roleplay.model.background.PersonalityModel;
+import br.com.roleplay.model.items.ArmorModel;
 import br.com.roleplay.model.items.ItemModel;
 import br.com.roleplay.model.items.OptionalItemModel;
 import br.com.roleplay.model.items.WeaponModel;
@@ -473,6 +475,28 @@ public class UtilsConverter {
 		}
 		
 		return optionalItemEntityList;
+	}
+
+	public static ArmorEntity getArmorEntityFromArmorModel(ArmorModel armorModel) {
+		ArmorEntity armorEntity = new ArmorEntity();
+		copyProperties(armorEntity, armorModel);
+		return armorEntity;
+	}
+	
+	public static ArmorModel getArmorModelFromArmorEntity(ArmorEntity armorEntity) {
+		ArmorModel armorModel = new ArmorModel();
+		copyProperties(armorModel, armorEntity);
+		return armorModel;
+	}
+
+	public static Set<ArmorModel> getArmorModelSetFromArmorEntitySet(Set<ArmorEntity> armorEntitySet) {
+		Set<ArmorModel> armorModelList = new LinkedHashSet<ArmorModel>();
+		
+		for (ArmorEntity armorEntity : armorEntitySet) {
+			armorModelList.add(getArmorModelFromArmorEntity(armorEntity));
+		}
+		
+		return armorModelList;
 	}
 	
 }

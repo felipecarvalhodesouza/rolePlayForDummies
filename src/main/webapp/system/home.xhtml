@@ -4,15 +4,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/layoutBase.xhtml">
-
 	<ui:define name="content">
- 
-	    Role play for dummies
- 
+		<p:panelGrid columns="2" styleClass="home-panel">
+			<p:column>
+				<h1>Role Play for Dummies</h1>
+				<div id="welcome-txt">
+					<p:outputLabel>
+					 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce faucibus id magna nec molestie. Etiam non lectus sodales, ultrices massa nec, porttitor ante. Aenean id vulputate arcu. Nulla facilisi. Duis varius ante ac mi luctus imperdiet. Nunc turpis tellus, faucibus in mattis vitae, cursus eget lacus. In viverra justo augue, vitae luctus orci bibendum at.<br />
+
+					 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Curabitur rutrum metus nisl, vel placerat risus malesuada eu. Quisque maximus euismod eros a rhoncus. Integer orci augue, hendrerit vel imperdiet et, ultrices commodo arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum tempor est fermentum libero commodo placerat. Suspendisse scelerisque, libero quis mollis ultricies, erat dui gravida leo, lobortis vehicula diam turpis rhoncus turpis. Vivamus placerat lectus vitae elementum mattis. Praesent dignissim ligula neque, non lacinia massa dapibus ut. Nulla facilisi. Duis aliquam quam eu imperdiet faucibus.<br />
+			
+					 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Suspendisse potenti. Maecenas varius rutrum augue, vitae ornare eros fringilla eu. Fusce auctor faucibus ante, a porta diam. Donec ac egestas urna. Quisque non euismod nulla. Cras vitae sem mi. Duis porta sem mi. In nec dolor in dolor ornare suscipit ac dictum mauris.<br />
+			
+					 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Vivamus vel ultrices velit. Nulla facilisi. Fusce ornare mi tortor, lobortis semper nunc cursus porta. Maecenas bibendum diam eu leo ultrices tempor. Nulla dignissim lectus eu dolor volutpat, ut consequat magna dignissim. Nam condimentum facilisis lectus, ac faucibus mi eleifend vel. Aenean et aliquet ante. Etiam vel posuere neque. Phasellus vel tincidunt erat. Cras volutpat ullamcorper odio, at fermentum ex faucibus in. Cras viverra, ex eget dapibus convallis, metus dui egestas nibh, quis cursus eros ligula eu velit. Maecenas feugiat porta enim. Aliquam ut ligula ut ante viverra sodales. Suspendisse dapibus mi et leo accumsan tristique.<br />
+					</p:outputLabel>
+				</div>
+			</p:column>
+			<p:galleria id="galleria" panelWidth="500" panelHeight="370"
+				showCaption="true" style="width:80%">
+				<p:graphicImage name="/images/image1.jpg" alt="Role playing"
+					title="Role Playing" width="100%" height="100%" />
+				<p:graphicImage name="/images/image1.jpg" alt="Role playing"
+					title="Role Playing" width="100%" height="100%" />
+				<p:graphicImage name="/images/image1.jpg" alt="Role playing"
+					title="Role Playing" width="100%" height="100%" />
+			</p:galleria>
+		</p:panelGrid>
+		<style>
+			.home-panel {
+				width: 100%;
+				height: 450px;
+				border-style: hidden;
+			}
+			
+			.ui-panelgrid-cell h1 {
+				text-align: center;
+			}
+			
+			.ui-panelgrid-cell {
+				width: 50%;
+				border-right: hidden;
+				vertical-align: top;
+				text-align: justify;
+				border-style: hidden !important;
+				border-right: hidden
+			}
+			
+			#welcome-txt {
+				margin-left: 2em;
+				text-align: justify;
+			}
+			
+			#galleria {
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+
 	</ui:define>
 
 </ui:composition>

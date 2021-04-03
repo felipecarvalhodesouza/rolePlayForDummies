@@ -1,0 +1,145 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<style>
+.form-armor tbody>tr>td:nth-child(3) {
+	border-left: outset;
+	padding-left: 8%;
+	width: 30%;
+}
+
+.cost-panel {
+	margin-right: auto;
+}
+
+.armorType td:nth-child(4) {
+	text-align: left;
+}
+
+.ui-chkbox-label{
+	float:left;
+}
+</style>
+<h:form id="form-register">
+	<h:inputHidden id="inputHidden-id"
+		value="#{armorController.armorModel.id}" />
+	<p:growl id="message" showDetail="true" />
+	<h:panelGrid id="panelGrid-form-fields" columns="4" cellpadding="10"
+		width="100%" styleClass="form-armor">
+
+		<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
+		<p:inputText id="inputText-name" maxlength="50"
+			value="#{armorController.armorModel.name}" required="true"
+			requiredMessage="#{messages['message.name.required']}" />
+
+		<p:outputLabel for="armorType" value="#{messages['label.armor.type']}" />
+		<p:selectOneMenu id="armorType" styleClass="armorType"
+			value="#{armorController.armorModel.armorType}" required="true"
+			multiple="false" style="width: 150px;" filter="true"
+			filterMatchMode="startsWith" scrollHeight="150"
+			requiredMessage="#{messages['message.armor.type.required']}">
+			<f:selectItems value="#{armorController.armorTypes}" var="type"
+				itemLabel="#{type.getLocaleDescription()}" itemValue="#{type}" />
+		</p:selectOneMenu>
+
+
+		<p:outputLabel value="#{messages['label.cost']}" for="inputText-cost" />
+		<h:panelGrid columns="2" styleClass="cost-panel">
+			<p:inputText type="number" id="inputText-cost" maxlength="8"
+				value="#{armorController.armorModel.cost}" required="true"
+				style="width:50px"
+				requiredMessage="#{messages['message.cost.required']}">
+				<f:validateLongRange minimum="0" />
+			</p:inputText>
+			<p:selectOneMenu id="coin" value="#{armorController.armorModel.coin}"
+				required="true"
+				requiredMessage="#{messages['message.coin.required']}">
+				<f:selectItems value="#{armorController.coins}" var="coin"
+					itemLabel="#{coin.getLocaleDescription()}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<p:inputText id="inputText-weight"
+			value="#{armorController.armorModel.weight}"
+			placeholder="#{messages['label.weight']}" required="true"
+			requiredMessage="#{messages['message.weight.required']}" size="10" />
+		<p:slider for="inputText-weight" range="false" style="width:160px" />
+
+		<p:outputLabel value="#{messages['label.enum.trait.strength']}"
+			for="strength" />
+		<p:inputText type="number" id="strength" maxlength="8"
+			value="#{armorController.armorModel.strength}"
+			style="width:50px">
+			<f:validateLongRange minimum="0" maximum="25" />
+		</p:inputText>
+
+		<p:outputLabel value="#{messages['label.armor.class']}"
+			for="armor-class" />
+		<p:inputText type="number" id="armor-class" maxlength="8"
+			value="#{armorController.armorModel.armorClassValue}" required="true"
+			style="width:50px"
+			requiredMessage="#{messages['message.armor.class.value.required']}">
+			<f:validateLongRange minimum="0" maximum="25" />
+		</p:inputText>
+
+		<p:outputLabel for="armorClassModifier"
+			value="#{messages['label.armor.class.modifier']}" />
+		<p:selectOneMenu id="armorClassModifier"
+			value="#{armorController.armorModel.armorClassModifier}">
+			<f:selectItem itemLabel="#{messages['label.select.one']}"
+				itemValue="" />
+			<f:selectItems value="#{armorController.armorClassModifiers}"
+				var="modifier" itemLabel="#{modifier.getLocaleDescription()}"
+				itemValue="#{modifier}" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="#{messages['label.armor.class.modifier.limit']}"
+			for="armor-class-modifier-limit" style="width:max-content"/>
+		<p:inputText type="number" id="armor-class-modifier-limit"
+			maxlength="8"
+			value="#{armorController.armorModel.maxArmorClassModifier}"
+			style="width:50px">
+			<f:validateLongRange minimum="0" maximum="5" />
+		</p:inputText>
+		
+		<p:outputLabel value="#{messages['label.stealth.disadvantage']}"
+			for="select-stealth" />
+        <p:selectBooleanCheckbox id="select-stealth" value="#{armorController.armorModel.stealthDisvantage}"/>
+
+	</h:panelGrid>
+
+
+
+</h:form>
+<script>
+	$(document).ready(function() {
+		hideShowRange();
+	});
+
+	function hideShowRange() {
+		let checkedOptions = PF('armorProperties').inputs.filter(':checked');
+		if (checkedOptions) {
+			
+			let ammo   = "label.enum.armor.property.ammunition";
+			let range  = "label.enum.armor.property.range";
+			let thrown = "label.enum.armor.property.thrown";
+			
+			let propertiesList = "";
+			checkedOptions.each(function() {
+				propertiesList += $(this).val();
+			});
+			if (propertiesList.indexOf(ammo)   == -1 &amp;&amp; 
+				propertiesList.indexOf(range)  == -1 &amp;&amp; 
+				propertiesList.indexOf(thrown) == -1) {
+				$("#tabview\\:form-register\\:armor-range-slider").hide();
+			} else {
+				$("#tabview\\:form-register\\:armor-range-slider").show();
+			}
+		}
+	}
+</script>
+</html>
+
