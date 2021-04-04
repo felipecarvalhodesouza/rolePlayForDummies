@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="form-register" enctype="multipart/form-data">
+<style>
+	.ui-fileupload-filename {
+		float:left;
+	}
+</style>
+	<p:growl id="message" showDetail="true" />
+	<h:inputHidden id="inputHidden-id"
+		value="#{classController.classModel.id}" />
+	<h:panelGrid id="class-form-fields" columns="4" cellpadding="10"
+		styleClass="form-armor">
+		<h:panelGrid columns="1" style="text-align:center">
+			<p:outputLabel value="#{messages['label.class.image']}"/>
+			<h:panelGrid columns="1"
+				style="width: 150px; height: 200px; border-style: dotted;"
+				width="150">
+				<p:graphicImage cache="false" value="#{imageUploadController.image}"
+					id="preview" style="width:fit-content" />
+			</h:panelGrid>
+			<p:fileUpload listener="#{imageUploadController.handleFileUpload}"
+				mode="simple" skinSimple="true" auto="true"
+				update="message, preview" sizeLimit="100000"
+				allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+</h:form>
+</html>
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+		<style>
+			.panelGrid2>tbody>tr:first-child>td:first-child {
+				padding: 0;
+			}
+		</style>
+
+		<p:dialog header="#{messages['label.update.class']}"
+			id="dialog-update-modal" widgetVar="dialog-update-modal" modal="true">
+			<ui:include src="/form/classForm.xhtml" />
+			<p:commandButton value="#{messages['label.update']}"
+				id="commandButton-update" icon="pi pi-save" style="float:right; margin-bottom:-5rem; margin-right:2rem"
+				actionListener="#{classController.updateClass(classController.classModel)}"
+				form="form-register" oncomplete="PF('dialog-update-modal').hide()"
+				update="@([id$=classBrowserTable]), @([id$=message])" />
+		</p:dialog>
+
+		<p:tabView style="width:70%;height:500px;margin:auto;" id="tabview">
+			<p:tab title="#{messages['label.classModel.registration']}"
+				rendered="#{userController.userModel.id == 1}">
+				<ui:include src="/form/classForm.xhtml" />
+				<p:commandButton value="#{messages['label.save']}"
+					id="commandButton-save" icon="pi pi-save"
+					style="margin-bottom: -6rem;margin-top:1rem; float:right; margin-right:1rem"
+					actionListener="#{classController.insertNewClass}"
+					form="form-register"
+					update="@([id$=panelGrid-form-fields]), @([id$=message]), @([id$=classBrowserTable])" />
+			</p:tab>
+			<p:tab title="#{messages['label.classModel.database']}">
+				<div class="card">
+					<p:dataTable id="classBrowserTable" var="classModel"
+						value="#{classController.classes}" scrollable="true"
+						scrollHeight="750">
+						<f:facet name="header">
+							<div class="p-d-flex p-jc-between p-ai-center"
+								style="text-align-last: right">
+								<div
+									style="float: left; margin-top: 10px; vertical-align: center">
+									<h:outputText value="#{messages['label.classModel.list']}" />
+								</div>
+								<div>
+									<p:commandButton id="toggler" type="button"
+										value="#{messages['label.columns']}"
+										icon="pi pi-align-justify" />
+									<p:columnToggler datasource="classBrowserTable"
+										trigger="toggler" />
+								</div>
+							</div>
+						</f:facet>
+
+						<p:column headerText="#{messages['label.name']}" width="8%">
+							<h:outputText value="#{classModel.name}" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.edit']}"
+							style="width:25px;" rendered="#{userController.userModel.id == 1}">
+							<p:commandButton icon="pi pi-pencil"
+								title="#{messages['label.update.class']}" ajax="true"
+								actionListener="#{classController.openUpdateDialog(classModel)}"
+								oncomplete="PF('dialog-update-modal').show();"
+								update="dialog-update-modal" />
+						</p:column>
+
+						<p:column headerText="#{messages['label.remove']}"
+							style="width:35px;" rendered="#{userController.userModel.id == 1}">
+							<p:commandButton icon="pi pi-trash"
+								title="#{messages['label.delete.class']}"
+								styleClass="ui-button-danger"
+								action="#{classController.deleteClass(classModel)}"
+								update="classBrowserTable, @([id$=message])">
+								<p:confirm type="popup" header="Confirmation"
+									message="#{messages['label.are.you.sure']}"
+									icon="pi pi-exclamation-triangle" />
+							</p:commandButton>
+
+							<p:confirmPopup global="true">
+								<p:commandButton value="#{messages['label.no']}" type="button"
+									styleClass="ui-confirm-popup-no ui-button-flat" />
+								<p:commandButton value="#{messages['label.yes']}" type="button"
+									styleClass="ui-confirm-popup-yes" />
+							</p:confirmPopup>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 
 import br.com.roleplay.entity.AbilityBonusEntity;
+import br.com.roleplay.entity.ClassEntity;
 import br.com.roleplay.entity.LanguageEntity;
 import br.com.roleplay.entity.ProficiencyEntity;
 import br.com.roleplay.entity.RaceEntity;
@@ -24,6 +25,7 @@ import br.com.roleplay.entity.items.ItemEntity;
 import br.com.roleplay.entity.items.OptionalItemEntity;
 import br.com.roleplay.entity.items.WeaponEntity;
 import br.com.roleplay.model.AbilityBonusModel;
+import br.com.roleplay.model.ClassModel;
 import br.com.roleplay.model.LanguageModel;
 import br.com.roleplay.model.ProficiencyModel;
 import br.com.roleplay.model.RaceModel;
@@ -531,6 +533,17 @@ public class UtilsConverter {
 		
 		return modelList;
 	}
+	
+	public static List<ProficiencyEntity> getProficiencyEntityListFromProficiencyModelList(List<ProficiencyModel> proficiencyModelList) {
+		
+		List<ProficiencyEntity> entityList = new ArrayList<ProficiencyEntity>();
+		
+		for (ProficiencyModel model : proficiencyModelList) {
+			entityList.add(getProficientyEntityFromProficiencyModel(model));
+		}
+		
+		return entityList;
+	}
 
 	public static ProficiencyEntity getProficientyEntityFromProficiencyModel(ProficiencyModel proficiencyModel) {
 		ProficiencyEntity entity = new ProficiencyEntity();
@@ -554,6 +567,56 @@ public class UtilsConverter {
 		model.setWeaponList(getWeaponModelListFromWeaponEntityList(proficiencyEntity.getWeaponList()));
 		
 		return model;
+	}
+
+	public static List<ClassModel> getClassModelListFromClassEntityList(List<ClassEntity> classEntityList) {
+		List<ClassModel> modelList = new ArrayList<ClassModel>();
+		
+		for (ClassEntity entity : classEntityList) {
+			modelList.add(getClassModelFromClassEntity(entity));
+		}
+		
+		return modelList;
+	}
+	
+	public static List<ClassEntity> getClassEntityListFromClassModelList(List<ClassModel> classModelList) {
+		List<ClassEntity> entityList = new ArrayList<ClassEntity>();
+		
+		for (ClassModel model : classModelList) {
+			entityList.add(getClassEntityFromClassModel(model));
+		}
+		
+		return entityList;
+	}
+	
+	public static ClassModel getClassModelFromClassEntity(ClassEntity classEntity) {
+		ClassModel model = new ClassModel();
+		
+		model.setId(classEntity.getId());
+		model.setName(classEntity.getName());
+		model.setDescriptionEn(classEntity.getDescriptionEn());
+		model.setDescriptionPt(classEntity.getDescriptionPt());
+		model.setHitDie(classEntity.getHitDie());
+		model.setPrimaryAbility(classEntity.getPrimaryAbility());
+		model.setSavingThrows(classEntity.getSavingThrows());
+		model.setProficiencies(getProficiencyModelListFromProficiencyEntityList(classEntity.getProficiencies()));
+		
+		return model;
+	}
+
+	public static ClassEntity getClassEntityFromClassModel(ClassModel classModel) {
+		ClassEntity entity = new ClassEntity();
+		
+		entity.setId(classModel.getId());
+		entity.setName(classModel.getName());
+		entity.setDescriptionEn(classModel.getDescriptionEn());
+		entity.setDescriptionPt(classModel.getDescriptionPt());
+		entity.setHitDie(classModel.getHitDie());
+		entity.setPrimaryAbility(classModel.getPrimaryAbility());
+		entity.setSavingThrows(classModel.getSavingThrows());
+		entity.setProficiencies(getProficiencyEntityListFromProficiencyModelList(classModel.getProficiencies()));
+		
+		return entity;
 	}
 	
 }
