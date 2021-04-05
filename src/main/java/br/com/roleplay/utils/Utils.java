@@ -19,6 +19,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 public class Utils {
@@ -103,5 +104,14 @@ public class Utils {
 		BufferedImage read = ImageIO.read(iis);
 		read = Utils.resize(read, 200, 150);
 		return Base64.getEncoder().encodeToString(Utils.toByteArray(read, "png"));
+	}
+
+	public static DefaultStreamedContent renderImageFromString(String image) {
+		if(image == null) return null;
+		
+		byte[] decodedBytes = Base64.getDecoder().decode(image);
+		return DefaultStreamedContent.builder().contentType("image/png").stream(() -> {
+			return new ByteArrayInputStream(decodedBytes);
+		}).build();
 	}
 }

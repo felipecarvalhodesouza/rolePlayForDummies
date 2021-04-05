@@ -2,9 +2,12 @@ package br.com.roleplay.model;
 
 import java.util.List;
 
+import org.primefaces.model.DefaultStreamedContent;
+
 import br.com.roleplay.enums.Dice;
 import br.com.roleplay.enums.Trait;
 import br.com.roleplay.interfaces.PHBClass;
+import br.com.roleplay.utils.Utils;
 
 public class ClassModel implements PHBClass {
 
@@ -12,10 +15,11 @@ public class ClassModel implements PHBClass {
 	private String name;
 	private String descriptionEn;
 	private String descriptionPt;
-	private Dice hitDie;
+	private Dice hitDice;
 	private Trait primaryAbility;
 	private List<Trait> savingThrows;
 	private List<ProficiencyModel> proficiencies;
+	private String image;
 
 	public long getId() {
 		return id;
@@ -49,12 +53,12 @@ public class ClassModel implements PHBClass {
 		this.descriptionPt = descriptionPt;
 	}
 
-	public Dice getHitDie() {
-		return hitDie;
+	public Dice getHitDice() {
+		return hitDice;
 	}
 
-	public void setHitDie(Dice hitDie) {
-		this.hitDie = hitDie;
+	public void setHitDice(Dice hitDice) {
+		this.hitDice = hitDice;
 	}
 
 	public Trait getPrimaryAbility() {
@@ -79,6 +83,18 @@ public class ClassModel implements PHBClass {
 
 	public void setProficiencies(List<ProficiencyModel> proficiencies) {
 		this.proficiencies = proficiencies;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public DefaultStreamedContent getRenderedClassImage() {
+		return Utils.renderImageFromString(image);
 	}
 
 }

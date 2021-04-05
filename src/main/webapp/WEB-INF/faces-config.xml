@@ -81,4 +81,14 @@
 		<converter-id>weaponConverter</converter-id>
 		<converter-class>br.com.roleplay.converter.WeaponConverter</converter-class>
 	</converter>
+	<converter>
+		<description>Trait converter</description>
+		<converter-id>traitConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.TraitConverter</converter-class>
+	</converter>
+	<converter>
+		<description>Proficiency converter</description>
+		<converter-id>proficiencyConverter</converter-id>
+		<converter-class>br.com.roleplay.converter.ProficiencyConverter</converter-class>
+	</converter>
 </faces-config>

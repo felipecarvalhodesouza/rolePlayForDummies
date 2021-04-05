@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -31,17 +30,19 @@ public class ClassController{
 	private ProficiencyRepository proficiencyRepository;
 
 	private List<ClassModel> classes = new ArrayList<ClassModel>();
-	private List<Dice> hitDie = new ArrayList<Dice>();
+	private List<Dice> hitDice = new ArrayList<Dice>();
 	private List<Trait> traits = new ArrayList<Trait>();
 	private List<ProficiencyModel> proficiencies = new ArrayList<ProficiencyModel>();
 
 	@PostConstruct
 	public void init() {
+		this.classModel = new ClassModel();
+		
 		setClasses(classRepository.getAllClasses());
 
 		for (Dice dice : Dice.values()) {
 			if (dice.getCod() <= 5)
-				getHitDie().add(dice);
+				getHitDice().add(dice);
 		}
 
 		for (Trait trait : Trait.values()) {
@@ -51,13 +52,6 @@ public class ClassController{
 		setProficiencies(proficiencyRepository.getAllProficiencies());
 	}
 	
-	@PreDestroy
-	public void destroy() {
-		if(Utils.getSessionMap().get("classImage") != null) {
-			Utils.getSessionMap().remove("classImage");
-		}
-	}
-
 	public ClassModel getClassModel() {
 		return classModel;
 	}
@@ -74,12 +68,12 @@ public class ClassController{
 		this.classes = classes;
 	}
 
-	public List<Dice> getHitDie() {
-		return hitDie;
+	public List<Dice> getHitDice() {
+		return hitDice;
 	}
 
-	public void setHitDie(List<Dice> hitDie) {
-		this.hitDie = hitDie;
+	public void setHitDice(List<Dice> hitDice) {
+		this.hitDice = hitDice;
 	}
 
 	public List<Trait> getTraits() {
@@ -99,7 +93,9 @@ public class ClassController{
 	}
 
 	public void insertNewClass() {
-
+		
+		this.classModel.setImage(this.getImage());
+		
 		classRepository.insertClass(this.classModel);
 
 		classes.add(classModel);
@@ -108,6 +104,15 @@ public class ClassController{
 
 		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
 
+	}
+
+	private String getImage() {
+		String image64 = (String) Utils.getSessionMap().get("classImage");
+		if (image64 != null) {
+			Utils.getSessionMap().remove("classImage");
+			return image64;
+		}
+		return null;
 	}
 
 	public void deleteClass(ClassModel classModel) {
@@ -119,6 +124,9 @@ public class ClassController{
 	}
 
 	public void updateClass(ClassModel classModel) {
+		
+		this.classModel.setImage(this.getImage());
+		
 		classRepository.updateClass(classModel);
 
 		this.init();

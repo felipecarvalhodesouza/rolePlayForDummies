@@ -4,29 +4,93 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:form id="form-register" enctype="multipart/form-data">
 <style>
-	.ui-fileupload-filename {
-		float:left;
-	}
+.ui-fileupload-filename {
+	float: left;
+}
+
+.form-armor td {
+	vertical-align: top
+}
 </style>
+<h:form id="form-register">
 	<p:growl id="message" showDetail="true" />
 	<h:inputHidden id="inputHidden-id"
 		value="#{classController.classModel.id}" />
 	<h:panelGrid id="class-form-fields" columns="4" cellpadding="10"
 		styleClass="form-armor">
 		<h:panelGrid columns="1" style="text-align:center">
-			<p:outputLabel value="#{messages['label.class.image']}"/>
+			<p:outputLabel value="#{messages['label.class.image']}" />
 			<h:panelGrid columns="1"
 				style="width: 150px; height: 200px; border-style: dotted;"
 				width="150">
-				<p:graphicImage cache="false" value="#{imageUploadController.image}"
-					id="preview" style="width:fit-content" />
+				<p:graphicImage cache="false" stream="false" value="#{imageUploadController.image == null ? classController.classModel.renderedClassImage : imageUploadController.image}"
+					id="preview" style="width:fit-content"/>
 			</h:panelGrid>
 			<p:fileUpload listener="#{imageUploadController.handleFileUpload}"
 				mode="simple" skinSimple="true" auto="true"
 				update="message, preview" sizeLimit="100000"
-				allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+				allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+			<p:outputLabel value="#{messages['label.name']}" for="inputText-name" />
+			<p:inputText id="inputText-name" maxlength="50"
+				value="#{classController.classModel.name}" required="true"
+				requiredMessage="#{messages['message.name.required']}" />
+
+			<p:outputLabel value="#{messages['label.description.en']}"
+				for="descriptionEn" />
+			<p:inputTextarea id="descriptionEn" style="width:200px"
+				value="#{classController.classModel.descriptionEn}"
+				autoResize="false" required="true" />
+
+			<p:outputLabel value="#{messages['label.description.pt']}"
+				for="descriptionPt" />
+			<p:inputTextarea id="descriptionPt" style="width:200px"
+				value="#{classController.classModel.descriptionPt}"
+				autoResize="false" required="true" />
+
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+			<p:outputLabel for="savingThrows"
+				value="#{messages['label.saving.throws']}" />
+			<p:selectCheckboxMenu id="savingThrows"
+				value="#{classController.classModel.savingThrows}" multiple="true"
+				style="width: 200px;" filter="true" filterMatchMode="startsWith"
+				scrollHeight="200" converter="traitConverter">
+				<f:selectItems value="#{classController.traits}" var="trait"
+					itemLabel="#{trait.getLocaleDescription()}" itemValue="#{trait}" />
+			</p:selectCheckboxMenu>
+
+			<p:outputLabel for="proficiencies"
+				value="#{messages['label.proficiencies']}" />
+			<p:selectCheckboxMenu id="proficiencies"
+				value="#{classController.classModel.proficiencies}" multiple="true"
+				style="width: 200px;" filter="true" filterMatchMode="startsWith"
+				converter="proficiencyConverter"
+				scrollHeight="200">
+				<f:selectItems value="#{classController.proficiencies}" var="trait"
+					itemLabel="#{proficiencies}" itemValue="#{proficiencies}" />
+			</p:selectCheckboxMenu>
+
+			<p:outputLabel value="#{messages['label.primary.ability']}"
+				for="primaryAbility" />
+			<p:selectOneMenu id="primaryAbility" style="text-align:center" converter="traitConverter"
+				value="#{classController.classModel.primaryAbility}" required="true">
+				<f:selectItems value="#{classController.traits}"
+					var="primaryAbility"
+					itemLabel="#{primaryAbility.getLocaleDescription()}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="#{messages['label.hit.dice']}" for="hitDice" />
+			<p:selectOneMenu id="hitDice" style="text-align:center"
+				value="#{classController.classModel.hitDice}" required="true" converter="diceConverter">
+				<f:selectItems value="#{classController.hitDice}" var="hitDie"
+					itemLabel="#{hitDie.description}" />
+			</p:selectOneMenu>
+
 		</h:panelGrid>
 
 	</h:panelGrid>

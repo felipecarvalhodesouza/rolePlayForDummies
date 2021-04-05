@@ -41,9 +41,9 @@ public class ClassEntity {
 	@Lob
 	private String descriptionPt;
 	
-	@Column(name = "ds_hit_die")
+	@Column(name = "ds_hit_dice")
 	@Enumerated(EnumType.STRING)
-	private Dice hitDie;
+	private Dice hitDice;
 	
 	@Column(name = "ds_primaty_ability")
 	@Enumerated(EnumType.STRING)
@@ -65,6 +65,10 @@ public class ClassEntity {
                 @JoinColumn(name="proficiency_id", referencedColumnName="id")
         )
 	private List<ProficiencyEntity> proficiencies;
+	
+	@Column(name = "image")
+	@Lob
+	private String image;
 
 	public long getId() {
 		return id;
@@ -98,12 +102,12 @@ public class ClassEntity {
 		this.descriptionPt = descriptionPt;
 	}
 
-	public Dice getHitDie() {
-		return hitDie;
+	public Dice getHitDice() {
+		return hitDice;
 	}
 
-	public void setHitDie(Dice hitDie) {
-		this.hitDie = hitDie;
+	public void setHitDice(Dice hitDice) {
+		this.hitDice = hitDice;
 	}
 
 	public Trait getPrimaryAbility() {
@@ -128,5 +132,13 @@ public class ClassEntity {
 
 	public void setProficiencies(List<ProficiencyEntity> proficiencies) {
 		this.proficiencies = proficiencies;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

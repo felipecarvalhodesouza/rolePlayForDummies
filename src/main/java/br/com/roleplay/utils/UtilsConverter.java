@@ -552,7 +552,9 @@ public class UtilsConverter {
 		entity.setCod(proficiencyModel.getCod());
 		entity.setArmorTypeList(proficiencyModel.getArmorTypeList());
 		entity.setWeaponCategoryList(proficiencyModel.getWeaponCategoryList());
-		entity.setWeaponList(getWeaponEntityListFromWeaponModelList(proficiencyModel.getWeaponList()));
+		if(proficiencyModel.getWeaponList() != null) {
+			entity.setWeaponList(getWeaponEntityListFromWeaponModelList(proficiencyModel.getWeaponList()));
+		}
 		
 		return entity;
 	}
@@ -596,10 +598,13 @@ public class UtilsConverter {
 		model.setName(classEntity.getName());
 		model.setDescriptionEn(classEntity.getDescriptionEn());
 		model.setDescriptionPt(classEntity.getDescriptionPt());
-		model.setHitDie(classEntity.getHitDie());
+		model.setHitDice(classEntity.getHitDice());
 		model.setPrimaryAbility(classEntity.getPrimaryAbility());
 		model.setSavingThrows(classEntity.getSavingThrows());
-		model.setProficiencies(getProficiencyModelListFromProficiencyEntityList(classEntity.getProficiencies()));
+		if(classEntity.getProficiencies() != null) {
+			model.setProficiencies(getProficiencyModelListFromProficiencyEntityList(classEntity.getProficiencies()));
+		}
+		model.setImage(classEntity.getImage());
 		
 		return model;
 	}
@@ -611,10 +616,13 @@ public class UtilsConverter {
 		entity.setName(classModel.getName());
 		entity.setDescriptionEn(classModel.getDescriptionEn());
 		entity.setDescriptionPt(classModel.getDescriptionPt());
-		entity.setHitDie(classModel.getHitDie());
+		entity.setHitDice(classModel.getHitDice());
 		entity.setPrimaryAbility(classModel.getPrimaryAbility());
 		entity.setSavingThrows(classModel.getSavingThrows());
-		entity.setProficiencies(getProficiencyEntityListFromProficiencyModelList(classModel.getProficiencies()));
+		if(classModel.getProficiencies() != null) {
+			entity.setProficiencies(getProficiencyEntityListFromProficiencyModelList(classModel.getProficiencies()));
+		}
+		entity.setImage(classModel.getImage());
 		
 		return entity;
 	}
