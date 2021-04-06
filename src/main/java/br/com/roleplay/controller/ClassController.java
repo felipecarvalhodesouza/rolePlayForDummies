@@ -18,7 +18,7 @@ import br.com.roleplay.utils.Utils;
 
 @Named(value = "classController")
 @RequestScoped
-public class ClassController{
+public class ClassController {
 
 	@Inject
 	private ClassModel classModel;
@@ -37,7 +37,7 @@ public class ClassController{
 	@PostConstruct
 	public void init() {
 		this.classModel = new ClassModel();
-		
+
 		setClasses(classRepository.getAllClasses());
 
 		for (Dice dice : Dice.values()) {
@@ -51,7 +51,7 @@ public class ClassController{
 
 		setProficiencies(proficiencyRepository.getAllProficiencies());
 	}
-	
+
 	public ClassModel getClassModel() {
 		return classModel;
 	}
@@ -94,25 +94,22 @@ public class ClassController{
 
 	public void insertNewClass() {
 		
-		this.classModel.setImage(this.getImage());
-		
+		if (Utils.getSessionMap().get("classImage") != null) {
+			this.classModel.setImage(this.getImage());
+		}
+
 		classRepository.insertClass(this.classModel);
 
-		classes.add(classModel);
-
-		this.classModel = new ClassModel();
-
+		this.init();
+		
 		Utils.infoMessage(Utils.getLocaleName("message.record.inserted"));
 
 	}
 
 	private String getImage() {
 		String image64 = (String) Utils.getSessionMap().get("classImage");
-		if (image64 != null) {
-			Utils.getSessionMap().remove("classImage");
-			return image64;
-		}
-		return null;
+		Utils.getSessionMap().remove("classImage");
+		return image64;
 	}
 
 	public void deleteClass(ClassModel classModel) {
@@ -124,9 +121,11 @@ public class ClassController{
 	}
 
 	public void updateClass(ClassModel classModel) {
-		
-		this.classModel.setImage(this.getImage());
-		
+
+		if (Utils.getSessionMap().get("classImage") != null) {
+			this.classModel.setImage(this.getImage());
+		}
+
 		classRepository.updateClass(classModel);
 
 		this.init();

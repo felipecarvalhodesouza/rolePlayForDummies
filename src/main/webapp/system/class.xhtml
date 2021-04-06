@@ -14,6 +14,32 @@
 .panelGrid2>tbody>tr:first-child>td:first-child {
 	padding: 0;
 }
+
+.class-expansion-table > tbody > tr > td:nth-child(1) {
+	width: 175px;
+}
+
+.class-expansion-table > tbody > tr > td:nth-child(2) {
+	border-style: none !important;
+	border-width: 0px !important;
+}
+
+.ui-datatable tbody td{
+	border-style: none;
+}
+
+.class-unity > tbody > tr> td:nth-child(1) {
+	width: 150px;
+}
+
+.ui-widget-content > td:nth-child(3){
+	text-align: center;
+}
+
+.ui-widget-content > td:nth-child(4){
+	text-align: center;
+}
+
 </style>
 
 		<p:dialog header="#{messages['label.update.class']}"
@@ -36,11 +62,16 @@
 					style="margin-bottom: -6rem;margin-top:1rem; float:right; margin-right:1rem"
 					actionListener="#{classController.insertNewClass}"
 					form="form-register"
-					update="@([id$=panelGrid-form-fields]), @([id$=message]), @([id$=classBrowserTable])" />
+					update="@([id$=panelGrid-form-fields]),
+							@([id$=message]),
+							@([id$=classBrowserTable]),
+							@([id$=imagePanelGrid]),
+							@([id$=form-register]),
+							@all" />
 			</p:tab>
-			<p:tab title="#{messages['label.classModel.database']}">
+			<p:tab title="#{messages['label.classModel.database']}" id="browser-table">
 				<div class="card">
-					<p:dataTable id="classBrowserTable" var="classModel"
+					<p:dataTable id="classBrowserTable" var="classModel" styleClass="classBrowserTable"
 						value="#{classController.classes}" scrollable="true"
 						scrollHeight="750">
 						<f:facet name="header">
@@ -65,21 +96,40 @@
 							<p:rowToggler />
 						</p:column>
 
-						<p:column headerText="#{messages['label.name']}" width="8%">
+						<p:column headerText="#{messages['label.name']}" width="75%">
 							<h:outputText value="#{classModel.name}" />
 						</p:column>
 
 						<p:rowExpansion>
-							<h:panelGrid columns="1"
-								style="height: 200px; border-style: dotted;"
-								width="160">
-								<p:graphicImage cache="false" stream="false" rendered="#{classModel.image != null}"
+							<h:panelGrid columns="2" styleClass="class-expansion-table"
+								style="height: 200px; border-style: dotted;" width="160">
+								<p:graphicImage cache="false" stream="false"
+									rendered="#{classModel.image != null}"
 									value="#{classModel.renderedClassImage}" id="image" />
+									
+								<h:panelGrid columns="2" style="border: none" styleClass="class-unity">
+								
+										<h:outputText value="#{messages['label.description']}" />
+										<h:outputText value="#{classModel.getLocaleDescription(internationalizationController.locale)}" />
+										
+										<h:outputText value="#{messages['label.hit.dice']}" />
+										<h:outputText value="#{classModel.hitDice}" />
+										
+										<h:outputText value="#{messages['label.primary.ability']}" />
+										<h:outputText value="#{classModel.primaryAbility.getLocaleDescription()}" />
+
+										<h:outputText value="#{messages['label.proficiencies']}" />
+										<h:outputText value="#{classModel.proficiencies}" />
+										
+										<h:outputText value="#{messages['label.saving.throws']}" />
+										<h:outputText value="#{classModel.savingThrows}" />
+										
+								</h:panelGrid>
+								
 							</h:panelGrid>
 						</p:rowExpansion>
 
-						<p:column headerText="#{messages['label.edit']}"
-							style="width:25px;"
+						<p:column headerText="#{messages['label.edit']}" style="text-align:center"
 							rendered="#{userController.userModel.id == 1}">
 							<p:commandButton icon="pi pi-pencil"
 								title="#{messages['label.update.class']}" ajax="true"
@@ -88,8 +138,7 @@
 								update="dialog-update-modal" />
 						</p:column>
 
-						<p:column headerText="#{messages['label.remove']}"
-							style="width:35px;"
+						<p:column headerText="#{messages['label.remove']}" style="text-align:center"
 							rendered="#{userController.userModel.id == 1}">
 							<p:commandButton icon="pi pi-trash"
 								title="#{messages['label.delete.class']}"

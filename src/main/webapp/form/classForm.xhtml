@@ -17,9 +17,11 @@
 	<p:growl id="message" showDetail="true" />
 	<h:inputHidden id="inputHidden-id"
 		value="#{classController.classModel.id}" />
+	<h:inputHidden id="hidden-image"
+		value="#{classController.classModel.image}" />
 	<h:panelGrid id="class-form-fields" columns="4" cellpadding="10"
 		styleClass="form-armor">
-		<h:panelGrid columns="1" style="text-align:center">
+		<h:panelGrid columns="1" style="text-align:center" id="imagePanelGrid">
 			<p:outputLabel value="#{messages['label.class.image']}" />
 			<h:panelGrid columns="1"
 				style="width: 150px; height: 200px; border-style: dotted;"

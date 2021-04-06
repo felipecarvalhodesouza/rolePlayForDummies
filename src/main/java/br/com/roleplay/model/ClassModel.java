@@ -1,6 +1,7 @@
 package br.com.roleplay.model;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.primefaces.model.DefaultStreamedContent;
 
@@ -95,6 +96,10 @@ public class ClassModel implements PHBClass {
 	
 	public DefaultStreamedContent getRenderedClassImage() {
 		return Utils.renderImageFromString(image);
+	}
+	
+	public String getLocaleDescription(Locale locale) {
+		return locale.getLanguage().equalsIgnoreCase("en") ? getDescriptionEn() : getDescriptionPt();
 	}
 
 }

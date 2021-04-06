@@ -44,4 +44,9 @@ public enum Trait implements EnumLocation{
 		}
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		return getLocaleDescription();
+	}
 }
