@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+		<style>
+#character-form {
+	padding-left: 16rem;
+	padding-right: 16rem;
+	margin-top: -2rem;
+}
+
+p {
+	color: Black;
+	font-family: "Courier";
+	font-size: 20px;
+	margin: 10px 0 0 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 30em;
+	animation: type 2s steps(60, end);
+}
+
+@keyframes type {from { width:0;
+	
+}
+}
+</style>
+		<div class="card">
+			<h:form id="character-form">
+			<p:growl id="growl" sticky="true" showDetail="true" for="gender"/>
+				
+				<p:wizard flowListener="#{characterController.onFlowProcess}"
+					id="flow" effect="drop" >
+					<p:tab id="gender-tab" title="Gender">
+						<p:panel header="And so we meet again">
+							<p>Welcome, wanderer... tell me your gender...</p>
+							<h:panelGrid columns="1" style="margin-top:2rem">
+
+								<p:selectOneRadio id="gender"
+									value="#{characterController.characterModel.gender}"
+									unselectable="true" required="true" >
+									<f:selectItems value="#{characterController.genders}"
+										var="gender" itemLabel="#{gender.getLocaleDescription()}"
+										itemValue="#{gender}" />
+								</p:selectOneRadio>
+								<p:message for="gender" />
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="race-tab" title="Race">
+						<p:panel header="Race">
+							<p>I see... now, we need your race...</p>
+							<h:panelGrid id="race" style="margin-top:2rem">
+								<p:selectOneMenu id="races"
+									value="#{characterController.characterModel.race}"
+									required="true" style="width: 200px;" filter="true"
+									filterMatchMode="startsWith" scrollHeight="200"
+									converter="raceConverter"
+									requiredMessage="#{messages['message.race.required']}">
+									<f:selectItem itemLabel="Select one"/>
+									<f:selectItems value="#{raceController.races}" var="race"
+										itemLabel="#{race.name}" itemValue="#{race}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="name-tab" title="Name">
+						<p:panel header="Name">
+							<p>Tell me more about you...</p>
+							<h:panelGrid id="name" style="margin-top:2rem" columns="2">
+
+								<p:outputLabel value="#{messages['label.name']}"
+									for="input-name" />
+								<p:inputText id="input-name" maxlength="50"
+									value="#{characterController.characterModel.name}"
+									required="true"
+									requiredMessage="#{messages['message.name.required']}" />
+
+								<p:outputLabel value="#{messages['label.height']}"
+									for="input-height" />
+								<p:inputText type="number" id="input-height" maxlength="3"
+									value="#{characterController.characterModel.height}" required="true"
+									style="width:50px"
+									requiredMessage="#{messages['message.height.required']}">
+									<f:validateLongRange minimum="0" />
+								</p:inputText>
+								
+								<p:outputLabel value="#{messages['label.weight']}"
+									for="input-weight" />
+								<p:inputText type="number" id="input-weight" maxlength="3"
+									value="#{characterController.characterModel.weight}" required="true"
+									style="width:50px"
+									requiredMessage="#{messages['message.weight.required']}">
+									<f:validateLongRange minimum="0" />
+								</p:inputText>
+							</h:panelGrid>
+								<p:messages />
+						</p:panel>
+					</p:tab>
+					<p:tab id="background-tab" title="Background">
+						<p:panel header="Background">
+							<p>Nice to meet you, #{characterController.characterModel.name}. Tell me your story...</p>
+
+						</p:panel>
+					</p:tab>
+					<p:commandButton value="Submit" action="#{userWizard.save}"
+						update="growl" process="@this" />
+				</p:wizard>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
